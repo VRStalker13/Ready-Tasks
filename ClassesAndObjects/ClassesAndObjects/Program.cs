@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace ClassesAndObjects
 {
-    class Program
+    public class Program
     {   
         public List<Human> listHum = new List<Human>() { };
 
-        static void Main()
+        public static void Main()
         {           
             var run = new Program();
             Console.ReadLine();
@@ -47,7 +47,7 @@ namespace ClassesAndObjects
                         ShowOneHuman();
                         break;
                     case 5:
-                        ShowAllHumans(out var count);
+                        ShowAllHumans();
                         break;
                     default:
                         return;                        
@@ -55,16 +55,13 @@ namespace ClassesAndObjects
             }
         }
 
-        public void ShowAllHumans(out int counter)
+        public void ShowAllHumans()
         {            
             Console.Clear();
             Console.WriteLine("List of all Humans:");
-            counter = 0;
-            foreach (var st in listHum)
-            {
-                st.ShowInformation();
-                counter += 1; 
-            }
+
+            foreach (var st in listHum) 
+                Console.WriteLine(st);
 
             Console.WriteLine();
             Console.ReadLine();
@@ -87,7 +84,9 @@ namespace ClassesAndObjects
             if (humNum != i)
             {
                 Console.WriteLine();
-                listHum[humNum - 1].ShowInformation();
+                Console.WriteLine("----------------------------------------------------- ");
+                Console.WriteLine("All information about Human: ");
+                Console.WriteLine(listHum[humNum - 1]);
                 Console.WriteLine("----------------------------------------------------- ");
                 Console.ReadLine();
             }
@@ -167,11 +166,11 @@ namespace ClassesAndObjects
 
             var listSize = 0;
             if (listHum[humNum - 1] is Student)
-                listSize = 10;
+                listSize = 8;
             else if (listHum[humNum - 1] is Employee)
-                listSize = 10;
+                listSize = 8;
             else if (listHum[humNum - 1] is Driver)
-                listSize = 12;
+                listSize = 10;
             Console.WriteLine("\n--------------------------------------------------");
 
             if (humNum != i)

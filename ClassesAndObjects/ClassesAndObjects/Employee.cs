@@ -2,11 +2,11 @@
 
 namespace ClassesAndObjects
 {
-    class Employee : Human
+    public class Employee : Human
     {
-        public String Organization;
-        public String WorkPay;
-        public String WorkExp;
+        public string Organization;
+        public string WorkPay;
+        public string WorkExp;
 
         public Employee() : base()
         {
@@ -16,10 +16,9 @@ namespace ClassesAndObjects
             WorkExp = "Undefined";
         }
 
-        public Employee(String fname, String lname, String patr,
-                        int bDay, int bMonth, int bYear,
-                        String org, String pay, String exp)
-                        : base(fname, lname, patr, bDay, bMonth, bYear)
+        public Employee(string fname, string lname, string patr,
+                        DateTime birthday, string org, string pay, string exp)
+                        : base(fname, lname, patr, birthday)
         {
             Console.WriteLine("Run construct with parametrs of Employee");
             Organization = org;
@@ -28,33 +27,27 @@ namespace ClassesAndObjects
         }
 
         public Employee(Employee empl) : base(empl.FirstName, empl.LastName, empl.Patronymic,
-                                  empl.Day, empl.Month, empl.Year)
+                                  empl.Birthday)
         {
             Console.WriteLine("Run copy construct of Employee ");
             Organization = empl.Organization;
             WorkPay = empl.WorkPay;
             WorkExp = empl.WorkExp;
         }
-
-        public override void ShowInformation()
+        
+        public override string ToString()
         {
-            Console.WriteLine("----------------------------------------------------- ");
-            Console.WriteLine("All information about Employee: ");
-            Console.WriteLine($"Full Name: {FirstName} {LastName} {Patronymic}");
-            Console.WriteLine($"Birthday: {Day}.{Month}.{Year}");
-            ShowFullYears();
-            Console.WriteLine($"Organozation: {Organization}");
-            Console.WriteLine($"Work Pay: {WorkPay}   Work Experience: {WorkExp}");
-            Console.WriteLine("----------------------------------------------------- ");
+            return $"Full Name: {Patronymic} {FirstName} {LastName}  \nBirthday: {Birthday} \n"+ 
+                ShowFullYears() + $"\n Organozation: {Organization} \nWork Pay: {WorkPay}  \nWork Experience: {WorkExp}";                         
         }
 
         public override void ListChanges()
         {
             base.ListChanges();
-            Console.WriteLine(" 7. Organization name ");
-            Console.WriteLine(" 8. Work pay ");
-            Console.WriteLine(" 9. Work experience ");
-            Console.WriteLine("10. Close");
+            Console.WriteLine(" 5. Organization name ");
+            Console.WriteLine(" 6. Work pay ");
+            Console.WriteLine(" 7. Work experience ");
+            Console.WriteLine(" 8. Close");
             Console.WriteLine();
         }
 
@@ -63,15 +56,15 @@ namespace ClassesAndObjects
             base.ChangeParam(paramNum);
             switch (paramNum)
             {
-                case 7:
+                case 5:
                     Console.Write("New Organization name is: ");
                     Organization = Console.ReadLine();
                     break;
-                case 8:
+                case 6:
                     Console.Write("New work pay is: ");
                     WorkPay = Console.ReadLine();
                     break;
-                case 9:
+                case 7:
                     Console.Write("New work experience is: ");
                     WorkExp = Console.ReadLine();
                     break;

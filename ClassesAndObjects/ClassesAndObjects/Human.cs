@@ -2,15 +2,12 @@
 
 namespace ClassesAndObjects
 {
-    abstract class Human
+    public abstract class Human
     {
-        public String FirstName;
-        public String LastName;
-        public String Patronymic;        
-        public int Day;
-        public int Month;
-        public int Year;
-        public abstract void ShowInformation();
+        public string FirstName;
+        public string LastName;
+        public string Patronymic;        
+        public DateTime Birthday;
 
         public Human()
         {
@@ -18,9 +15,7 @@ namespace ClassesAndObjects
             FirstName = "Undefined";
             LastName = "Undefined";
             Patronymic = "Undefined";
-            Day = 0;
-            Month = 0;
-            Year = 0;            
+            Birthday  = new DateTime();     
         }
 
         public Human(Human human)   
@@ -29,21 +24,17 @@ namespace ClassesAndObjects
             FirstName = human.FirstName;
             LastName = human.LastName;
             Patronymic = human.Patronymic;
-            Day = human.Day;
-            Month = human.Month;
-            Year = human.Year;
+            Birthday = human.Birthday;
         }
 
-        public Human(String fname, String lname, String patr, 
-                     int bDay, int bMonth, int bYear) 
+        public Human(string fname, string lname, string patr, 
+                     DateTime birthday) 
         {
             Console.WriteLine("Run construct with parametrs of Human");
             FirstName = fname;
             LastName = lname;
             Patronymic = patr;
-            Day = bDay;
-            Month = bMonth;
-            Year = bYear;           
+            Birthday = birthday;        
         }
 
         public virtual void ListChanges()
@@ -53,9 +44,7 @@ namespace ClassesAndObjects
             Console.WriteLine(" 1. First name ");
             Console.WriteLine(" 2. Last name ");
             Console.WriteLine(" 3. Patronumic ");
-            Console.WriteLine(" 4. Year of Birthday ");
-            Console.WriteLine(" 5. Month of Birthday ");
-            Console.WriteLine(" 6. Day of Birthday ");
+            Console.WriteLine(" 4. Birthday ");
         }
 
         public virtual void ChangeParam(int paramNum)
@@ -63,55 +52,40 @@ namespace ClassesAndObjects
             switch (paramNum)
             {
                 case 1:
-                    Console.Write("New name is: ");
-                    FirstName = Console.ReadLine();
+                    FirstName = CommonMethods.CheckString("New name is: ");
                     break;
                 case 2:
-                    Console.Write("New last name is: ");
-                    LastName = Console.ReadLine();
+                    LastName = CommonMethods.CheckString("New last name is: ");
                     break;
                 case 3:
-                    Console.Write("New patronomic is: ");
-                    Patronymic = Console.ReadLine();
+                    Patronymic = CommonMethods.CheckString("New patronomic is: ");
                     break;
                 case 4:
-                    Year = CommonMethods.CheckNumber(DateTime.Today.Year, "New Year of Birthday is: ");
+                    Birthday = CommonMethods.InputDoB();
                     break;
-                case 5:
-                    Month = CommonMethods.CheckNumber(12, "New Month of Birthday is: ");
-                    break;
-                case 6:
-                    CommonMethods.AddBirthDay(Month, Year,
-                                "New Day of Birthday is: ", out Day);
-                    break;
+
                 default:
                     break;
             }
         }
 
-        public void ShowFullYears()
+        public string ShowFullYears()
         {
-            DateTime now = DateTime.Now;
-            DateTime date = new DateTime(Year, Month, Day);
-            int fullYears = now.Year - date.Year - 1;
+            var now = DateTime.Now;            
+            var fullYears = now.Year - Birthday.Year - 1;
 
-            if(now.Month > date.Month || now.Month == date.Month && now.Day >= date.Day)            
+            if(now.Month > Birthday.Month || now.Month == Birthday.Month && now.Day >= Birthday.Day)            
                 fullYears += 1;            
 
-            Console.WriteLine($"Full years: {fullYears}");
+            return $"Full years: {fullYears}";
         }
 
         public virtual void AddParams()
         {
-            Console.Write("First name: ");
-            FirstName = Console.ReadLine();
-            Console.Write("Last name: ");
-            LastName = Console.ReadLine();
-            Console.Write("Patronumic: ");
-            Patronymic = Console.ReadLine();
-            Year = CommonMethods.CheckNumber(DateTime.Today.Year, "Year of Birthday: ");
-            Month = CommonMethods.CheckNumber(12, "Month of Birthday: ");
-            CommonMethods.AddBirthDay(Month, Year, "Day of Birthday: ", out Day);
+            FirstName = CommonMethods.CheckString("First name: ");
+            LastName = CommonMethods.CheckString("Last name: ");
+            Patronymic = CommonMethods.CheckString("Patronumic: ");
+            Birthday = CommonMethods.InputDoB();
         }
 
         ~ Human()

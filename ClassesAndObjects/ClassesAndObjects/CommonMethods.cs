@@ -1,17 +1,19 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ClassesAndObjects
 {
     public static class CommonMethods
     {
+
+
         public static int CheckNumber(int numsLenght, string str)
         {
             while (true)
             {
                 Console.Write(str);
-                var a = Console.ReadLine();
 
-                if (int.TryParse(a, out int humNum))
+                if (int.TryParse(Console.ReadLine(), out int humNum))
                     if (humNum <= numsLenght & humNum > 0)
                         return humNum;
 
@@ -19,24 +21,42 @@ namespace ClassesAndObjects
             }
         }
 
-        public static void AddBirthDay(int Month, int Year, string str, out int Day)
+        public static DateTime InputDoB()
         {
-            if (Month == 2)
+            DateTime dob;
+            string input;
+
+            do
             {
-                if ((Year % 4 == 0 && Year % 100 != 0)
-                    || (Year % 100 == 0 && Year % 400 == 0))
-                    Day = CheckNumber(29, str);
-                else
-                    Day = CheckNumber(28, str);
-
-                return;
+                Console.Write("Write Birthday in format dd.mm.yyyy (day.month.year): ");
+                input = Console.ReadLine();
             }
-
-            if (Month % 2 == 0 && Month != 2)
-                Day = CheckNumber(30, str);
-            else
-                Day = CheckNumber(31, str);
+            while (!DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out dob));            
+            return dob;
         }
 
+        public static string CheckString(string text)
+        {
+            while (true)
+            {           
+                Console.Write(text);
+                var name = Console.ReadLine();
+                var isString = true;
+
+                foreach(char ch in name)
+                {
+                    if(!char.IsLetter(ch))
+                    {
+                        isString = false;
+                        Console.WriteLine("You write not a string! ");
+                        Console.WriteLine("Try again: ");
+                        break;
+                    }
+                }   
+                
+                if (isString)
+                  return name;                         
+            }
+        }
     }
 }

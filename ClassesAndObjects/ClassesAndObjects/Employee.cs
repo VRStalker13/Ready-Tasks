@@ -8,7 +8,7 @@ namespace ClassesAndObjects
         public string WorkPay;
         public string WorkExp;
 
-        public Employee() : base()
+        public Employee()
         {
             Console.WriteLine("Run construct Employee without parametrs ");
             Organization = "Undefined";
@@ -48,40 +48,6 @@ namespace ClassesAndObjects
             Console.WriteLine(" 6. Work pay ");
             Console.WriteLine(" 7. Work experience ");
             Console.WriteLine(" 8. Close");
-            Console.WriteLine();
-        }
-
-        public override void ChangeParam(int paramNum)
-        {
-            base.ChangeParam(paramNum);
-            switch (paramNum)
-            {
-                case 5:
-                    Console.Write("New Organization name is: ");
-                    Organization = Console.ReadLine();
-                    break;
-                case 6:
-                    Console.Write("New work pay is: ");
-                    WorkPay = Console.ReadLine();
-                    break;
-                case 7:
-                    Console.Write("New work experience is: ");
-                    WorkExp = Console.ReadLine();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public override void AddParams()
-        {
-            base.AddParams();
-            Console.Write("Organisation name: ");
-            Organization = Console.ReadLine();
-            Console.Write("Working Pay: ");
-            WorkPay= Console.ReadLine();
-            Console.Write("Working Experience: ");
-            WorkExp = Console.ReadLine();
             Console.WriteLine();
         }
 

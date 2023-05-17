@@ -59,9 +59,13 @@ namespace ClassesAndObjects
         {            
             Console.Clear();
             Console.WriteLine("List of all Humans:");
+            Console.WriteLine("------------------------------------------");
 
             foreach (var st in listHum) 
+            {
                 Console.WriteLine(st);
+                Console.WriteLine("------------------------------------------");
+            }               
 
             Console.WriteLine();
             Console.ReadLine();
@@ -70,48 +74,43 @@ namespace ClassesAndObjects
         public void ShowOneHuman()
         {                     
             Console.Clear();
-            var i = 1;
+            var count = listHum.Count;
 
-            foreach (var st in listHum)
-            {
-                Console.WriteLine($"{i}. {st.FirstName} {st.LastName} {st.Patronymic}");
-                i += 1;
-            }
+            for (var i = 0; i < count; i++)            
+                Console.WriteLine($"{i + 1}. {listHum[i].FirstName} {listHum[i].LastName} {listHum[i].Patronymic}");     
 
-            Console.WriteLine($"{i}. Close");
-            var humNum = CommonMethods.CheckNumber(i, "Write a number: ");
+            Console.WriteLine($"{count + 1}. Close");
+            var humNum = CommonMethods.CheckNumber(count + 1, "Write a number: ");
 
-            if (humNum != i)
-            {
-                Console.WriteLine();
-                Console.WriteLine("----------------------------------------------------- ");
-                Console.WriteLine("All information about Human: ");
-                Console.WriteLine(listHum[humNum - 1]);
-                Console.WriteLine("----------------------------------------------------- ");
-                Console.ReadLine();
-            }
+            if (humNum == count + 1)
+                return;            
+
+            Console.WriteLine();
+            Console.WriteLine("----------------------------------------------------- ");
+            Console.WriteLine("All information about Human: ");
+            Console.WriteLine(listHum[humNum - 1]);
+            Console.WriteLine("----------------------------------------------------- ");
+            Console.ReadLine();            
         }
 
         public void DeleteHuman()
         {
             Console.Clear();
-            var i = 1;
+            var count = listHum.Count;
 
-            foreach (var st in listHum)
-            {
-                Console.WriteLine($"{i}. {st.FirstName} {st.LastName} {st.Patronymic} ");
-                i += 1;
-            }
+            for (var i = 0; i < count; i++)            
+                Console.WriteLine($"{i + 1}. {listHum[i].FirstName} {listHum[i].LastName} {listHum[i].Patronymic}");     
 
-            Console.WriteLine($"{i}. Close");
-            var humNum = CommonMethods.CheckNumber(i, "Write a number who will be deleted: ");
+            Console.WriteLine($"{count+1}. Close");
+            var humNum = CommonMethods.CheckNumber(count + 1, "Write a number who will be deleted: ");
 
-            if (humNum != i)
-            {
-                listHum.RemoveAt(humNum - 1);
-                Console.ReadLine();
-            }
+            if (humNum == count + 1)
+                return;  
+
+            listHum.RemoveAt(humNum - 1);
+            Console.ReadLine();            
         }
+
         public void AddHuman()
         {   
             Console.Clear();
@@ -122,8 +121,7 @@ namespace ClassesAndObjects
             Console.WriteLine("4. Close ");
             Console.WriteLine();
             var num = CommonMethods.CheckNumber(4,"Write a number: ");     
-            Console.WriteLine("\n");                   
-            
+            Console.WriteLine("\n");       
             Human hum = null;
 
             switch (num)
@@ -142,7 +140,45 @@ namespace ClassesAndObjects
                     break;
             }
 
-            hum.AddParams();
+			hum.FirstName = hum.FirstName.CheckString("First name: ");
+			hum.LastName = hum.LastName.CheckString("Last name: ");
+			hum.Patronymic = hum.Patronymic.CheckString("Patronumic: ");
+			hum.Birthday = CommonMethods.InputDoB();
+
+            if (hum is Student stud)
+            {   
+                Console.Write("Faculty name: ");
+                stud.Faculty = Console.ReadLine();
+                Console.Write("Study Course: ");
+                stud.Course = Console.ReadLine();
+                Console.Write("Group number: ");
+                stud.GroupNum = Console.ReadLine();
+            }
+
+            if (hum is Employee empl)
+            {
+                        Console.Write("Organisation name: ");
+                        empl.Organization = Console.ReadLine();
+                        Console.Write("Working Pay: ");
+                        empl.WorkPay = Console.ReadLine();
+                        Console.Write("Working Experience: ");
+                        empl.WorkExp = Console.ReadLine();
+			}
+
+            if (hum is Driver driver)
+            {                      
+                        Console.Write("Organisation name: ");
+                        driver.Organization = Console.ReadLine();
+                        Console.Write("Working Pay: ");
+                        driver.WorkPay = Console.ReadLine();
+                        Console.Write("Working Experience: ");
+                        driver.WorkExp = Console.ReadLine();
+                        Console.Write("Car Brand: ");
+                        driver.CarBrand = Console.ReadLine();
+                        Console.Write("Car Model: ");
+                        driver.CarModel = Console.ReadLine();                        
+            }
+
             listHum.Add(hum);
             Console.WriteLine();
             Console.ReadLine();
@@ -150,37 +186,130 @@ namespace ClassesAndObjects
 
         public void Change()
         {
-            var i = 1;
             Console.Clear();
             Console.WriteLine("The list of Humans: ");
             Console.WriteLine();
+            var count = listHum.Count;
 
-            foreach (var stu in listHum)
-            {
-                Console.WriteLine($"{i}. {stu.FirstName} {stu.LastName} {stu.Patronymic} ");
-                i += 1;
-            }
+            for (var i = 0; i < count; i++)            
+                Console.WriteLine($"{i + 1}. {listHum[i].FirstName} {listHum[i].LastName} {listHum[i].Patronymic}");     
 
-            Console.WriteLine($"{i}. Close ");
-            var humNum = CommonMethods.CheckNumber(i,"Write a number: ");
+            Console.WriteLine($"{count + 1}. Close");
+            var humNum = CommonMethods.CheckNumber(count + 1,"Write a number: ");
 
-            var listSize = 0;
-            if (listHum[humNum - 1] is Student)
-                listSize = 8;
-            else if (listHum[humNum - 1] is Employee)
-                listSize = 8;
-            else if (listHum[humNum - 1] is Driver)
-                listSize = 10;
             Console.WriteLine("\n--------------------------------------------------");
 
-            if (humNum != i)
+            if (humNum == count + 1)
+                return;   
+
+            listHum[humNum - 1].ListChanges();
+
+            while(true)
             {                
-                listHum[humNum - 1].ListChanges();
-                var paramNum = CommonMethods.CheckNumber(listSize, "Write a number: ");
-                listHum[humNum - 1].ChangeParam(paramNum);
-                Console.WriteLine("\n--------------------------------------------------");
-                Console.ReadLine();
-            }           
+                int paramNum;
+
+                do
+                {
+                    Console.Write("Please write a number: ");
+                }                           
+                while (!int.TryParse(Console.ReadLine(), out paramNum));                                 
+
+                switch (paramNum)
+                {
+                    case 1:
+                        listHum[humNum - 1].FirstName = listHum[humNum - 1].FirstName.CheckString("New name is: ");
+                        return;
+                    case 2:
+                        listHum[humNum - 1].LastName = listHum[humNum - 1].LastName.CheckString("New last name is: ");
+                        return;
+                    case 3:
+                        listHum[humNum - 1].Patronymic = listHum[humNum - 1].Patronymic.CheckString("New patronomic is: ");
+                        return;
+                    case 4:
+                        listHum[humNum - 1].Birthday = CommonMethods.InputDoB();
+                        return;
+
+                    default:
+                        break;
+                }
+
+                if (listHum[humNum - 1] is Student stud)
+                {
+                    switch (paramNum)
+                    {
+                        case 5:
+                            Console.Write("New faculty name is: ");
+                            stud.Faculty = Console.ReadLine();
+                            return;
+                        case 6:
+                            Console.Write("New Course num is: ");
+                            stud.Course = Console.ReadLine();
+                            return;
+                        case 7:
+                            Console.Write("New group num is: ");
+                            stud.GroupNum = Console.ReadLine();
+                            return;
+                        default:
+                            Console.WriteLine("Please try again!");
+                            break;
+                    }
+                }
+
+                if (listHum[humNum - 1] is Employee empl)
+                {
+                    switch (paramNum)
+                    {
+                        case 5:
+                            Console.Write("New Organization name is: ");
+                            empl.Organization = Console.ReadLine();
+                            return;
+                        case 6:
+                            Console.Write("New work pay is: ");
+                            empl.WorkPay = Console.ReadLine();
+                            return;
+                        case 7:
+                            Console.Write("New work experience is: ");
+                            empl.WorkExp = Console.ReadLine();
+                            return;
+                        default:
+                            Console.WriteLine("Please try again!");
+                            break;
+                    }
+
+                    if (listHum[humNum - 1] is Driver driver)
+                    {
+                        switch (paramNum)
+                        {   
+                            case 5:
+                                Console.Write("New Organization name is: ");
+                                driver.Organization = Console.ReadLine();
+                                return;
+                            case 6:
+                                Console.Write("New work pay is: ");
+                                driver.WorkPay = Console.ReadLine();
+                                return;
+                            case 7:
+                                Console.Write("New work experience is: ");
+                                driver.WorkExp = Console.ReadLine();
+                                return;
+                            case 8:
+                                Console.Write("Car brand is: ");
+                                driver.CarBrand = Console.ReadLine();
+                                return;
+                            case 9:
+                                Console.Write("Car model is: ");
+                                driver.CarModel = Console.ReadLine();
+                                return;
+                            default:
+                                Console.WriteLine("Please try again!");
+                                break;
+                        }
+                    }
+                }
+            }  
+
+            Console.WriteLine("\n--------------------------------------------------");
+            Console.ReadLine();
         }
     }
 }

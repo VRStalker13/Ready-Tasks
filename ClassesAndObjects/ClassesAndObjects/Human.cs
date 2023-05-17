@@ -47,28 +47,6 @@ namespace ClassesAndObjects
             Console.WriteLine(" 4. Birthday ");
         }
 
-        public virtual void ChangeParam(int paramNum)
-        {
-            switch (paramNum)
-            {
-                case 1:
-                    FirstName = CommonMethods.CheckString("New name is: ");
-                    break;
-                case 2:
-                    LastName = CommonMethods.CheckString("New last name is: ");
-                    break;
-                case 3:
-                    Patronymic = CommonMethods.CheckString("New patronomic is: ");
-                    break;
-                case 4:
-                    Birthday = CommonMethods.InputDoB();
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
         public string ShowFullYears()
         {
             var now = DateTime.Now;            
@@ -78,14 +56,6 @@ namespace ClassesAndObjects
                 fullYears += 1;            
 
             return $"Full years: {fullYears}";
-        }
-
-        public virtual void AddParams()
-        {
-            FirstName = CommonMethods.CheckString("First name: ");
-            LastName = CommonMethods.CheckString("Last name: ");
-            Patronymic = CommonMethods.CheckString("Patronumic: ");
-            Birthday = CommonMethods.InputDoB();
         }
 
         ~ Human()

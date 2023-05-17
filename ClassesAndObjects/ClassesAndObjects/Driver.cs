@@ -7,7 +7,7 @@ namespace ClassesAndObjects
         public string CarBrand;
         public string CarModel;
 
-        public Driver() : base()
+        public Driver()
         {
             Console.WriteLine("Run construct Driver without parametrs ");
             CarBrand = "Undefined";
@@ -52,49 +52,8 @@ namespace ClassesAndObjects
             Console.WriteLine();
         }
 
-        public override void ChangeParam(int paramNum)
-        {
-            base.ChangeParam(paramNum);
-            switch (paramNum)
-            {
-                case 5:
-                    Console.Write("New Organization name is: ");
-                    Organization = Console.ReadLine();
-                    break;
-                case 6:
-                    Console.Write("New work pay is: ");
-                    WorkPay = Console.ReadLine();
-                    break;
-                case 7:
-                    Console.Write("New work experience is: ");
-                    WorkExp = Console.ReadLine();
-                    break;
-                case 8:
-                    Console.Write("Car brand is: ");
-                    CarBrand = Console.ReadLine();
-                    break;
-                case 9:
-                    Console.Write("Car model is: ");
-                    CarModel = Console.ReadLine();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public override void AddParams()
-        {
-            base.AddParams();
-            Console.Write("Car Brand: ");
-            CarBrand = Console.ReadLine();
-            Console.Write("Car Model: ");
-            CarModel = Console.ReadLine();
-            Console.WriteLine();
-        }
-
         ~ Driver()
         {
-
             Console.WriteLine($"Driver {FirstName} {LastName} {Patronymic} has been deleted");
         }
     }

@@ -1,0 +1,10 @@
+C:\Users\Lenovo\source\repos\Weather\obj\Debug\Weather.csprojAssemblyReference.cache
+C:\Users\Lenovo\source\repos\Weather\obj\Debug\Weather.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\Weather\bin\Debug\Weather.exe.config
+C:\Users\Lenovo\source\repos\Weather\bin\Debug\Weather.exe
+C:\Users\Lenovo\source\repos\Weather\bin\Debug\Weather.pdb
+C:\Users\Lenovo\source\repos\Weather\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Lenovo\source\repos\Weather\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Lenovo\source\repos\Weather\obj\Debug\Weather.csproj.CopyComplete
+C:\Users\Lenovo\source\repos\Weather\obj\Debug\Weather.exe
+C:\Users\Lenovo\source\repos\Weather\obj\Debug\Weather.pdb

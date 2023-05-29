@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+namespace Weather
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Список городов, для которых реализована возможность получения погоды
+            var cities = new Dictionary<string, string>
+            {
+                { "Moscow", "524901" },
+                { "St. Petersburg", "498817" },
+                { "Berlin", "2950159" },
+                { "Paris", "2988507" },
+                { "London", "2643743" }
+            };
+            Console.WriteLine("Enter the name of the city to get weather information:");
+            // Получаем название города от пользователя
+            var cityName = Console.ReadLine();
+            // Ищем город в списке
+            if (cities.ContainsKey(cityName))
+            {
+                // Получаем погоду для выбранного города
+                var weatherData = GetWeatherData(cities[cityName]);
+                // Выводим информацию о погоде
+                Console.WriteLine($"Current weather in {cityName}: {weatherData.Weather[0].Description}, temperature: {weatherData.Main.Temp}°C, humidity: {weatherData.Main.Humidity}%");
+                // Получаем прогноз погоды на 5 дней для выбранного города
+                var forecastData = GetForecastData(cities[cityName]);
+                // Выводим информацию о прогнозе погоды
+                Console.WriteLine($"Weather forecast for {cityName}:");
+                for (var i = 0; i <= 32; i += 8)
+                    Console.WriteLine($"{forecastData.List[i].Dt_Txt}: {forecastData.List[i].Weather[0].Description}, temperature: {forecastData.List[i].Main.Temp}°C," +
+                        $" humidity: {forecastData.List[i].Main.Humidity}%");
+            }
+            else
+            {
+                // Если город не найден в списке, запрашиваем ID города и получаем погоду для него
+                Console.WriteLine("City not found. Enter city ID:");
+                var cityId = Console.ReadLine();
+                try
+                {
+                    var weatherData = GetWeatherData(cityId);
+                    Console.WriteLine($"Current weather: {weatherData.Weather[0].Description}, temperature: {weatherData.Main.Temp}°C, humidity: {weatherData.Main.Humidity}%");
+                }
+                catch (Exception x)
+                {
+                    Console.WriteLine("Error:" + x.ToString());
+                }
+            }
+
+            Console.ReadKey();
+        }
+        static WeatherData GetWeatherData(string cityId)
+        {
+            using (var webClient = new WebClient())
+            {
+                try
+                {
+                    var json = webClient.DownloadString($"http://api.openweathermap.org/data/2.5/weather?id={cityId}&units=metric&appid=78dceb86a6d5f1f8a93172f682e96402");
+                    return JsonConvert.DeserializeObject<WeatherData>(json);
+                }
+                catch (Exception x)
+                {
+                    Console.WriteLine("Error:" + x.ToString());
+                }
+                return null;
+            }
+        }
+        static ForecastData GetForecastData(string cityId)
+        {
+            using (var webClient = new WebClient())
+            {
+                try
+                {
+                    var json = webClient.DownloadString($"http://api.openweathermap.org/data/2.5/forecast?id={cityId}&units=metric&appid=78dceb86a6d5f1f8a93172f682e96402");
+                    return JsonConvert.DeserializeObject<ForecastData>(json);
+                }
+                catch (Exception x)
+                {
+                    Console.WriteLine("Error:" + x.ToString());
+                }
+                return null;
+            }
+        }
+    }
+    public class WeatherData
+    {
+        public MainData Main { get; set; }
+        public Weather[] Weather { get; set; }
+    }
+    public class MainData
+    {
+        public float Temp { get; set; }
+        public int Humidity { get; set; }
+    }
+    public class Weather
+    {
+        public string Description { get; set; }
+    }
+    public class ForecastData
+    {
+        public List<ForecastItem> List { get; set; }
+    }
+    public class ForecastItem
+    {
+        public MainData Main { get; set; }
+        public Weather[] Weather { get; set; }
+        public DateTime Dt_Txt { get; set; }
+    }
+}

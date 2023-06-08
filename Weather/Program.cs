@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -10,91 +8,110 @@ namespace Weather
 {
     public class Program
     {
-        string cityName = null;
+        public static string cityName;
+        public static string Units = "metric";
+        public static string Appid = "78dceb86a6d5f1f8a93172f682e96402";
+        public static string Site = "https://api.openweathermap.org/data/2.5";
+
+        public static void Main()
+        {
+            var prog = new Program();
+            ChooseCity();
+            prog.WeatherShow();
+            Console.ReadKey();
+        }
+
         // Список городов, для которых реализована возможность получения погоды
-        public enum CitiesEnum
+        public enum CityesEnum
         {
             Moscow = 1,
             Berlin,
             London,
             Minsk,
-            Paris
+            Paris,
+            Other
         }
-        public string ChooseCity()
+        public static void ChooseCity()
+        {
+            var index = Menu();
+            var name = (CityesEnum)index;
+            Console.Write("Your choosen name is: ");
+            Console.WriteLine(cityName = name == CityesEnum.Other ? Console.ReadLine() : $"{name}" ); 
+
+        }
+
+        public static int Menu()
         {
             Console.WriteLine("Please choose a name of city");
-            Console.WriteLine("1. Moscow");
             Console.WriteLine("2. Berlin");
             Console.WriteLine("3. London");
             Console.WriteLine("4. Minsk");
             Console.WriteLine("5. Paris");
-            Console.WriteLine("6. Write other name");
+            Console.WriteLine("6. Other");
             Console.WriteLine("------------------------------");
-            int cityNum = 0;
+            var index = 0;
+            var cityNames = Enum.GetNames(typeof(CityesEnum));
 
-            while (cityNum < 1 || cityNum > 6)
+            while (index < 1 || index > cityNames.Length)
             {
                 Console.Write("Your choosen nuber is: ");
-                if (!int.TryParse(Console.ReadLine(), out cityNum))
-                {
+
+                if (!int.TryParse(Console.ReadLine(), out index))
                     Console.WriteLine("\nError: \" You write not exhist number \" ");
-                }
             }
 
-            switch (cityNum)
-            {
-                case (int)CitiesEnum.Moscow:
-                    cityName = "Moscow";
-                    break;
-                case (int)CitiesEnum.Berlin:
-                    cityName = "Berlin";
-                    break;
-                case (int)CitiesEnum.London:
-                    cityName = "London";
-                    break;
-                case (int)CitiesEnum.Minsk:
-                    cityName = "Minsk";
-                    break;
-                case (int)CitiesEnum.Paris:
-                    cityName = "Paris";
-                    break;
-                case 6:
-                    Console.Write(" Please write city name: ");
-                    cityName = Console.ReadLine();
-                    break;
-            }
-
-            return cityName;
+            return index;
         }
 
         // Метод вывода погоды на данный момент
         public async void WeatherShow()
         {
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine("What type of weather do you want");
+            Console.WriteLine("1. For 1 Day ");
+            Console.WriteLine("2. For 5 Days ");            
+            var index = 0;
 
-            // Получаем погоду для выбранного города
-            var weatherData = await GetWeatherNowAsync();
-            // Выводим информацию о погоде сейчас
-            Console.WriteLine($"Current weather in {cityName}: {weatherData.Weather[0].Description}, temperature: {weatherData.Main.Temp}°C, humidity: {weatherData.Main.Humidity}%");
-            // Получаем прогноз погоды на 5 дней для выбранного города
-            var forecastData = await GetWeatherAsync();
-            // Выводим информацию о прогнозе погоды
-            Console.WriteLine($"Weather forecast for {cityName}:");
-
-            for (var i = 0; i <= 32; i++)
+            while(true)
             {
-                Console.WriteLine($"                                  {forecastData.List[i].Dt_Txt}:                                    ");
-                Console.WriteLine("-----------------------------------------------------------------------------------------------------");
-                Console.WriteLine($"{ forecastData.List[i].Weather[0].Description}, temperature: { forecastData.List[i].Main.Temp}°C," +
-                    $" humidity: {forecastData.List[i].Main.Humidity}%\n\n");
+                Console.Write("Your choosen nuber is: ");
 
-                //Console.WriteLine("-----------------------------------------------------------------------------------------------------");
+                if (int.TryParse(Console.ReadLine(), out index))
+                    if (index > 0 && index < 3)
+                        break;
+            }
+
+            switch (index)
+            {
+                case 1:
+                    // Получаем погоду для выбранного города
+                    var weatherData = await GetWeather();
+                    // Выводим информацию о погоде сейчас
+                    Console.WriteLine($"Current weather in {cityName}: {weatherData.Weather[0].Description}, temperature: {weatherData.Main.Temp}°C, humidity: {weatherData.Main.Humidity}%");
+                    break;
+                case 2:
+                    // Получаем прогноз погоды на 5 дней для выбранного города
+                    var forecastData = await GetWeathers();
+                    // Выводим информацию о прогнозе погоды
+                    Console.WriteLine($"Weather forecast for {cityName}:");
+
+                    foreach (var forData in forecastData.List.Take(forecastData.List.Count))
+                    {
+                        Console.WriteLine($"                                  {forData.Dt_Txt}:                                    ");
+                        Console.WriteLine("-----------------------------------------------------------------------------------------------------");
+                        Console.WriteLine($"{ forData.Weather[0].Description}, temperature: { forData.Main.Temp}°C," +
+                                          $" humidity: {forData.Main.Humidity}%\n\n");
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
         // Получаем погоду для введенного города на данный момент , если данные не корректны запрашиваем ввод снова
-        public async Task<WeatherData> GetWeatherNowAsync()
+        public async Task<WeatherData> GetWeather()
         {
-            string json = null;
+            string data = null;
             bool isTrue = true;
 
             using (var webClient = new HttpClient())
@@ -103,27 +120,21 @@ namespace Weather
                 {
                     try
                     {
-                        json = await webClient.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={cityName}&units=metric&appid=78dceb86a6d5f1f8a93172f682e96402");
+                        data = await webClient.GetStringAsync($"{Site}/weather?q={cityName}&units={Units}&appid={Appid}");
                     }
-                    catch
-                    {
-                        
+                    catch 
+                    {                        
                         Console.Write("Something went wrong, write again name of City:");
                         cityName = Console.ReadLine();
                     }
-                    finally
-                    {
-                        isTrue = false;
-                    }
                 }
-            }
-
-            return JsonConvert.DeserializeObject<WeatherData>(json);
+            }            
+            return JsonConvert.DeserializeObject<WeatherData>(data);
         }             
 
-        public async Task<ForecastData> GetWeatherAsync()
+        public async Task<ForecastsData> GetWeathers()
         {
-            string json = null;
+            string data = null;
             bool isTrue = true;
 
             using (var webClient = new HttpClient())
@@ -132,7 +143,7 @@ namespace Weather
                 {
                     try
                     {
-                        json = await webClient.GetStringAsync($"https://api.openweathermap.org/data/2.5/forecast?q={cityName}&units=metric&appid=78dceb86a6d5f1f8a93172f682e96402");
+                        data = await webClient.GetStringAsync($"{Site}/forecast?q={cityName}&units={Units}&appid={Appid}");
                     }
                     catch
                     {
@@ -146,40 +157,7 @@ namespace Weather
                 }
             }
 
-            return JsonConvert.DeserializeObject<ForecastData>(json);
-        }
-
-
-        public static void Main(string[] args)
-        {
-            var prog = new Program();
-            prog.ChooseCity();
-            prog.WeatherShow();
-            Console.ReadKey();
-        }
-        public class WeatherData
-        {
-            public MainData Main { get; set; }
-            public Weather[] Weather { get; set; }
-        }
-        public class MainData
-        {
-            public float Temp { get; set; }
-            public int Humidity { get; set; }
-        }
-        public class Weather
-        {
-            public string Description { get; set; }
-        }
-        public class ForecastData
-        {
-            public List<ForecastItem> List { get; set; }
-        }
-        public class ForecastItem
-        {
-            public MainData Main { get; set; }
-            public Weather[] Weather { get; set; }
-            public DateTime Dt_Txt { get; set; }
+            return JsonConvert.DeserializeObject<ForecastsData>(data);
         }
     }
 }

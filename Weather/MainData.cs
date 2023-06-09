@@ -1,8 +1,12 @@
-﻿namespace Weather
+﻿using Newtonsoft.Json;
+
+namespace Weather
 {
     public class MainData
     {
-        public float Temp { get; set; }
-        public int Humidity { get; set; }
+        [JsonProperty("Temp")]
+        public float Temperature;
+
+        public int Humidity;
     }
 }

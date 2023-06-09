@@ -2,6 +2,6 @@
 {
     public class Weather
     {
-        public string Description { get; set; }
+        public string Description;
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
-
+using Newtonsoft.Json;
 namespace Weather
 {
     public class ForecastItem : WeatherData
     {
-        public DateTime Dt_Txt { get; set; }
+        [JsonProperty("Dt_Txt")]
+        public DateTime Data;
     }
 }

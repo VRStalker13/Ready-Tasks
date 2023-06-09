@@ -4,7 +4,7 @@ namespace Weather
 {
     public class WeatherData
     {
-        public MainData Main { get; set; }
-        public List<Weather> Weather { get; set; }
+        public MainData Main;
+        public List<Weather> Weather;
     }
 }

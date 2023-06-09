@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CityesEnum.cs" />
     <Compile Include="ForecastItem.cs" />
     <Compile Include="ForecastsData.cs" />
     <Compile Include="MainData.cs" />

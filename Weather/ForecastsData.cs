@@ -4,6 +4,6 @@ namespace Weather
 {
     public class ForecastsData
     {
-        public List<ForecastItem> List { get; set; }
+        public List<ForecastItem> List;
     }
 }

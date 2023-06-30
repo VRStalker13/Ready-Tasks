@@ -1,8 +1,10 @@
 ﻿using System;
 
 namespace Weather
-{        
-    // Список городов, для которых реализована возможность получения погоды
+{
+    /// <summary>
+    /// Список городов, для которых реализована возможность получения погоды
+    /// </summary>
     [Serializable]
     public enum CityNamesEnum
     {

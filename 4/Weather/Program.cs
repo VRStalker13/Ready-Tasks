@@ -7,19 +7,24 @@ namespace Weather
 {
     public class Program
     {
+        /// <summary>
+        /// Имя города
+        /// </summary>
         private string _cityName;
         private const string Units = "metric";
         private const string Appid = "78dceb86a6d5f1f8a93172f682e96402";
         private const string Site = "https://api.openweathermap.org/data/2.5";
-        private const string way = "weather.bin";
+        /// <summary>
+        /// Данные о погоде
+        /// </summary>
+        public static object obj;
 
         /// <summary>
-        /// функция выполнения программного кода
+        /// Функция выполнения программного кода
         /// </summary>
         private static void Main()
         {
-            var wthApp = new WeatherApp();
-            wthApp.LoadWeatherData(way);
+            var wthApp = new WeatherApp();           
 
             while (true)
             {
@@ -29,7 +34,7 @@ namespace Weather
                 Console.WriteLine("2. Close and save ");
                 Console.Write("Your choosen number is: ");
 
-                if (!int.TryParse(Console.ReadLine(), out int num))
+                if (!int.TryParse(Console.ReadLine(), out var num))
                     Console.WriteLine("\nError: \" You write not existing number \" ");
 
                 switch(num)
@@ -37,12 +42,12 @@ namespace Weather
                     case 1:
                         var prog = new Program();
                         prog.ChooseCity();
-                        var obj = prog.WeatherShow();
+                        prog.WeatherShow();
                         Console.ReadKey();
-                        wthApp.AddCity(prog._cityName, obj);
+                        wthApp.Add(prog._cityName, obj);
                         break;
                     case 2:
-                        wthApp.SaveWeatherData(way);
+                        wthApp.Save(WeatherApp.way);
                         return;
                     default:
                         Console.WriteLine("Please try again!");
@@ -54,7 +59,7 @@ namespace Weather
         }
 
         /// <summary>
-        /// метод выбора нужного города
+        /// Метод выбора нужного города
         /// </summary>
         private void ChooseCity()
         {
@@ -65,7 +70,7 @@ namespace Weather
         }
 
         /// <summary>
-        /// метод который выводит список доступных городов для выбора
+        /// Метод который выводит список доступных городов для выбора
         /// </summary>
         private void Menu()
         {
@@ -79,7 +84,7 @@ namespace Weather
         }
 
         /// <summary>
-        /// метод осуществления проверки корректности введенных данных и получения города выбранного пользователем
+        /// Метод осуществления проверки корректности введенных данных и получения города выбранного пользователем
         /// </summary>
         /// <returns> название города </returns>
         private string GetCityType()
@@ -100,17 +105,17 @@ namespace Weather
         }
 
         /// <summary>
-        /// метод вывода на экран данных полученных для выбранного пользователем города
+        /// Метод вывода на экран данных полученных для выбранного пользователем города
         /// </summary>
-        /// <returns> объект в котором хранятся данные </returns>
-        private async Task<object> WeatherShow()
+        /// <returns> Объект в котором хранятся данные </returns>
+        private async void WeatherShow()
         {
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine("What type of weather do you want");
             Console.WriteLine("1. For 1 Day ");
             Console.WriteLine("2. For 5 Days ");            
             var index = 0;
-            object obj = null;
+            obj = null;
 
             while(true)
             {
@@ -126,7 +131,7 @@ namespace Weather
                 case 1:
                     // Получаем погоду для выбранного города
                     var weatherData = await GetWeather();
-                    obj = (Object)weatherData;
+                    obj = weatherData;
                     // Выводим информацию о погоде сейчас
                     Console.WriteLine($"Current weather in {_cityName}: {weatherData.Weather[0].Description}, " +
                         $"temperature: {weatherData.Main.Temperature}°C, humidity: {weatherData.Main.Humidity}%");
@@ -134,7 +139,7 @@ namespace Weather
                 case 2:
                     // Получаем прогноз погоды на 5 дней для выбранного города
                     var forecastData = await GetWeathers();
-                    obj = (Object)forecastData;
+                    obj = forecastData;
                     // Выводим информацию о прогнозе погоды
                     Console.WriteLine($"Weather forecast for {_cityName}:");
 
@@ -147,11 +152,11 @@ namespace Weather
                     }
                     break;
             }
-
-            return obj;
         }
 
-        // Получаем погоду для введенного города на данный момент , если данные не корректны запрашиваем ввод снова
+        /// <summary>
+        /// Получаем погоду для введенного города на данный момент , если данные не корректны запрашиваем ввод снова
+        /// </summary>
         private async Task<WeatherData> GetWeather()
         {
             using (var webClient = new HttpClient())
@@ -172,7 +177,10 @@ namespace Weather
             }            
         }
 
-
+        /// <summary>
+        /// Получение погоды на промежутке времени
+        /// </summary>
+        /// <returns> Данные о погоде </returns>
         private async Task<ForecastsData> GetWeathers()
         {
             using (var webClient = new HttpClient())

@@ -46,7 +46,7 @@ namespace Weather
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading file: {ex.Message}");
-                return default(T);
+                return default;
             }
         }
     }

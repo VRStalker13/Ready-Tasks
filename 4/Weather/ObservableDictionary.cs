@@ -16,20 +16,31 @@ namespace Weather
 
         public ICollection<TValue> Values => ((IDictionary<TKey, TValue>)_dictionary).Values;
 
-        public int Count => ((IDictionary<TKey, TValue>)_dictionary).Count;
+        public int Count => _dictionary.Count;
 
         public bool IsReadOnly => ((IDictionary<TKey, TValue>)_dictionary).IsReadOnly;
 
         public TValue this[TKey key]
         {
-            get => ((IDictionary<TKey, TValue>)_dictionary)[key];
-            set => ((IDictionary<TKey, TValue>)_dictionary)[key] = value;
+            get => _dictionary[key];
+            set => _dictionary[key] = value;
         }
 
+        /// <summary>
+        /// Событие при добавлении элементов в словарь
+        /// </summary>
         public event Action<TKey, TValue> ItemAdded;
 
+        /// <summary>
+        /// Событие при удалении элементов из словаря
+        /// </summary>
         public event Action<TKey> ItemRemoved;
 
+        /// <summary>
+        /// Метод добавления элементов в словарь
+        /// </summary>
+        /// <param name="key"> Ключ </param>
+        /// <param name="value"> Значение </param>
         public void Add(TKey key, TValue value)
         {
             _dictionary[key] = value;       
@@ -37,7 +48,7 @@ namespace Weather
         }
 
         /// <summary>
-        /// 
+        /// метод удаления элементов из словаря
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -54,12 +65,12 @@ namespace Weather
 
         public bool ContainsKey(TKey key)
         {
-            return ((IDictionary<TKey, TValue>)_dictionary).ContainsKey(key);
+            return _dictionary.ContainsKey(key);
         }
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            return ((IDictionary<TKey, TValue>)_dictionary).TryGetValue(key, out value);
+            return _dictionary.TryGetValue(key, out value);
         }
 
         public void Add(KeyValuePair<TKey, TValue> item)
@@ -69,7 +80,7 @@ namespace Weather
 
         public void Clear()
         {
-            ((IDictionary<TKey, TValue>)_dictionary).Clear();
+            _dictionary.Clear();
         }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
@@ -95,6 +106,12 @@ namespace Weather
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IDictionary<TKey, TValue>)_dictionary).GetEnumerator();
+        }
+
+        public void Dispose()
+        {
+            ItemAdded = null;
+            ItemRemoved = null;
         }
     }
 }

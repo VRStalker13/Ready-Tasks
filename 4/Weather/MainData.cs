@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Weather
 {
+    [Serializable]
     public class MainData
     {
         [JsonProperty("Temp")]

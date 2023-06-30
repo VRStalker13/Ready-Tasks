@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Weather
 {
+    [Serializable]
     public class WeatherApp
     {
         private ObservableDictionary<string, object> weatherCache = new ObservableDictionary<string, object>();
@@ -24,9 +22,13 @@ namespace Weather
         }
         public void LoadWeatherData(string filePath)
         {
-            weatherCache = Storage.Load<ObservableDictionary<string, object>>(filePath);
-            if(weatherCache!=null)
-            weatherCache.ItemAdded += OnWeatherAdded;
+            var dict = Storage.Load<Dictionary<string, object>>(filePath);
+            if(dict != null)
+            {
+                weatherCache = Storage.Load<ObservableDictionary<string, object>>(filePath);
+                weatherCache.ItemAdded += OnWeatherAdded;
+            }
+                
         }
         private void OnWeatherAdded(string city, object data)
         {

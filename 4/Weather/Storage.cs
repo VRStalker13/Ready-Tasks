@@ -7,6 +7,7 @@ namespace Weather
     /// <summary>
     /// Хранилище данных.
     /// </summary>
+    [Serializable]
     public static class Storage
     {
         /// <summary>

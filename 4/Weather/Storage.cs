@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 
 namespace Weather
@@ -7,7 +6,6 @@ namespace Weather
     /// <summary>
     /// Хранилище данных.
     /// </summary>
-    [Serializable]
     public static class Storage
     {
         /// <summary>

@@ -60,6 +60,7 @@
     <Compile Include="WeatherData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="weather.bin" />

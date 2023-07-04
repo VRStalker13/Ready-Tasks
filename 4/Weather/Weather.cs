@@ -2,6 +2,9 @@
 
 namespace Weather
 {
+    /// <summary>
+    /// Класс в котором хранится описание погоды 
+    /// </summary>
     [Serializable]
     public class Weather
     {

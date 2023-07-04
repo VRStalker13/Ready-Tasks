@@ -1,16 +1,14 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Weather
 {
     /// <summary>
     /// Класс расширение для Object
-    /// </summary>
-    [Serializable]
+    /// </summary>    
     public static class ObjectExtensions
     {
         /// <summary>
@@ -34,9 +32,9 @@ namespace Weather
         public static T GetObject<T>(this byte[] bytes)
         {
             using (var memoryStream = new MemoryStream(bytes))
-            {
-                var binaryFormatter = new BinaryFormatter();
-                return (T)binaryFormatter.Deserialize(memoryStream);
+            {               
+                var json = Encoding.UTF8.GetString(bytes);
+                return (T)JsonConvert.DeserializeObject(json);
             }
         }
     }

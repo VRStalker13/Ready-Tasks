@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Weather
 {
-    [Serializable]
+    /// <summary>
+    /// Класс в котором храняться данные о погоде за помежуток времени
+    /// </summary>
+    [Serializable]    
     public class ForecastsData
     {
         public List<ForecastItem> List;

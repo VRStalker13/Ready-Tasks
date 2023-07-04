@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Weather
 {
+    /// <summary>
+    /// Класс который хранит данные о погоде в городе в данный момент
+    /// </summary>
     [Serializable]
     public class WeatherData
     {

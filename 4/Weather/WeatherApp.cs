@@ -2,44 +2,31 @@
 using System.Collections.Generic;
 
 namespace Weather
-{
-    [Serializable]
+{   
+    /// <summary>
+    /// Класс обработчик данных о погоде
+    /// </summary>
     public class WeatherApp
     {
-        private ObservableDictionary<string, object> weatherCache;
-        public const string way = "weather.bin";
+        /// <summary>
+        /// Словарь в котором зранятся данные предыдущих запросов о погоде
+        /// </summary>
+        public ObservableDictionary<string, object> _weatherCache;
+        /// <summary>
+        /// Путь к файлу в котором хранятся данные полученных значений о погоде с предыдущей сессий
+        /// </summary>
+        public const string Way = "weather.bin";
         public WeatherApp()
         {
-            weatherCache = new ObservableDictionary<string, object>();
-            weatherCache.ItemAdded += OnWeatherAdded;
-            weatherCache.ItemRemoved += OnWeatherRemoved;
-            LoadWeatherData(way);
+            _weatherCache = new ObservableDictionary<string, object>();
+            _weatherCache.ItemAdded += OnWeatherAdded;
+            _weatherCache.ItemRemoved += OnWeatherRemoved;
+            LoadWeatherData(Way);
 
-            if (weatherCache == null)
-                weatherCache = new ObservableDictionary<string, object>();
-
-            weatherCache.Dispose();
+            if (_weatherCache == null)
+                _weatherCache = new ObservableDictionary<string, object>();
         }
-
-        /// <summary>
-        /// Метод добавления данных в кэш
-        /// </summary>
-        /// <param name="city"> Название города </param>
-        /// <param name="weatherData"> Данные о погоде </param>
-        public void Add(string city, object weatherData)
-        {           
-            weatherCache.Add(city, weatherData);
-        }
-
-        /// <summary>
-        /// Метод сохранения кэша по указанному пути
-        /// </summary>
-        /// <param name="filePath"> Путь к файлу в торобый производится сохранение</param>
-        public void Save(string filePath)
-        {
-            Storage.Save(weatherCache, filePath);
-        }
-
+               
         /// <summary>
         /// Загруска массива байтов с данными с предыдущей сессии работы программы
         /// </summary>
@@ -49,10 +36,29 @@ namespace Weather
             var dict = Storage.Load<Dictionary<string, object>>(filePath);
             if(dict != null)
             {
-                weatherCache = Storage.Load<ObservableDictionary<string, object>>(filePath);
-                weatherCache.ItemAdded += OnWeatherAdded;
+                _weatherCache = Storage.Load<ObservableDictionary<string, object>>(filePath);
+                _weatherCache.ItemAdded += OnWeatherAdded;
             }
                 
+        }
+
+        /// <summary>
+        /// Метод добавления данных в кэш
+        /// </summary>
+        /// <param name="city"> Название города </param>
+        /// <param name="weatherData"> Данные о погоде </param>
+        public void Add(string city, object weatherData)
+        {
+            _weatherCache.Add(city, weatherData);
+        }
+
+        /// <summary>
+        /// Метод сохранения кэша по указанному пути
+        /// </summary>
+        /// <param name="filePath"> Путь к файлу в торобый производится сохранение</param>
+        public void Save(string filePath)
+        {
+            Storage.Save(_weatherCache, filePath);
         }
 
         /// <summary>

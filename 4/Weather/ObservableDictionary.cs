@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Weather
-{
+{    
     /// <summary>
     /// Класс вызывающий события при добавлении и удалении объектов из коллекции.
     /// </summary>    
@@ -12,15 +12,14 @@ namespace Weather
         /// <summary>
         /// Словарь ключ - значеие
         /// </summary>
-        private readonly IDictionary<TKey, TValue> _dictionary = new Dictionary<TKey, TValue>();
-
+        private readonly IDictionary<TKey, TValue> _dictionary = new Dictionary<TKey, TValue>();        
         /// <summary>
-        /// Ключ
+        /// Ключи
         /// </summary>
         public ICollection<TKey> Keys => _dictionary.Keys;
 
         /// <summary>
-        /// Значение
+        /// Значения
         /// </summary>
         public ICollection<TValue> Values => _dictionary.Values;
 
@@ -30,12 +29,12 @@ namespace Weather
         public int Count => _dictionary.Count;
 
         /// <summary>
-        /// 
+        /// Получает значение указывающее является ли объект коллекции доступным только для чтения
         /// </summary>
         public bool IsReadOnly => throw new NotImplementedException();
 
         /// <summary>
-        /// Свойство в котором хранится значение по ключу
+        /// Свойство для получения значения из словаря
         /// </summary>
         /// <param name="key">Ключ</param>
         /// <returns>Значение</returns>
@@ -69,8 +68,8 @@ namespace Weather
         /// <summary>
         /// Метод удаления элементов из словаря
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
+        /// <param name="key">Ключ</param>
+        /// <returns>Ложь\Истина</returns>
         public bool Remove(TKey key)
         {          
             var result = _dictionary.Remove(key);
@@ -150,21 +149,12 @@ namespace Weather
         }
 
         /// <summary>
-        /// 
+        /// Перебор элементов в коллекции
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Возвращает перечислитель, выполняющий перебор элементов в коллекции</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _dictionary.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Очищает события
-        /// </summary>
-        public void Dispose()
-        {
-            ItemAdded = null;
-            ItemRemoved = null;
         }
 
         /// <summary>
@@ -174,6 +164,15 @@ namespace Weather
         public void Add(KeyValuePair<TKey, TValue> item)
         {
             _dictionary.Add(item);
+        }
+
+        /// <summary>
+        /// Очищает события
+        /// </summary>
+        public void Dispose()
+        {
+            ItemAdded = null;
+            ItemRemoved = null;
         }
     }
 }

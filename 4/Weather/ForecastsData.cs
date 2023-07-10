@@ -9,6 +9,9 @@ namespace Weather
     [Serializable]    
     public class ForecastsData
     {
+        /// <summary>
+        /// Список данных о погоде в городе в разбивке по дате и премени
+        /// </summary>
         public List<ForecastItem> List;
     }
 }

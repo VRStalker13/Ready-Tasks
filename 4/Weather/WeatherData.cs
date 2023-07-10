@@ -9,7 +9,13 @@ namespace Weather
     [Serializable]
     public class WeatherData
     {
+        /// <summary>
+        /// Данные о температуре и влажности
+        /// </summary>
         public MainData Main;
+        /// <summary>
+        /// Описание погоды
+        /// </summary>
         public List<Weather> Weather;
     }
 }

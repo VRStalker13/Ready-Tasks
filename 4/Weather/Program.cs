@@ -7,30 +7,12 @@ namespace Weather
 {
     public class Program
     {
-        /// <summary>
-        /// Имя города
-        /// </summary>
-        private string _CityName;
-        /// <summary>
-        /// 
-        /// </summary>
-        private const string _Units = "metric";
-        /// <summary>
-        /// Api ключ доступа
-        /// </summary>        
-        private const string _Appid = "78dceb86a6d5f1f8a93172f682e96402";
-        /// <summary>
-        /// Ссылка на сайт
-        /// </summary>        
+        private string _сityName;
+        private const string _Units = "metric";      
+        private const string _Appid = "78dceb86a6d5f1f8a93172f682e96402";     
         private const string _Site = "https://api.openweathermap.org/data/2.5";
-        /// <summary>
-        /// Данные о погоде
-        /// </summary>
-        private static object _Obj;
-
-        /// <summary>
-        /// Функция выполнения программного кода
-        /// </summary>        
+        private static object _obj;
+       
         private static void Main()
         {
             var weatherApp = new WeatherApp();           
@@ -53,7 +35,7 @@ namespace Weather
                         prog.ChooseCity();
                         prog.WeatherShow();
                         Console.ReadKey();
-                        weatherApp.Add(prog._CityName, _Obj);
+                        weatherApp.Add(prog._сityName, _obj);
                         weatherApp._weatherCache.Dispose();
                         break;
                     case 2:
@@ -73,9 +55,9 @@ namespace Weather
         private void ChooseCity()
         {
             Menu();
-            _CityName = GetCityType();
+            _сityName = GetCityType();
             Console.Write("Your choosen name is: ");
-            Console.WriteLine(_CityName); 
+            Console.WriteLine(_сityName); 
         }
 
         /// <summary>
@@ -124,7 +106,7 @@ namespace Weather
             Console.WriteLine("1. For 1 Day ");
             Console.WriteLine("2. For 5 Days ");            
             var index = 0;
-            _Obj = null;
+            _obj = null;
 
             while(true)
             {
@@ -140,17 +122,17 @@ namespace Weather
                 case 1:
                     // Получаем погоду для выбранного города
                     var weatherData = await GetWeather();
-                    _Obj = weatherData;
+                    _obj = weatherData;
                     // Выводим информацию о погоде сейчас
-                    Console.WriteLine($"Current weather in {_CityName}: {weatherData.Weather[0].Description}, " +
+                    Console.WriteLine($"Current weather in {_сityName}: {weatherData.Weather[0].Description}, " +
                         $"temperature: {weatherData.Main.Temperature}°C, humidity: {weatherData.Main.Humidity}%");
                     break;
                 case 2:
                     // Получаем прогноз погоды на 5 дней для выбранного города
                     var forecastData = await GetWeathers();
-                    _Obj = forecastData;
+                    _obj = forecastData;
                     // Выводим информацию о прогнозе погоды
-                    Console.WriteLine($"Weather forecast for {_CityName}:");
+                    Console.WriteLine($"Weather forecast for {_сityName}:");
 
                     foreach (var forData in forecastData.List)
                     {
@@ -174,7 +156,7 @@ namespace Weather
                 {
                     try
                     {
-                        var data = await webClient.GetStringAsync($"{_Site}/weather?q={_CityName}&units={_Units}&appid={_Appid}");
+                        var data = await webClient.GetStringAsync($"{_Site}/weather?q={_сityName}&units={_Units}&appid={_Appid}");
                         return JsonConvert.DeserializeObject<WeatherData>(data);
                     }
                     catch 
@@ -198,7 +180,7 @@ namespace Weather
                 {
                     try
                     {
-                        var data = await webClient.GetStringAsync($"{_Site}/forecast?q={_CityName}&units={_Units}&appid={_Appid}");
+                        var data = await webClient.GetStringAsync($"{_Site}/forecast?q={_сityName}&units={_Units}&appid={_Appid}");
                         return JsonConvert.DeserializeObject<ForecastsData>(data);
                     }
                     catch

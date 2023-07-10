@@ -8,6 +8,9 @@ namespace Weather
     [Serializable]
     public class Weather
     {
+        /// <summary>
+        /// Описание погоды
+        /// </summary>
         public string Description;
     }
 }

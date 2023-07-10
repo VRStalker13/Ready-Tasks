@@ -30,12 +30,9 @@ namespace Weather
         /// <param name="bytes"> Массив байтов </param>
         /// <returns> Разконвертированные данные  </returns>
         public static T GetObject<T>(this byte[] bytes)
-        {
-            using (var memoryStream = new MemoryStream(bytes))
-            {               
+        {                          
                 var json = Encoding.UTF8.GetString(bytes);
-                return (T)JsonConvert.DeserializeObject(json);
-            }
+                return (T)JsonConvert.DeserializeObject(json);            
         }
     }
 }

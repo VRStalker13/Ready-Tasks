@@ -7,10 +7,10 @@ namespace Weather
 {
     public class Program
     {
-        private string _сityName;
-        private const string _Units = "metric";      
-        private const string _Appid = "78dceb86a6d5f1f8a93172f682e96402";     
-        private const string _Site = "https://api.openweathermap.org/data/2.5";
+        private string _cityName;
+        private const string Units = "metric";      
+        private const string Appid = "78dceb86a6d5f1f8a93172f682e96402";     
+        private const string Site = "https://api.openweathermap.org/data/2.5";
         private static object _obj;
        
         private static void Main()
@@ -35,11 +35,11 @@ namespace Weather
                         prog.ChooseCity();
                         prog.WeatherShow();
                         Console.ReadKey();
-                        weatherApp.Add(prog._сityName, _obj);
+                        weatherApp.Add(prog._cityName, _obj);
                         weatherApp._weatherCache.Dispose();
                         break;
                     case 2:
-                        weatherApp.Save(WeatherApp.Way);
+                        weatherApp.Save(WeatherApp.Path);
                         return;
                     default:
                         Console.WriteLine("Please try again!");
@@ -55,9 +55,9 @@ namespace Weather
         private void ChooseCity()
         {
             Menu();
-            _сityName = GetCityType();
+            _cityName = GetCityType();
             Console.Write("Your choosen name is: ");
-            Console.WriteLine(_сityName); 
+            Console.WriteLine(_cityName); 
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Weather
                     var weatherData = await GetWeather();
                     _obj = weatherData;
                     // Выводим информацию о погоде сейчас
-                    Console.WriteLine($"Current weather in {_сityName}: {weatherData.Weather[0].Description}, " +
+                    Console.WriteLine($"Current weather in {_cityName}: {weatherData.Weather[0].Description}, " +
                         $"temperature: {weatherData.Main.Temperature}°C, humidity: {weatherData.Main.Humidity}%");
                     break;
                 case 2:
@@ -132,7 +132,7 @@ namespace Weather
                     var forecastData = await GetWeathers();
                     _obj = forecastData;
                     // Выводим информацию о прогнозе погоды
-                    Console.WriteLine($"Weather forecast for {_сityName}:");
+                    Console.WriteLine($"Weather forecast for {_cityName}:");
 
                     foreach (var forData in forecastData.List)
                     {
@@ -156,7 +156,7 @@ namespace Weather
                 {
                     try
                     {
-                        var data = await webClient.GetStringAsync($"{_Site}/weather?q={_сityName}&units={_Units}&appid={_Appid}");
+                        var data = await webClient.GetStringAsync($"{Site}/weather?q={_cityName}&units={Units}&appid={Appid}");
                         return JsonConvert.DeserializeObject<WeatherData>(data);
                     }
                     catch 
@@ -180,7 +180,7 @@ namespace Weather
                 {
                     try
                     {
-                        var data = await webClient.GetStringAsync($"{_Site}/forecast?q={_сityName}&units={_Units}&appid={_Appid}");
+                        var data = await webClient.GetStringAsync($"{Site}/forecast?q={_cityName}&units={Units}&appid={Appid}");
                         return JsonConvert.DeserializeObject<ForecastsData>(data);
                     }
                     catch

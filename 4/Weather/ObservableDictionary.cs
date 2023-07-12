@@ -12,7 +12,8 @@ namespace Weather
         /// <summary>
         /// Словарь ключ - значеие
         /// </summary>
-        private readonly IDictionary<TKey, TValue> _dictionary = new Dictionary<TKey, TValue>();        
+        private readonly IDictionary<TKey, TValue> _dictionary = new Dictionary<TKey, TValue>();     
+        
         /// <summary>
         /// Ключи
         /// </summary>
@@ -31,7 +32,7 @@ namespace Weather
         /// <summary>
         /// Получает значение указывающее является ли объект коллекции доступным только для чтения
         /// </summary>
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => _dictionary.IsReadOnly;
 
         /// <summary>
         /// Свойство для получения значения из словаря

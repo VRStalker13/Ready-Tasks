@@ -12,34 +12,16 @@ namespace Weather
         /// Словарь в котором зранятся данные предыдущих запросов о погоде
         /// </summary>
         public ObservableDictionary<string, object> _weatherCache;
+
         /// <summary>
         /// Путь к файлу в котором хранятся данные полученных значений о погоде с предыдущей сессий
         /// </summary>
-        public const string Way = "weather.bin";
+        public const string Path = "weather.bin";
         public WeatherApp()
         {
-            _weatherCache = new ObservableDictionary<string, object>();
+            _weatherCache = Storage.Load<ObservableDictionary<string, object>>(Path) ?? new ObservableDictionary<string, object>();
             _weatherCache.ItemAdded += OnWeatherAdded;
             _weatherCache.ItemRemoved += OnWeatherRemoved;
-            LoadWeatherData(Way);
-
-            if (_weatherCache == null)
-                _weatherCache = new ObservableDictionary<string, object>();
-        }
-               
-        /// <summary>
-        /// Загруска массива байтов с данными с предыдущей сессии работы программы
-        /// </summary>
-        /// <param name="filePath"> Путь к файлу в торобый производится сохранение</param>
-        public void LoadWeatherData(string filePath)
-        {
-            var dict = Storage.Load<Dictionary<string, object>>(filePath);
-            if(dict != null)
-            {
-                _weatherCache = Storage.Load<ObservableDictionary<string, object>>(filePath);
-                _weatherCache.ItemAdded += OnWeatherAdded;
-            }
-                
         }
 
         /// <summary>

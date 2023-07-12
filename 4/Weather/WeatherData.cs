@@ -13,6 +13,7 @@ namespace Weather
         /// Данные о температуре и влажности
         /// </summary>
         public MainData Main;
+
         /// <summary>
         /// Описание погоды
         /// </summary>

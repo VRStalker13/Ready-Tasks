@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+4/Weather/bin/Debug
+4/Weather/obj/Debug
+
 # User-specific files
 *.rsuser
 *.suo

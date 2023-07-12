@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System;
-using System.Text;
+﻿using System.Text;
 using Newtonsoft.Json;
 
 namespace Weather
@@ -19,8 +16,7 @@ namespace Weather
         public static byte[] GetBytes(this object data)
         {
             var json = JsonConvert.SerializeObject(data);
-            return Encoding.UTF8.GetBytes(json);
-            
+            return Encoding.UTF8.GetBytes(json);            
         }
 
         /// <summary>
@@ -31,8 +27,8 @@ namespace Weather
         /// <returns> Разконвертированные данные  </returns>
         public static T GetObject<T>(this byte[] bytes)
         {                          
-                var json = Encoding.UTF8.GetString(bytes);
-                return (T)JsonConvert.DeserializeObject(json);            
+            var json = Encoding.UTF8.GetString(bytes);
+            return (T)JsonConvert.DeserializeObject(json);            
         }
     }
 }

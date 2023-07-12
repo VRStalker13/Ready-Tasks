@@ -14,6 +14,7 @@ namespace Weather
         /// </summary>
         [JsonProperty("Temp")]
         public float Temperature;
+
         /// <summary>
         /// Влажность значение
         /// </summary>

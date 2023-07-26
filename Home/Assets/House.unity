@@ -919,10 +919,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476c64b97f17b144c8e8883f4e0613c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 476911203}
-  rotationSpeed: 100
-  rotationTime: 10
-  toggleButton: {fileID: 792881701}
+  Target: {fileID: 476911203}
+  RotationSpeed: 100
+  RotationTime: 30
+  ToggleButton: {fileID: 792881701}
 --- !u!1 &1851375748
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,8 +45,7 @@ public class CameraController : MonoBehaviour
             transform.RotateAround(_Target.position, Vector3.up, _Speed);
         }
         else        
-            RotateCameraAutomatically();
-        
+            RotateCameraAutomatically();        
     }
 
     /// <summary>
@@ -64,10 +63,8 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void ToggleCameraMode()
     {
-        if (_IsAutoMode)
-        {
-            transform.DOKill();
-        }
+        if (_IsAutoMode)        
+            transform.DOKill();        
         
         _IsAutoMode = !_IsAutoMode;
     }

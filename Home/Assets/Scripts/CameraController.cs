@@ -6,82 +6,69 @@ using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target; // Дом, на который будет смотреть камера
-    public float rotationSpeed = 1f; // Скорость вращения камеры в ручном режиме
-    private bool _IsAutoMode = true; // Флаг для определения текущего режима работы камеры
-    private bool _IsMoving = false; // Флаг для определения, движется ли камера в ручном режиме
-    private bool _IsLeftArrow = true; 
-    public Button toggleButton;
+    /// <summary>
+    /// Объект на который смотрит камера
+    /// </summary>
+    [SerializeField] private Transform _Target; 
+    /// <summary>
+    /// кнопка переключатель режимов движения
+    /// </summary>
+    [SerializeField] private Button _ToggleButton;
 
+    /// <summary>
+    /// Скорость вращения камеры в ручном режиме (постоянное значение)
+    /// </summary>
+    private float _RotationSpeed = 1f;
+    /// <summary>
+    /// Скорость вращения камеры в ручном режиме (изменяемое при замедлении)
+    /// </summary>
+    private float _Speed = 0f;
+
+    /// <summary>
+    /// Флаг для определения текущего режима работы камеры
+    /// </summary>
+    private bool _IsAutoMode = true;
+    
     private void Start()
     {
         // Запустить автоматическое вращение камеры
         RotateCameraAutomatically();
-        toggleButton.onClick.AddListener(ToggleCameraMode);
+        _ToggleButton.onClick.AddListener(ToggleCameraMode);
     }
+
     private void Update()
     {
         if (!_IsAutoMode)
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                _IsLeftArrow = true;
-                transform.RotateAround(target.position, Vector3.up, -rotationSpeed);
-            }
-            else if(Input.GetKey(KeyCode.RightArrow))
-            {
-                _IsLeftArrow = false;
-                transform.RotateAround(target.position, Vector3.up, rotationSpeed);
-            }
-            else
-            {
-                SmoothStopRotation();
-            }
+            _Speed = Input.GetKey(KeyCode.LeftArrow) ? _RotationSpeed :
+                Input.GetKey(KeyCode.RightArrow) ? -_RotationSpeed : Mathf.Lerp(_Speed, 0f, 2f * Time.deltaTime);            
+            transform.RotateAround(_Target.position, Vector3.up, _Speed);
         }
-        else
-        {
+        else        
             RotateCameraAutomatically();
-        }
+        
     }
 
+    /// <summary>
+    /// Автоматическое вращение камеры
+    /// </summary>
     private void RotateCameraAutomatically()
     {
-        // Автоматическое вращение камеры вокруг дома
         transform.DORotate(new Vector3(0f, -360f, 0f), 30f, RotateMode.LocalAxisAdd)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.Linear);
     }
 
-    private void StopCameraRotation()
-    {
-        // Остановить автоматическое вращение камеры
-        transform.DOKill();
-    }
-
-    private void StopCameraMovement()
-    {
-        // Остановить камеру
-        _IsMoving = false;
-    }
-
+    /// <summary>
+    /// Переключение между режимами при нажатии на кнопку
+    /// </summary>
     private void ToggleCameraMode()
     {
         if (_IsAutoMode)
         {
-            // Остановить автоматическое вращение камеры и включить ручной режим
-            StopCameraRotation();
-            _IsMoving = false;
+            transform.DOKill();
         }
-        // Переключение между режимами при нажатии на кнопку
+        
         _IsAutoMode = !_IsAutoMode;
-    }
-
-    private IEnumerator SmoothStopRotation()
-    {
-        // Плавное замедление скорости вращения камеры до полной остановки
-        while (rotationSpeed > 0f)
-            rotationSpeed = Mathf.Lerp(rotationSpeed, 0f, Time.deltaTime);
-
-        yield return null;
     }
 }

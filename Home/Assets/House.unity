@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476c64b97f17b144c8e8883f4e0613c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Target: {fileID: 476911203}
-  _ToggleButton: {fileID: 792881701}
+  _target: {fileID: 476911203}
+  _toggleButton: {fileID: 792881701}
 --- !u!1 &137229580
 GameObject:
   m_ObjectHideFlags: 0

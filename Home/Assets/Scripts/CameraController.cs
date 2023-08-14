@@ -3,46 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 public class CameraController : MonoBehaviour
 {
     /// <summary>
     /// Объект на который смотрит камера
     /// </summary>
-    [SerializeField] private Transform _Target; 
+    [SerializeField] private Transform _target; 
     /// <summary>
     /// кнопка переключатель режимов движения
     /// </summary>
-    [SerializeField] private Button _ToggleButton;
+    [SerializeField] private Button _toggleButton;
 
     /// <summary>
     /// Скорость вращения камеры в ручном режиме (постоянное значение)
     /// </summary>
-    private float _RotationSpeed = 1f;
+    private float _rotationSpeed = 1f;
     /// <summary>
     /// Скорость вращения камеры в ручном режиме (изменяемое при замедлении)
     /// </summary>
-    private float _Speed = 0f;
+    private float _speed = 0f;
 
     /// <summary>
     /// Флаг для определения текущего режима работы камеры
     /// </summary>
-    private bool _IsAutoMode = true;
+    private bool _isAutoMode = true;
     
     private void Start()
     {
         // Запустить автоматическое вращение камеры
         RotateCameraAutomatically();
-        _ToggleButton.onClick.AddListener(ToggleCameraMode);
+        _toggleButton.onClick.AddListener(ToggleCameraMode);
     }
 
     private void Update()
     {
-        if (!_IsAutoMode)
+        if (!_isAutoMode)
         {
-            _Speed = Input.GetKey(KeyCode.LeftArrow) ? _RotationSpeed :
-                Input.GetKey(KeyCode.RightArrow) ? -_RotationSpeed : Mathf.Lerp(_Speed, 0f, 2f * Time.deltaTime);            
-            transform.RotateAround(_Target.position, Vector3.up, _Speed);
+            _speed = Input.GetKey(KeyCode.LeftArrow) ? _rotationSpeed :
+                Input.GetKey(KeyCode.RightArrow) ? -_rotationSpeed : Mathf.Lerp(_speed, 0f, 2f * Time.deltaTime);            
+            transform.RotateAround(_target.position, Vector3.up, _speed);
         }
         else        
             RotateCameraAutomatically();        
@@ -63,9 +64,9 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void ToggleCameraMode()
     {
-        if (_IsAutoMode)        
+        if (_isAutoMode)        
             transform.DOKill();        
         
-        _IsAutoMode = !_IsAutoMode;
+        _isAutoMode = !_isAutoMode;
     }
 }

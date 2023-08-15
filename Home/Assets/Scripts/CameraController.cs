@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.Serialization;
 
 public class CameraController : MonoBehaviour
 {
     /// <summary>
     /// Объект на который смотрит камера
     /// </summary>
-    [SerializeField] private Transform _target; 
+    [SerializeField] private Transform _target;
+
     /// <summary>
     /// кнопка переключатель режимов движения
     /// </summary>
@@ -20,6 +18,7 @@ public class CameraController : MonoBehaviour
     /// Скорость вращения камеры в ручном режиме (постоянное значение)
     /// </summary>
     private float _rotationSpeed = 1f;
+
     /// <summary>
     /// Скорость вращения камеры в ручном режиме (изменяемое при замедлении)
     /// </summary>
@@ -29,12 +28,14 @@ public class CameraController : MonoBehaviour
     /// Флаг для определения текущего режима работы камеры
     /// </summary>
     private bool _isAutoMode = true;
-    
+
+    private Tween _tween = null; 
+
     private void Start()
     {
         // Запустить автоматическое вращение камеры
-        RotateCameraAutomatically();
         _toggleButton.onClick.AddListener(ToggleCameraMode);
+        RotateCameraAutomatically();
     }
 
     private void Update()
@@ -42,11 +43,9 @@ public class CameraController : MonoBehaviour
         if (!_isAutoMode)
         {
             _speed = Input.GetKey(KeyCode.LeftArrow) ? _rotationSpeed :
-                Input.GetKey(KeyCode.RightArrow) ? -_rotationSpeed : Mathf.Lerp(_speed, 0f, 2f * Time.deltaTime);            
+                Input.GetKey(KeyCode.RightArrow) ? -_rotationSpeed : Mathf.Lerp(_speed, 0f, 2f * Time.deltaTime);
             transform.RotateAround(_target.position, Vector3.up, _speed);
         }
-        else        
-            RotateCameraAutomatically();        
     }
 
     /// <summary>
@@ -54,7 +53,7 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void RotateCameraAutomatically()
     {
-        transform.DORotate(new Vector3(0f, -360f, 0f), 30f, RotateMode.LocalAxisAdd)
+        _tween = transform.DORotate(new Vector3(0f, -360f, 0f), 30f, RotateMode.LocalAxisAdd)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.Linear);
     }
@@ -64,9 +63,12 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void ToggleCameraMode()
     {
-        if (_isAutoMode)        
-            transform.DOKill();        
-        
+        if (_isAutoMode)
+            _tween?.Kill();
+
         _isAutoMode = !_isAutoMode;
+        
+        if (_isAutoMode)
+            RotateCameraAutomatically();
     }
 }

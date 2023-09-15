@@ -23,10 +23,9 @@ public class DeleteHuman : MonoBehaviour
     private void ActivateSave()
     {
         if (_input.text.Length < 1)
-        {
             _save.interactable = false;
-        }
-        if(int.Parse(_input.text) <= MemoryScript.listHum.Count && int.Parse(_input.text) > 0)
+        
+        if(int.Parse(_input.text) <= MemoryScript.ListHum.Count && int.Parse(_input.text) > 0)
             _save.interactable = true;
         else
             _save.interactable = false;
@@ -35,7 +34,7 @@ public class DeleteHuman : MonoBehaviour
     public void SaveInformation()
     {
         _chosenNumber = new string(_input.text);
-        MemoryScript.listHum.RemoveAt(int.Parse(_chosenNumber) - 1);
+        MemoryScript.ListHum.RemoveAt(int.Parse(_chosenNumber) - 1);
         ButtonsScript.ToStartMenu();
     }
 }

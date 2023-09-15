@@ -14,7 +14,7 @@ public class ShowAllHumans : MonoBehaviour
     {            
         var text = "List of all Humans:" + "\n---------------------";
             
-        foreach (var hum in MemoryScript.listHum)
+        foreach (var hum in MemoryScript.ListHum)
             text =$"{text}\n{hum}\n---------------------\n";
 
         return text;

@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8ac6ff1660d0f46a24c6cd890b946c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 1030239520}
+  _text: {fileID: 1030239520}
 --- !u!1001 &320540876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1409,7 +1409,7 @@ GameObject:
   - component: {fileID: 2122459841}
   - component: {fileID: 2122459840}
   m_Layer: 5
-  m_Name: Choose Number
+  m_Name: Text Human Information
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1637,7 +1637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8523759553444451199, guid: a8be8d846a29cdc488dbbb44191a0fc6, type: 3}
       propertyPath: m_Name
-      value: Humans List
+      value: Human Information Value
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

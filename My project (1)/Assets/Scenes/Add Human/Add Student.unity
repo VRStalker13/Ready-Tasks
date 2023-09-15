@@ -731,13 +731,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3492c6453d900e6468def67cc395953c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetStudName: {fileID: 1776498677}
-  SetStudLName: {fileID: 1542553539}
-  SetStudPatronumic: {fileID: 1599694692}
-  SetStudFacultyName: {fileID: 1228760357}
-  SetStudCourse: {fileID: 1894683055}
-  SetStudGroupNumber: {fileID: 1982868084}
-  SetStudBirthday: {fileID: 2113711196}
+  _setStudName: {fileID: 1776498677}
+  _setStudLName: {fileID: 1542553539}
+  _setStudPatronymic: {fileID: 1599694692}
+  _setStudFacultyName: {fileID: 1228760357}
+  _setStudCourse: {fileID: 1894683055}
+  _setStudGroupNumber: {fileID: 1982868084}
+  _setStudBirthday: {fileID: 2113711196}
   _save: {fileID: 1248898126}
 --- !u!1 &341479026
 GameObject:
@@ -1112,7 +1112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88dc507eeec603c4285722e6340c9155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
 --- !u!224 &527344430 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1544478087198370202, guid: 63cf95e4a8479904da137c38417aea5d, type: 3}

@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ChangeParam : MonoBehaviour
 {
     [SerializeField] private TMP_InputField _input;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Button _save;
 
     private void Start()
     {
         _save.interactable = false;
-        ParametrsName();
+        ParametersName();
     }
     
     private void Update()
@@ -25,66 +26,66 @@ public class ChangeParam : MonoBehaviour
             _save.interactable = false;
     }
 
-    private void ParametrsName()
+    private void ParametersName()
     {
-        switch (int.Parse(MemoryScript.changeParamNumer))
+        switch (int.Parse(MemoryScript.ChangeParamNumber))
         {
             case 1:
-                text.text = "New name is: ";
+                _text.text = "New name is: ";
                 return;
             case 2:
-                text.text = "New Lastname is: ";
+                _text.text = "New Lastname is: ";
                 return;
             case 3:
-                text.text = "New Patronymic is: ";
+                _text.text = "New Patronymic is: ";
                 return;
             case 4:
-                text.text = "New Birthday is: ";
+                _text.text = "New Birthday is: ";
                 return;
         }
 
-        if (MemoryScript.listHum[int.Parse(MemoryScript.showHumanNumber) - 1] is Student)
+        if (MemoryScript.ListHum[int.Parse(MemoryScript.ShowHumanNumber) - 1] is Student)
         {
-            switch (int.Parse(MemoryScript.changeParamNumer))
+            switch (int.Parse(MemoryScript.ChangeParamNumber))
             {
                 case 5:
-                    text.text = "New Faculty is: ";;
+                    _text.text = "New Faculty is: ";;
                     return;
                 case 6:
-                    text.text = "New Course is: ";
+                    _text.text = "New Course is: ";
                     return;
                 case 7:
-                    text.text = "New GroupNum is: ";
+                    _text.text = "New GroupNum is: ";
                     return;  
             }
         }
 
-        if (MemoryScript.listHum[int.Parse(MemoryScript.showHumanNumber) - 1] is Employee ||
-            MemoryScript.listHum[int.Parse(MemoryScript.showHumanNumber) - 1] is Driver )
+        if (MemoryScript.ListHum[int.Parse(MemoryScript.ShowHumanNumber) - 1] is Employer ||
+            MemoryScript.ListHum[int.Parse(MemoryScript.ShowHumanNumber) - 1] is Driver )
         {
-            switch (int.Parse(MemoryScript.changeParamNumer))
+            switch (int.Parse(MemoryScript.ChangeParamNumber))
             {
                 case 5:
-                    text.text = "New Organization is: ";
+                    _text.text = "New Organization is: ";
                     return;
                 case 6:
-                    text.text = "New WorkPay is: ";
+                    _text.text = "New WorkPay is: ";
                     return;
                 case 7:
-                    text.text = "New WorkExp is: ";
+                    _text.text = "New WorkExp is: ";
                     return;
             }
         }
 
-        if (MemoryScript.listHum[int.Parse(MemoryScript.showHumanNumber) - 1] is Driver )
+        if (MemoryScript.ListHum[int.Parse(MemoryScript.ShowHumanNumber) - 1] is Driver )
         {
-            switch (int.Parse(MemoryScript.changeParamNumer))
+            switch (int.Parse(MemoryScript.ChangeParamNumber))
             {
                 case 8:
-                    text.text = "New CarBrand is: ";
+                    _text.text = "New CarBrand is: ";
                     return;
                 case 9:
-                    text.text = "New CarModel is: ";
+                    _text.text = "New CarModel is: ";
                     return; 
             }
         }
@@ -92,21 +93,21 @@ public class ChangeParam : MonoBehaviour
     
     public void Change()
     {
-        if (MemoryScript.listHum[int.Parse(MemoryScript.showHumanNumber) - 1] is Student stud)
-            ChangeStudent(stud, int.Parse(MemoryScript.showHumanNumber));
+        if (MemoryScript.ListHum[int.Parse(MemoryScript.ShowHumanNumber) - 1] is Student stud)
+            ChangeStudent(stud);
 
-        if (MemoryScript.listHum[int.Parse(MemoryScript.showHumanNumber) - 1] is Employee empl)
-            ChangeEmployee(empl, int.Parse(MemoryScript.showHumanNumber));
+        if (MemoryScript.ListHum[int.Parse(MemoryScript.ShowHumanNumber) - 1] is Employer empl)
+            ChangeEmployer(empl);
 
-        if (MemoryScript.listHum[int.Parse(MemoryScript.showHumanNumber) - 1] is Driver driver)
-            ChangeDriver(driver, int.Parse(MemoryScript.showHumanNumber));
+        if (MemoryScript.ListHum[int.Parse(MemoryScript.ShowHumanNumber) - 1] is Driver driver)
+            ChangeDriver(driver);
         
         ButtonsScript.ToStartMenu();
     }
 
-    private void ChangeDriver(Driver driver, int humNum)
+    private void ChangeDriver(Driver driver)
     {
-        switch (int.Parse(MemoryScript.changeParamNumer))
+        switch (int.Parse(MemoryScript.ChangeParamNumber))
         {
             case 1:
                 driver.FirstName = _input.text;
@@ -134,15 +135,13 @@ public class ChangeParam : MonoBehaviour
                 return;
             case 9:
                 driver.CarModel = _input.text;
-                return;                    
-            default:
-                break;
+                return;
         }
     }
     
-    private void ChangeEmployee(Employee empl, int humNum)
+    private void ChangeEmployer(Employer empl)
     {
-        switch (int.Parse(MemoryScript.changeParamNumer))
+        switch (int.Parse(MemoryScript.ChangeParamNumber))
         {
             case 1:
                 empl.FirstName =_input.text;
@@ -165,14 +164,12 @@ public class ChangeParam : MonoBehaviour
             case 7:
                 empl.WorkExp = _input.text;
                 return;
-            default:
-                break;
         }
     }
 
-    private void ChangeStudent(Student stud, int humNum)
+    private void ChangeStudent(Student stud)
     {
-        switch (int.Parse(MemoryScript.changeParamNumer))
+        switch (int.Parse(MemoryScript.ChangeParamNumber))
         {
             case 1:
                 stud.FirstName = _input.text;
@@ -195,8 +192,6 @@ public class ChangeParam : MonoBehaviour
             case 7:
                 stud.GroupNum = _input.text;
                 return;
-            default:
-                break;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class Driver : Employee
+public sealed class Driver : Employer
 {
     public string CarBrand;
     public string CarModel;
@@ -34,7 +34,7 @@ public sealed class Driver : Employee
     public override string ToString()
     {
         return $"Full Name: {Patronymic} {FirstName} {LastName}  \nBirthday: {Birthday.ToString().Substring(0,10)} \n"+ 
-            ShowFullYears() + $"\n Organization: {Organization} \nWork Pay: {WorkPay}   \nWork Experience: {WorkExp}"+
+            ShowFullYears() + $"\nOrganization: {Organization} \nWork Pay: {WorkPay}   \nWork Experience: {WorkExp}"+
             $"\nCar model: {CarModel}  \nCar brand: {CarBrand}";                         
     }
 

@@ -5,17 +5,15 @@ using TMPro;
 
 public class DataManager : MonoBehaviour
 {
-    private TMP_InputField inputField;
+    private TMP_InputField _inputField;
     private void Start()
     {
-        inputField = GetComponent<TMP_InputField>();
-        inputField.onEndEdit.AddListener(OnInputEndEdit);
+        _inputField = GetComponent<TMP_InputField>();
+        _inputField.onEndEdit.AddListener(OnInputEndEdit);
     }
     private void OnInputEndEdit(string str)
     {
-        DateTime birthday;
-        
-        if (!DateTime.TryParseExact(str, "dd.MM.yyyy", null, DateTimeStyles.None, out birthday))
-            inputField.text = "";
+        if (!DateTime.TryParseExact(str, "dd.MM.yyyy", null, DateTimeStyles.None, out _))
+            _inputField.text = "";
     }
 }

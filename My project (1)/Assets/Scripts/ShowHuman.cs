@@ -1,9 +1,10 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class ShowHuman : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI _text;
 
     public void Start()
     {
@@ -12,8 +13,9 @@ public class ShowHuman : MonoBehaviour
 
     private void ShowHum()
     {
-        if ( MemoryScript.showHumanNumber != "")
-            text.text = $"{MemoryScript.listHum[int.Parse(MemoryScript.showHumanNumber) - 1]}";
-        MemoryScript.showHumanNumber = "";
+        if ( MemoryScript.ShowHumanNumber != "")
+            _text.text = $"{MemoryScript.ListHum[int.Parse(MemoryScript.ShowHumanNumber) - 1]}";
+        
+        MemoryScript.ShowHumanNumber = "";
     }
 }

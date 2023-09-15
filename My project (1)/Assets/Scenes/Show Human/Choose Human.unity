@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 731658989}
   - component: {fileID: 731658988}
   m_Layer: 5
-  m_Name: Choose Number
+  m_Name: Text Choose Number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1881,7 +1881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3167068708633340242, guid: 2afe98c3492f41a438033a0b4d91ffd3, type: 3}
       propertyPath: m_Name
-      value: Number
+      value: Number Value
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

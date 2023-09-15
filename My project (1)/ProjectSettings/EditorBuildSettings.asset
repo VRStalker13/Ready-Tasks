@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Add Human/Add Student.unity
     guid: ec83aa04ebe01304d9ab884348ad799f
   - enabled: 1
-    path: Assets/Scenes/Add Human/Add Employee.unity
+    path: Assets/Scenes/Add Human/Add Employer.unity
     guid: c817ca74621d24a46882fc22bde164b6
   - enabled: 1
     path: Assets/Scenes/Change Human/Change Humans List.unity

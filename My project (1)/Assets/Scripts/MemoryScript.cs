@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public static class MemoryScript
 {
-    public static List<Human> listHum = new List<Human>();
-    public static string showHumanNumber = new string("");
-    public static string changeParamNumer = new string("");
+    public static List<Human> ListHum = new List<Human>();
+    public static string ShowHumanNumber = new string("");
+    public static string ChangeParamNumber = new string("");
 }

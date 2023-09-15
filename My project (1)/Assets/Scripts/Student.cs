@@ -8,7 +8,7 @@
 
         public Student()
         {
-            Console.WriteLine("Run construct Student without parametrs ");
+            Console.WriteLine("Run construct Student without parameters ");
             Faculty = "Undefined";
             Course = "Undefined";
             GroupNum = "Undefined";

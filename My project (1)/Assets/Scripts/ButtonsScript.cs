@@ -30,7 +30,7 @@ public class ButtonsScript : MonoBehaviour
    
     public static void ToAddEmployer()
     {
-        SceneManager.LoadScene("Scenes/Add Human/Add Employee");
+        SceneManager.LoadScene("Scenes/Add Human/Add Employer");
     }
     
     public static void ToChooseHuman()

@@ -1,63 +1,48 @@
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using TMPro;
+using UnityEngine.Serialization;
 
 public class AddStudent : MonoBehaviour
 {
-    [SerializeField]private TMP_InputField SetStudName;
-    [SerializeField]private TMP_InputField SetStudLName;
-    [SerializeField]private TMP_InputField SetStudPatronumic;
-    [SerializeField]private TMP_InputField SetStudFacultyName;
-    [SerializeField]private TMP_InputField SetStudCourse;
-    [SerializeField]private TMP_InputField SetStudGroupNumber;
-    [SerializeField]private TMP_InputField SetStudBirthday;
+    [SerializeField]private TMP_InputField _setStudName;
+    [SerializeField]private TMP_InputField _setStudLName;
+    [SerializeField]private TMP_InputField _setStudPatronymic;
+    [SerializeField]private TMP_InputField _setStudFacultyName;
+    [SerializeField]private TMP_InputField _setStudCourse;
+    [SerializeField]private TMP_InputField _setStudGroupNumber;
+    [SerializeField]private TMP_InputField _setStudBirthday;
     [SerializeField]private Button _save;
 
-    public void Start()
+    private void Start()
     {
         _save.interactable = false;
     }
 
-    public void Update()
+    private void Update()
     {
         ActivateSave();
     }
 
     private void ActivateSave()
     {
-        if (SetStudName.text != "" && SetStudLName.text != "" &&
-            SetStudPatronumic.text != "" && SetStudFacultyName.text != "" &&
-            SetStudCourse.text != "" && SetStudGroupNumber.text != "" &&
-            SetStudBirthday.text != "")
-        {
+        if (_setStudName.text != "" && _setStudLName.text != "" &&
+            _setStudPatronymic.text != "" && _setStudFacultyName.text != "" &&
+            _setStudCourse.text != "" && _setStudGroupNumber.text != "" &&
+            _setStudBirthday.text != "")
             _save.interactable = true;
-        }
         else
-        {
             _save.interactable = false;
-        }
     }
     
     public void SaveInformation()
     {
-        Human hum = new Student(SetStudName.text, SetStudLName.text,
-            SetStudPatronumic.text, DateTime.Parse(SetStudBirthday.text),
-            SetStudFacultyName.text, SetStudCourse.text,
-            SetStudGroupNumber.text);
-        MemoryScript.listHum.Add(hum);
-        CleanParams();
+        Human hum = new Student(_setStudName.text, _setStudLName.text,
+            _setStudPatronymic.text, DateTime.Parse(_setStudBirthday.text),
+            _setStudFacultyName.text, _setStudCourse.text,
+            _setStudGroupNumber.text);
+        MemoryScript.ListHum.Add(hum);
         ButtonsScript.ToStartMenu();
-    }
-    
-    private void CleanParams()
-    {
-        SetStudName.text = "";
-        SetStudLName.text = "";
-        SetStudPatronumic.text = "";
-        SetStudFacultyName.text = "";
-        SetStudCourse.text = "";
-        SetStudGroupNumber.text = "";
-        SetStudBirthday.text = "";
     }
 }

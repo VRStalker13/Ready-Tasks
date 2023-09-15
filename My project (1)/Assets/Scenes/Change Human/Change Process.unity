@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 391958412914974738}
-  text: {fileID: 657215773}
+  _text: {fileID: 657215773}
   _save: {fileID: 2035939677}
 --- !u!1 &519420028
 GameObject:
@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 657215774}
   - component: {fileID: 657215773}
   m_Layer: 5
-  m_Name: New Data
+  m_Name: Param Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1425,6 +1425,10 @@ PrefabInstance:
     - target: {fileID: 8629009166359914110, guid: 881fa0b7ffdea284e959f6aa7da4d3b8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 2.6885
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081511846491917952, guid: 881fa0b7ffdea284e959f6aa7da4d3b8, type: 3}
+      propertyPath: m_Name
+      value: New Value
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

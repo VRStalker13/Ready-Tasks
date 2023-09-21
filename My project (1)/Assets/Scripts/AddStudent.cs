@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class AddStudent : MonoBehaviour
 {

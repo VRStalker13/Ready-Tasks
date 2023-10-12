@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3832227571765643026}
   - component: {fileID: 5432620208377618036}
   - component: {fileID: 7371034149088219738}
-  - component: {fileID: 8539288582996512718}
   m_Layer: 5
   m_Name: ChangeParamButton
   m_TagString: Untagged
@@ -133,16 +132,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8539288582996512718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4343839157366596738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88dc507eeec603c4285722e6340c9155, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 0}

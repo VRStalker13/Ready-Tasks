@@ -1321,7 +1321,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 327031001162964386}
-  _listChoose: {fileID: 3921128920272613998}
   _save: {fileID: 7369813335174165812}
 --- !u!1 &8608589751554726342
 GameObject:

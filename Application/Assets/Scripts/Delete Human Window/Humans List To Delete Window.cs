@@ -4,35 +4,59 @@ using TMPro;
 
 public class ListHumansForDeletingWindow : View
 {
-    [SerializeField] private TMP_InputField _input;
-    [SerializeField] private Button _save;
+    public static ListHumansForDeletingWindow ListHumansForDel;
+    
+    [SerializeField] private TextMeshProUGUI _listHumansForDeleting;// Список людей для удаления
+    [SerializeField] private TMP_InputField _input;// Номер выбранного человека
+    [SerializeField] private Button _saveButton;
     private string _chosenNumber;
+    
+    private void Awake() => ListHumansForDel = this;
 
-    public void SaveInformation()
+    private void Start()
     {
-        if (_input.text != "")
+        _saveButton.onClick.AddListener(SaveInformation);
+    }
+    
+    public override void Initialize()
+    {
+        CleanTextVariables();
+    }
+
+    private void SaveInformation()
+    {
+        if (!string.IsNullOrEmpty(_input.text))
         {
-            if (int.Parse(_input.text) <= ViewManager._instance.ListHum.Count && int.Parse(_input.text) > 0)
+            if (int.Parse(_input.text) <= ApplicationData.AppData.ListHum.Count && int.Parse(_input.text) > 0)
             {
                 _chosenNumber = new string(_input.text);
-                ViewManager._instance.ListHum.RemoveAt(int.Parse(_chosenNumber) - 1);
+                ApplicationData.AppData.ListHum.RemoveAt(int.Parse(_chosenNumber) - 1);
                 CleanTextVariables();
-                ViewManager._instance.ToMainMenu();
+                ViewManager.Instance.ToMainMenu();
             }
             else
             {
-                ViewManager._instance.ErrorWindow.SetActive(true);
+                ViewManager.Instance.ErrorWindow.SetActive(true);
             }
         }
     }
-
-    public override void Initialize()
+    
+    public void ShowListHumans()
     {
-        _save.onClick.AddListener(SaveInformation);
-    }
+        var count = ApplicationData.AppData.ListHum.Count;
+        var text = "Human List:\n";
+            
+        for (var i = 0; i < count; i++)            
+            text = $"{text}\n{i + 1}. {ApplicationData.AppData.ListHum[i].FirstName} " +
+                   $"{ApplicationData.AppData.ListHum[i].LastName} " +
+                   $"{ApplicationData.AppData.ListHum[i].Patronymic}";
 
+        _listHumansForDeleting.text = text;
+    }
+    
     private void CleanTextVariables()
     {
+        _listHumansForDeleting.text = "";
         _input.text = "";
     }
 }

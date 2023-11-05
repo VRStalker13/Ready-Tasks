@@ -3,13 +3,19 @@ using TMPro;
 
 public class HumanInformationWindow : View
 {
-    public static string ShowHuman()
+    public static HumanInformationWindow HumanInform;
+    
+    [SerializeField] private TextMeshProUGUI _humanInformation;
+    
+    private void Awake() => HumanInform = this;
+    
+    public void ShowHuman()
     {
-        return $"{ViewManager._instance.ListHum[ViewManager._instance.ChoosenNumberOfHuman]}";
+        _humanInformation.text = $"{ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman]}";
     }
 
     public override void Initialize()
     {
-        
+        _humanInformation.text = "";
     }
 }

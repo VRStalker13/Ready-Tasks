@@ -1,131 +1,219 @@
+using System;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+using TMPro;
 
 public class ProcessChangingHumanWindow : View
 {
-    [SerializeField] private Button _save;
+    public static ProcessChangingHumanWindow ProcessChanging;
+    
+    [SerializeField] private TextMeshProUGUI _nameChangingParametr;// Название изменяемого параметра
+    [SerializeField] private TMP_InputField _newParameterValue;// Новое значение параметра при изменении
+    [SerializeField] private Button _saveButton;
 
-    public void Change()
+    private void Awake() => ProcessChanging = this;
+    
+    private void Start()
     {
-        if (ViewManager._instance.NewParameterValue.text.Length > 0)
+        _saveButton.onClick.AddListener(Change);
+    }
+    
+    public override void Initialize()
+    {
+        CleanTextVariables();
+    }
+
+    private void Change()
+    {
+        if (_newParameterValue.text.Length > 0)
         {
-            if (ViewManager._instance.ListHum[ViewManager._instance.ChoosenNumberOfHuman] is Student stud)
+            if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Student stud)
                 ChangeStudent(stud);
     
-            if (ViewManager._instance.ListHum[ViewManager._instance.ChoosenNumberOfHuman] is Employer empl)
+            if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Employer empl)
                 ChangeEmployer(empl);
     
-            if (ViewManager._instance.ListHum[ViewManager._instance.ChoosenNumberOfHuman] is Driver driver)
+            if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver driver)
                 ChangeDriver(driver);
             
             CleanTextVariables();
-            ViewManager._instance.Show<MainMenuWindow>();
+            ViewManager.Instance.Show<MainMenuWindow>();
         }
         else
         {
-            ViewManager._instance.ErrorWindow.SetActive(true);
+            ViewManager.Instance.ErrorWindow.SetActive(true);
         }
-
     }
 
     private void ChangeDriver(Driver driver)
     {
-        switch (ViewManager._instance.ChoosenNumberOfParam)
+        ChangeHuman(driver);
+        ChangeEmployer(driver);
+        
+        switch (ApplicationData.AppData.ChoosenNumberOfParam)
         {
-            case 1:
-                driver.FirstName = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 2:
-                driver.LastName = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 3:
-                driver.Patronymic = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 4:
-                driver.Birthday = DateTime.Parse(ViewManager._instance.NewParameterValue.text);
-                return;
-            case 5:
-                driver.Organization = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 6:
-                driver.WorkPay = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 7:
-                driver.WorkExp = ViewManager._instance.NewParameterValue.text;
-                return;
             case 8:
-                driver.CarBrand = ViewManager._instance.NewParameterValue.text;
+                driver.CarBrand = _newParameterValue.text;
                 return;
             case 9:
-                driver.CarModel = ViewManager._instance.NewParameterValue.text;
+                driver.CarModel = _newParameterValue.text;
                 return;
         }
     }
     
     private void ChangeEmployer(Employer empl)
     {
-        switch (ViewManager._instance.ChoosenNumberOfParam)
+        ChangeHuman(empl);
+        
+        switch (ApplicationData.AppData.ChoosenNumberOfParam)
         {
-            case 1:
-                empl.FirstName =ViewManager._instance.NewParameterValue.text;
-                return;
-            case 2:
-                empl.FirstName = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 3:
-                empl.Patronymic = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 4:
-                empl.Birthday = DateTime.Parse(ViewManager._instance.NewParameterValue.text);
-                return;
             case 5:
-                empl.Organization = ViewManager._instance.NewParameterValue.text;
+                empl.Organization = _newParameterValue.text;
                 return;
             case 6:
-                empl.WorkPay = ViewManager._instance.NewParameterValue.text;
+                empl.WorkPay = _newParameterValue.text;
                 return;
             case 7:
-                empl.WorkExp = ViewManager._instance.NewParameterValue.text;
+                empl.WorkExp = _newParameterValue.text;
+                return;
+        }
+    }
+    
+    private void ChangeHuman(Human hum)
+    {
+        switch (ApplicationData.AppData.ChoosenNumberOfParam)
+        {
+            case 1:
+                hum.FirstName = _newParameterValue.text;
+                return;
+            case 2:
+                hum.FirstName = _newParameterValue.text;
+                return;
+            case 3:
+                hum.Patronymic = _newParameterValue.text;
+                return;
+            case 4:
+                hum.Birthday = DateTime.Parse(_newParameterValue.text);
                 return;
         }
     }
 
     private void ChangeStudent(Student stud)
     {
-        switch (ViewManager._instance.ChoosenNumberOfParam)
+        ChangeHuman(stud);
+        
+        switch (ApplicationData.AppData.ChoosenNumberOfParam)
         {
-            case 1:
-                stud.FirstName = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 2:
-                stud.LastName = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 3:
-                stud.Patronymic = ViewManager._instance.NewParameterValue.text;
-                return;
-            case 4:
-                stud.Birthday = DateTime.Parse(ViewManager._instance.NewParameterValue.text);
-                return;
             case 5:
-                stud.Faculty = ViewManager._instance.NewParameterValue.text;
+                stud.Faculty = _newParameterValue.text;
                 return;
             case 6:
-                stud.Course = ViewManager._instance.NewParameterValue.text;
+                stud.Course = _newParameterValue.text;
                 return;
             case 7:
-                stud.GroupNum = ViewManager._instance.NewParameterValue.text;
+                stud.GroupNum = _newParameterValue.text;
                 return;
         }
     }
     
     private void CleanTextVariables()
     {
-        ViewManager._instance.NewParameterValue.text = "";
+        _nameChangingParametr.text = "";
+        _newParameterValue.text = "";
+    }
+    
+    public void NewParameterName()
+    {
+        switch (ApplicationData.AppData.ChoosenNumberOfParam)
+        {
+            case 1:
+                _nameChangingParametr.text = "New name is: ";
+                return;
+            case 2:
+                _nameChangingParametr.text = "New Lastname is: ";
+                return;
+            case 3:
+                _nameChangingParametr.text = "New Patronymic is: ";
+                return;
+            case 4:
+                _nameChangingParametr.text = "New Birthday is: ";
+                return;
+        }
+
+        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Student)
+        {
+            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            {
+                case 5:
+                    _nameChangingParametr.text = "New Faculty is: ";;
+                    return;
+                case 6:
+                    _nameChangingParametr.text = "New Course is: ";
+                    return;
+                case 7:
+                   _nameChangingParametr.text = "New GroupNum is: ";
+                    return;  
+            }
+        }
+
+        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Employer ||
+            ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver )
+        {
+            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            {
+                case 5:
+                    _nameChangingParametr.text = "New Organization is: ";
+                    return;
+                case 6:
+                    _nameChangingParametr.text = "New WorkPay is: ";
+                    return;
+                case 7:
+                    _nameChangingParametr.text = "New WorkExp is: ";
+                    return;
+            }
+        }
+
+        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver )
+        {
+            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            {
+                case 8:
+                    _nameChangingParametr.text = "New CarBrand is: ";
+                    return;
+                case 9:
+                    _nameChangingParametr.text = "New CarModel is: ";
+                    return; 
+            }
+        }
     }
 
-    public override void Initialize()
+    public void NewParameterFormat()
     {
-        _save.onClick.AddListener(Change);
+        _newParameterValue.onEndEdit.RemoveAllListeners();
+        _newParameterValue.onValueChanged.RemoveAllListeners();
+        
+        if (ApplicationData.AppData.ChoosenNumberOfParam == 4)
+            _newParameterValue.onEndEdit.AddListener(OnInputEndEdit);
+        else
+            _newParameterValue.onValueChanged.AddListener(OnValueChange);
     }
+    
+    private void OnInputEndEdit(string str)
+    {
+        _newParameterValue.contentType = TMP_InputField.ContentType.Standard;
+        if (!DateTime.TryParseExact(str, "dd.MM.yyyy", null, DateTimeStyles.None, out _))
+            _newParameterValue.text = "";
+    }
+    
+    private void OnValueChange(string str)
+    {
+        if (ApplicationData.AppData.ChoosenNumberOfParam < 4 || ApplicationData.AppData.ChoosenNumberOfParam == 5 ||
+            ApplicationData.AppData.ChoosenNumberOfParam >= 8 )
+            _newParameterValue.contentType = TMP_InputField.ContentType.Name;
+
+        if (ApplicationData.AppData.ChoosenNumberOfParam == 6 || ApplicationData.AppData.ChoosenNumberOfParam == 7 )
+            _newParameterValue.contentType = TMP_InputField.ContentType.IntegerNumber;
+    }
+
 }

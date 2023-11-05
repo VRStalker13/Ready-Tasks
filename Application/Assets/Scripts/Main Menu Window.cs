@@ -11,27 +11,23 @@ public class MainMenuWindow : View
 
     public override void Initialize()
     {
-        _addHumanButton.onClick.AddListener(() => ViewManager._instance.Show<AddingMenuWindow>());
-        _addHumanButton.onClick.AddListener(() => ViewManager._instance.ToMainMenuButton.gameObject.SetActive(true));
+        _addHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<AddingMenuWindow>());
+        _addHumanButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
         
-        _showHumansButton.onClick.AddListener(() => ViewManager._instance.Show<HumansInformationWindow>());
-        _showHumansButton.onClick.AddListener(() => ViewManager._instance.HumansInformation.text 
-            = HumansInformationWindow.ShowHumans());
-        _showHumansButton.onClick.AddListener(() => ViewManager._instance.ToMainMenuButton.gameObject.SetActive(true));
+        _showHumansButton.onClick.AddListener(() => ViewManager.Instance.Show<HumansInformationWindow>());
+        _showHumansButton.onClick.AddListener(() => HumansInformationWindow.HumansInformation.ShowHumans());
+        _showHumansButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
         
-        _deleteHumanButton.onClick.AddListener(() => ViewManager._instance.Show<ListHumansForDeletingWindow>());
-        _deleteHumanButton.onClick.AddListener(() => ViewManager._instance.ListHumansForDeleting.text 
-            = ViewManager._instance.ShowListHumans());
-        _deleteHumanButton.onClick.AddListener(() => ViewManager._instance.ToMainMenuButton.gameObject.SetActive(true));
+        _deleteHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<ListHumansForDeletingWindow>());
+        _deleteHumanButton.onClick.AddListener(() => ListHumansForDeletingWindow.ListHumansForDel.ShowListHumans());
+        _deleteHumanButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
         
-        _showHumanButton.onClick.AddListener(() => ViewManager._instance.Show<ListHumansForShowingWindow>());
-        _showHumanButton.onClick.AddListener(() => ViewManager._instance.ListHumans.text 
-            = ViewManager._instance.ShowListHumans());
-        _showHumanButton.onClick.AddListener(() => ViewManager._instance.ToMainMenuButton.gameObject.SetActive(true));
+        _showHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<ListHumansForShowingWindow>());
+        _showHumanButton.onClick.AddListener(() => ListHumansForShowingWindow.ListHumansForShowing.ShowListHumans());
+        _showHumanButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
 
-        _changeHumanButton.onClick.AddListener(() => ViewManager._instance.Show<ListHumansForChangingWindow>());
-        _changeHumanButton.onClick.AddListener(() => ViewManager._instance.ListHumansForChanging.text 
-            = ViewManager._instance.ShowListHumans());
-        _changeHumanButton.onClick.AddListener(() => ViewManager._instance.ToMainMenuButton.gameObject.SetActive(true));
+        _changeHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<ListHumansForChangingWindow>());
+        _changeHumanButton.onClick.AddListener(() => ListHumansForChangingWindow.ListHumansForChanging.ShowListHumans());
+        _changeHumanButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
     }
 }

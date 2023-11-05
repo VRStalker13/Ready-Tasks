@@ -1,42 +1,50 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class AddingStudentView : AddingHumanView
 {
+    public static AddingStudentView AddingStudent;
+    
     [SerializeField]private TMP_InputField _studFacultyName;
     [SerializeField]private TMP_InputField _studCourse;
     [SerializeField]private TMP_InputField _studGroupNumber;
     
-    public void SaveInformation()
+    private void Awake() => AddingStudent = this;
+    
+    private void Start()
     {
-        if (HumanName.text != "" && HumanLName.text != "" && HumanPatronymic.text != "" &&
-            _studFacultyName.text != "" && _studCourse.text != "" &&
-            _studGroupNumber.text != "" && HumanBirthday.text != "")
-        {
-            Human hum = new Student(HumanName.text, HumanLName.text,
-                HumanPatronymic.text, DateTime.Parse(HumanBirthday.text),
-                _studFacultyName.text, _studCourse.text,
-                _studGroupNumber.text);
-            CleanTextVariables();
-            base.SaveInformation(hum);
-        }
-        else
-        {
-            ViewManager._instance.ErrorWindow.SetActive(true);
-        }
-
+        SettingFormatBirthday();
+        _saveButton.onClick.AddListener(SaveInformation);
     }
-
+    
     public override void Initialize()
     {
         base.Initialize();
-        Save.onClick.AddListener(SaveInformation);
+        CleanTextVariables();
     }
     
-    public override void CleanTextVariables()
+    protected void SaveInformation()
+    {
+        if (!string.IsNullOrEmpty(_humanName.text) && !string.IsNullOrEmpty(_humanLName.text) &&
+            !string.IsNullOrEmpty(_humanPatronymic.text) && !string.IsNullOrEmpty(_studFacultyName.text) &&
+            !string.IsNullOrEmpty(_studCourse.text) && !string.IsNullOrEmpty(_studGroupNumber.text) && 
+            !string.IsNullOrEmpty(_humanBirthday.text))
+        {
+            Human hum = new Student(_humanName.text, _humanLName.text,
+                _humanPatronymic.text, DateTime.Parse(_humanBirthday.text),
+                _studFacultyName.text, _studCourse.text,
+                _studGroupNumber.text);
+            CleanTextVariables();
+            SaveInformation(hum);
+        }
+        else
+        {
+            ViewManager.Instance.ErrorWindow.SetActive(true);
+        }
+    }
+
+    protected override void CleanTextVariables()
     {
         base.CleanTextVariables();
         _studFacultyName.text = "";

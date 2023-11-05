@@ -1,40 +1,45 @@
 using System;
 using System.Globalization;
-using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
 public abstract class AddingHumanView : View
 {
-    [SerializeField] public TMP_InputField HumanName;
-    [SerializeField] public TMP_InputField HumanLName;
-    [SerializeField] public TMP_InputField HumanPatronymic;
-    [SerializeField] public TMP_InputField HumanBirthday;
-    [SerializeField] public Button Save;
+    [SerializeField]protected TMP_InputField _humanName;
+    [SerializeField]protected TMP_InputField _humanLName;
+    [SerializeField]protected TMP_InputField _humanPatronymic;
+    [SerializeField]protected TMP_InputField _humanBirthday;
+    [SerializeField]protected Button _saveButton;
 
     public override void Initialize()
     {
-        HumanBirthday.onEndEdit.AddListener(OnInputEndEdit);
+        CleanTextVariables();
     }
 
-    public virtual void SaveInformation(Human hum)
+    protected virtual void SaveInformation(Human hum)
     {
-        ViewManager._instance.ListHum.Add(hum);
-        AddingMenuWindow.SetVisible(true);
-        ViewManager._instance.ToMainMenu();
+        ApplicationData.AppData.ListHum.Add(hum);
+        AddingMenuWindow.AddingMenu.SetVisible(true);
+        ViewManager.Instance.ToMainMenu();
     }
     
     private void OnInputEndEdit(string str)
     {
         if (!DateTime.TryParseExact(str, "dd.MM.yyyy", null, DateTimeStyles.None, out _))
-            HumanBirthday.text = "";
+            _humanBirthday.text = "";
     }
 
-    public virtual void CleanTextVariables()
+    protected void SettingFormatBirthday()
     {
-        HumanName.text = "";
-        HumanLName.text = "";
-        HumanPatronymic.text = "";
-        HumanBirthday.text = "";
+        _humanBirthday.onEndEdit.AddListener(OnInputEndEdit);
+    }
+
+    protected virtual void CleanTextVariables()
+    {
+        _humanName.text = "";
+        _humanLName.text = "";
+        _humanPatronymic.text = "";
+        _humanBirthday.text = "";
     }
 }

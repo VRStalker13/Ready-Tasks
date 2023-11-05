@@ -1,40 +1,63 @@
-using System;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ListHumansForShowingWindow : View
 {
-    [SerializeField] private TMP_InputField _input;
-    [SerializeField] private Button _save;
-    private string _chosenNumber;
+    public static ListHumansForShowingWindow ListHumansForShowing;
 
-    public void SaveInformation()
+    [SerializeField] private TextMeshProUGUI _listHumans;// Список людей для вывода инфы об одном
+    [SerializeField] private TMP_InputField _input;// Номер выбранного человека
+    [SerializeField] private Button _saveButton;
+    private string _chosenNumber;
+    
+    private void Awake() => ListHumansForShowing = this;
+    
+    private void Start()
     {
-        if (_input.text != "")
-        {
-            if (int.Parse(_input.text) <= ViewManager._instance.ListHum.Count && int.Parse(_input.text) > 0)
-            {
-                _chosenNumber = new string(_input.text);
-                ViewManager._instance.ChoosenNumberOfHuman = int.Parse(_chosenNumber) - 1;
-                ViewManager._instance.ToNextWindow();
-                CleanTextVariables();
-                ViewManager._instance.ToNextWindowButton.gameObject.SetActive(true);
-            }
-            else
-            {
-                ViewManager._instance.ErrorWindow.SetActive(true);
-            }
-        }
+        _saveButton.onClick.AddListener(SaveInformation);
     }
 
     public override void Initialize()
     {
-        _save.onClick.AddListener(SaveInformation);
+        CleanTextVariables();
+    }
+
+    private void SaveInformation()
+    {
+        if (!string.IsNullOrEmpty(_input.text))
+        {
+            if (int.Parse(_input.text) <= ApplicationData.AppData.ListHum.Count && int.Parse(_input.text) > 0)
+            {
+                _chosenNumber = new string(_input.text);
+                ApplicationData.AppData.ChoosenNumberOfHuman = int.Parse(_chosenNumber) - 1;
+                ViewManager.Instance.ToNextWindow();
+                CleanTextVariables();
+                ViewManager.Instance.ToNextWindowButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                ViewManager.Instance.ErrorWindow.SetActive(true);
+            }
+        }
     }
     
+    public void ShowListHumans()
+    {
+        var count = ApplicationData.AppData.ListHum.Count;
+        var text = "Human List:\n";
+            
+        for (var i = 0; i < count; i++)            
+            text = $"{text}\n{i + 1}. {ApplicationData.AppData.ListHum[i].FirstName} " +
+                   $"{ApplicationData.AppData.ListHum[i].LastName} " +
+                   $"{ApplicationData.AppData.ListHum[i].Patronymic}";
+
+        _listHumans.text = text;
+    }
+
     private void CleanTextVariables()
     {
+        _listHumans.text = "";
         _input.text = "";
     }
 }

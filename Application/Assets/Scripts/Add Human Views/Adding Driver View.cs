@@ -4,37 +4,49 @@ using TMPro;
 
 public class AddingDriverView : AddingHumanView
 {
+    public static AddingDriverView AddingDriver;
+    
     [SerializeField] private TMP_InputField _driverOrgName;
     [SerializeField] private TMP_InputField _driverWorkPay;
     [SerializeField] private TMP_InputField _driverWorkExp;
     [SerializeField] private TMP_InputField _driverBrandCar;
     [SerializeField] private TMP_InputField _driverModelCar;
+    
+    private void Awake() => AddingDriver = this;
 
-    public void SaveInformation()
+    private void Start()
     {
-        if (HumanName.text != "" && HumanLName.text != "" && HumanPatronymic.text != "" && 
-            _driverOrgName.text != "" && _driverWorkPay.text != "" && _driverWorkExp.text != "" &&
-            _driverBrandCar.text != "" && _driverModelCar.text != "" && HumanBirthday.text != "")
-        {
-            Human hum = new Driver(HumanName.text,HumanLName.text,HumanPatronymic.text,
-                DateTime.Parse(HumanBirthday.text),_driverOrgName.text,_driverWorkPay.text,
-                _driverWorkExp.text,_driverBrandCar.text,_driverModelCar.text);
-            CleanTextVariables();
-            base.SaveInformation(hum);
-        }
-        else
-        {
-            ViewManager._instance.ErrorWindow.SetActive(true);
-        }
+        SettingFormatBirthday();
+        _saveButton.onClick.AddListener(SaveInformation);
     }
 
     public override void Initialize()
     {
         base.Initialize();
-        Save.onClick.AddListener(SaveInformation);
+        CleanTextVariables();
+    }
+    
+    private void SaveInformation()
+    {
+        if (!string.IsNullOrEmpty(_humanName.text) && !string.IsNullOrEmpty(_humanLName.text) && 
+            !string.IsNullOrEmpty(_humanPatronymic.text) && !string.IsNullOrEmpty(_driverOrgName.text) && 
+            !string.IsNullOrEmpty(_driverWorkPay.text) && !string.IsNullOrEmpty(_driverWorkExp.text) &&
+            !string.IsNullOrEmpty(_driverBrandCar.text) && !string.IsNullOrEmpty(_driverModelCar.text) &&
+            !string.IsNullOrEmpty(_humanBirthday.text))
+        {
+            Human hum = new Driver(_humanName.text,_humanLName.text,_humanPatronymic.text,
+                DateTime.Parse(_humanBirthday.text),_driverOrgName.text,_driverWorkPay.text,
+                _driverWorkExp.text,_driverBrandCar.text,_driverModelCar.text);
+            CleanTextVariables();
+            SaveInformation(hum);
+        }
+        else
+        {
+            ViewManager.Instance.ErrorWindow.SetActive(true);
+        }
     }
 
-    public override void CleanTextVariables()
+    protected override void CleanTextVariables()
     {
         base.CleanTextVariables();
         _driverOrgName.text = "";

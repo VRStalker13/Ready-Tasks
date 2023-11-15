@@ -3,11 +3,7 @@ using TMPro;
 
 public class HumanInformationWindow : View
 {
-    public static HumanInformationWindow HumanInform;
-    
     [SerializeField] private TextMeshProUGUI _humanInformation;
-    
-    private void Awake() => HumanInform = this;
     
     public void ShowHuman()
     {

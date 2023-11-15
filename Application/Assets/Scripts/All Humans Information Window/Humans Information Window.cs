@@ -3,14 +3,12 @@ using TMPro;
 
 public class HumansInformationWindow : View
 {
-    public static HumansInformationWindow HumansInformation;
-    
     [SerializeField] private TextMeshProUGUI HumansInformationText; //Информация обо всех людях
 
-    private void Awake() => HumansInformation = this;
+    public override void Initialize() => HumansInformationText.text = "";
     
-    public void ShowHumans()
-    {            
+    public override void ShowList()
+    {
         var text = "List of all Humans:" + "\n---------------------";
         if (ApplicationData.AppData.ListHum.Count > 0)
         {
@@ -20,6 +18,4 @@ public class HumansInformationWindow : View
         
         HumansInformationText.text = text;
     }
-
-    public override void Initialize() => HumansInformationText.text = "";
 }

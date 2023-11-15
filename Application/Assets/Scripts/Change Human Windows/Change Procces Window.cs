@@ -6,13 +6,9 @@ using TMPro;
 
 public class ProcessChangingHumanWindow : View
 {
-    public static ProcessChangingHumanWindow ProcessChanging;
-    
     [SerializeField] private TextMeshProUGUI _nameChangingParametr;// Название изменяемого параметра
     [SerializeField] private TMP_InputField _newParameterValue;// Новое значение параметра при изменении
     [SerializeField] private Button _saveButton;
-
-    private void Awake() => ProcessChanging = this;
     
     private void Start()
     {
@@ -123,7 +119,7 @@ public class ProcessChangingHumanWindow : View
         _newParameterValue.text = "";
     }
     
-    public void NewParameterName()
+    public void SetNewParameterName()
     {
         switch (ApplicationData.AppData.ChoosenNumberOfParam)
         {
@@ -188,7 +184,7 @@ public class ProcessChangingHumanWindow : View
         }
     }
 
-    public void NewParameterFormat()
+    public void SetNewParameterFormat()
     {
         _newParameterValue.onEndEdit.RemoveAllListeners();
         _newParameterValue.onValueChanged.RemoveAllListeners();
@@ -199,6 +195,7 @@ public class ProcessChangingHumanWindow : View
             _newParameterValue.onValueChanged.AddListener(OnValueChange);
     }
     
+    // Метод задающий формат для ячейки в слечае если меняем дату рождения
     private void OnInputEndEdit(string str)
     {
         _newParameterValue.contentType = TMP_InputField.ContentType.Standard;
@@ -206,12 +203,15 @@ public class ProcessChangingHumanWindow : View
             _newParameterValue.text = "";
     }
     
+    // Метод задающий формат для ячейки если меняем не дату родения а другие поля человека
     private void OnValueChange(string str)
     {
+        // Для текстовых полей человека устанавливаем тип чтобы можно было вводить лишь буквы
         if (ApplicationData.AppData.ChoosenNumberOfParam < 4 || ApplicationData.AppData.ChoosenNumberOfParam == 5 ||
             ApplicationData.AppData.ChoosenNumberOfParam >= 8 )
             _newParameterValue.contentType = TMP_InputField.ContentType.Name;
 
+        // Для численных полей человека устанавливаем чтобы можно было вводить лишь числа 
         if (ApplicationData.AppData.ChoosenNumberOfParam == 6 || ApplicationData.AppData.ChoosenNumberOfParam == 7 )
             _newParameterValue.contentType = TMP_InputField.ContentType.IntegerNumber;
     }

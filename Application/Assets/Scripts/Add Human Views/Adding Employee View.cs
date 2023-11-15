@@ -4,13 +4,9 @@ using TMPro;
 
 public class AddingEmployeeView : AddingHumanView
 {
-    public static AddingEmployeeView AddingEmployee;
-    
     [SerializeField]private TMP_InputField _emplOrgName;
     [SerializeField]private TMP_InputField _emplWorkPay;
     [SerializeField]private TMP_InputField _emplWorkExp;
-    
-    private void Awake() => AddingEmployee = this;
     
     private void Start()
     {
@@ -23,7 +19,7 @@ public class AddingEmployeeView : AddingHumanView
         base.Initialize();
         CleanTextVariables();
     }
-    
+
     private void SaveInformation()
     {
         if (!string.IsNullOrEmpty(_humanName.text) && !string.IsNullOrEmpty(_humanLName.text) &&

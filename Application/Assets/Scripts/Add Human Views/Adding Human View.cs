@@ -1,8 +1,8 @@
 using System;
 using System.Globalization;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine;
 
 public abstract class AddingHumanView : View
 {
@@ -20,7 +20,7 @@ public abstract class AddingHumanView : View
     protected virtual void SaveInformation(Human hum)
     {
         ApplicationData.AppData.ListHum.Add(hum);
-        AddingMenuWindow.AddingMenu.SetVisible(true);
+        ViewManager.Instance.AddingMenuWindowObject.SetVisible(true);
         ViewManager.Instance.ToMainMenu();
     }
     

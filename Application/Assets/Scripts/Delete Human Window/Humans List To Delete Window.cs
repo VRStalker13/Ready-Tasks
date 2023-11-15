@@ -4,14 +4,10 @@ using TMPro;
 
 public class ListHumansForDeletingWindow : View
 {
-    public static ListHumansForDeletingWindow ListHumansForDel;
-    
     [SerializeField] private TextMeshProUGUI _listHumansForDeleting;// Список людей для удаления
     [SerializeField] private TMP_InputField _input;// Номер выбранного человека
     [SerializeField] private Button _saveButton;
     private string _chosenNumber;
-    
-    private void Awake() => ListHumansForDel = this;
 
     private void Start()
     {
@@ -21,6 +17,19 @@ public class ListHumansForDeletingWindow : View
     public override void Initialize()
     {
         CleanTextVariables();
+    }
+
+    public override void ShowList()
+    {
+        var count = ApplicationData.AppData.ListHum.Count;
+        var text = "Human List:\n";
+            
+        for (var i = 0; i < count; i++)            
+            text = $"{text}\n{i + 1}. {ApplicationData.AppData.ListHum[i].FirstName} " +
+                   $"{ApplicationData.AppData.ListHum[i].LastName} " +
+                   $"{ApplicationData.AppData.ListHum[i].Patronymic}";
+
+        _listHumansForDeleting.text = text;
     }
 
     private void SaveInformation()
@@ -39,19 +48,6 @@ public class ListHumansForDeletingWindow : View
                 ViewManager.Instance.ErrorWindow.SetActive(true);
             }
         }
-    }
-    
-    public void ShowListHumans()
-    {
-        var count = ApplicationData.AppData.ListHum.Count;
-        var text = "Human List:\n";
-            
-        for (var i = 0; i < count; i++)            
-            text = $"{text}\n{i + 1}. {ApplicationData.AppData.ListHum[i].FirstName} " +
-                   $"{ApplicationData.AppData.ListHum[i].LastName} " +
-                   $"{ApplicationData.AppData.ListHum[i].Patronymic}";
-
-        _listHumansForDeleting.text = text;
     }
     
     private void CleanTextVariables()

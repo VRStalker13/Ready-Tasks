@@ -4,14 +4,10 @@ using TMPro;
 
 public class ListParamsForChangingWindow : View
 {
-    public static ListParamsForChangingWindow ListParamsForChange;
-    
     [SerializeField] private TextMeshProUGUI _listParamsForChanging;// Список параметров для изменения
     [SerializeField] private TMP_InputField _input;// Номер выбранного параметра
     [SerializeField] private Button _saveButton;
     private int _maxValue;
-    
-    private void Awake() => ListParamsForChange = this;
 
     private void Start()
     {
@@ -22,7 +18,13 @@ public class ListParamsForChangingWindow : View
     {
         CleanTextVariables();
     }
-    
+
+    public override void ShowList()
+    {
+        _listParamsForChanging.text =
+            ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman].ListChanges();
+    }
+
     private void SaveInformation()
     {
         if (ApplicationData.AppData.ListHum.Count > 0)
@@ -46,12 +48,6 @@ public class ListParamsForChangingWindow : View
                 ViewManager.Instance.ErrorWindow.SetActive(true);
             }
         }
-    }
-
-    public void ShowListParams()
-    {
-        _listParamsForChanging.text =
-            ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman].ListChanges();
     }
 
     private void CleanTextVariables()

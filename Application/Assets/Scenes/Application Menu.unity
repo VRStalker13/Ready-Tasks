@@ -314,6 +314,17 @@ MonoBehaviour:
   ToNextWindowButton: {fileID: 7371034149290475234}
   CloseErrorWindowButton: {fileID: 1408364822}
   CurrentView: {fileID: 0}
+  ListHumsForChangingWindowObject: {fileID: 703213234}
+  AddingDriverViewObject: {fileID: 1474166533}
+  AddingEmployeeViewObject: {fileID: 522501347}
+  AddingStudentViewObject: {fileID: 1017860388}
+  HumansInformationWindowObject: {fileID: 1898434046}
+  ListHumansForDeletingWindowObject: {fileID: 1622515881}
+  ListHumansForShowingWindowObject: {fileID: 1861517299}
+  HumanInformationWindowObject: {fileID: 1773774727}
+  ListParamsForChangingWindowObject: {fileID: 213508832}
+  ProcessChangingHumanWindowObject: {fileID: 1273095099}
+  AddingMenuWindowObject: {fileID: 746663192}
 --- !u!4 &449500083
 Transform:
   m_ObjectHideFlags: 0
@@ -436,9 +447,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3921128920272613998, guid: 85f2e671b2a215044acad3a481624c8a, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921128920272613998, guid: 85f2e671b2a215044acad3a481624c8a, type: 3}
+      propertyPath: m_fontSize
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875152113734082160, guid: 85f2e671b2a215044acad3a481624c8a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875152113734082160, guid: 85f2e671b2a215044acad3a481624c8a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875152113734082160, guid: 85f2e671b2a215044acad3a481624c8a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8597887921320899864, guid: 85f2e671b2a215044acad3a481624c8a, type: 3}
       propertyPath: m_Name
       value: Humans List To Change Window
+      objectReference: {fileID: 0}
+    - target: {fileID: 8597887921320899864, guid: 85f2e671b2a215044acad3a481624c8a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -601,7 +636,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1948104114762007606, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2702616004114256191, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: _humanName
@@ -627,6 +662,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3427291939415670275, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -248.49449
+      objectReference: {fileID: 0}
     - target: {fileID: 4531767717108913367, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: _humanName
       value: 
@@ -647,6 +686,18 @@ PrefabInstance:
       propertyPath: _humanPatronymic
       value: 
       objectReference: {fileID: 746663191}
+    - target: {fileID: 4734604226770269557, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734604226770269557, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734604226770269557, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5180092006434954768, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -745,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5721215698316545388, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8223175630755966514, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: _humanName
@@ -781,7 +832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8975805250676548737, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1446,7 +1497,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7647153185747566920, guid: 7828fcb7cb72f9d46a05643074da3ca6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647153185747566920, guid: 7828fcb7cb72f9d46a05643074da3ca6, type: 3}
+      propertyPath: m_TagString
+      value: ChangeProcces
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

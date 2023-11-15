@@ -4,15 +4,11 @@ using TMPro;
 
 public class AddingDriverView : AddingHumanView
 {
-    public static AddingDriverView AddingDriver;
-    
     [SerializeField] private TMP_InputField _driverOrgName;
     [SerializeField] private TMP_InputField _driverWorkPay;
     [SerializeField] private TMP_InputField _driverWorkExp;
     [SerializeField] private TMP_InputField _driverBrandCar;
     [SerializeField] private TMP_InputField _driverModelCar;
-    
-    private void Awake() => AddingDriver = this;
 
     private void Start()
     {
@@ -25,7 +21,7 @@ public class AddingDriverView : AddingHumanView
         base.Initialize();
         CleanTextVariables();
     }
-    
+
     private void SaveInformation()
     {
         if (!string.IsNullOrEmpty(_humanName.text) && !string.IsNullOrEmpty(_humanLName.text) && 

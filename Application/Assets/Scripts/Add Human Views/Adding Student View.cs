@@ -4,13 +4,9 @@ using TMPro;
 
 public class AddingStudentView : AddingHumanView
 {
-    public static AddingStudentView AddingStudent;
-    
     [SerializeField]private TMP_InputField _studFacultyName;
     [SerializeField]private TMP_InputField _studCourse;
     [SerializeField]private TMP_InputField _studGroupNumber;
-    
-    private void Awake() => AddingStudent = this;
     
     private void Start()
     {
@@ -23,7 +19,7 @@ public class AddingStudentView : AddingHumanView
         base.Initialize();
         CleanTextVariables();
     }
-    
+
     protected void SaveInformation()
     {
         if (!string.IsNullOrEmpty(_humanName.text) && !string.IsNullOrEmpty(_humanLName.text) &&

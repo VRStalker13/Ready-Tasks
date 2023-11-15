@@ -30,11 +30,6 @@
                        "\n7. Group number";
             return list;
         }
-
-        ~ Student()
-        {
-            Console.WriteLine($"Student {FirstName} {LastName} {Patronymic} has been deleted");
-        }
     }
 
 

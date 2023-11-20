@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class ViewManager : MonoBehaviour
 {
     [SerializeField] public GameObject ErrorWindow; // Окно ошибки
-    [SerializeField] private View _startingView;// Начальный экран
-    [SerializeField] private View[] _views;// Массив всех экранов приложения
+    [SerializeField] private ViewMethods _startingView;// Начальный экран
+    [SerializeField] private ViewMethods[] _views;// Массив всех экранов приложения
     [SerializeField] private Button _closeProgramButton;// Кнопка закрытия приложения
     
     public static ViewManager Instance;
@@ -15,18 +15,7 @@ public class ViewManager : MonoBehaviour
     public Button ToNextWindowButton;// Кнопка переключения на следующее окно
     public Button CloseErrorWindowButton; // Кнопка закрытия окна с ошибкой
     
-    public View CurrentView;// Текущее окно
-    public ListHumansForChangingWindow ListHumsForChangingWindowObject ;
-    public AddingDriverView AddingDriverViewObject;
-    public AddingEmployeeView AddingEmployeeViewObject;
-    public AddingStudentView AddingStudentViewObject;
-    public HumansInformationWindow HumansInformationWindowObject;
-    public ListHumansForDeletingWindow ListHumansForDeletingWindowObject;
-    public ListHumansForShowingWindow ListHumansForShowingWindowObject;
-    public HumanInformationWindow HumanInformationWindowObject;
-    public ListParamsForChangingWindow ListParamsForChangingWindowObject;
-    public ProcessChangingHumanWindow ProcessChangingHumanWindowObject;
-    public AddingMenuWindow AddingMenuWindowObject;
+    public ViewMethods CurrentView;// Текущее окно
         
     public void Show<T>(bool hide = true) where T : View
     {
@@ -43,6 +32,17 @@ public class ViewManager : MonoBehaviour
                     Instance.CurrentView = Instance._views[i];
             }
         }
+    }
+
+    public ViewMethods GetView<T>()
+    {
+        ViewMethods requiredWindow = null;
+        
+        for (var i = 0; i < Instance._views.Length; i++)
+            if (Instance._views[i] is T)
+                requiredWindow = Instance._views[i];
+
+        return requiredWindow;
     }
 
     private void Awake() => Instance = this;
@@ -76,20 +76,19 @@ public class ViewManager : MonoBehaviour
         if (Instance.CurrentView is ListHumansForChangingWindow)
         {
             Instance.ToNextWindowButton.onClick.AddListener(() => Instance.Show<ListParamsForChangingWindow>());
-            Instance.ToNextWindowButton.onClick.AddListener(() => Instance.ListParamsForChangingWindowObject.ShowList());
+            Instance.ToNextWindowButton.onClick.AddListener(() => Instance.GetView<ListParamsForChangingWindow>().SetParams());
         }
 
         if (Instance.CurrentView is ListHumansForShowingWindow)
         {
             Instance.ToNextWindowButton.onClick.AddListener(() => Instance.Show<HumanInformationWindow>());
-            Instance.ToNextWindowButton.onClick.AddListener(() => Instance.HumanInformationWindowObject.ShowHuman());
+            Instance.ToNextWindowButton.onClick.AddListener(() => Instance.GetView<HumanInformationWindow>().SetParams());
         }
 
         if (Instance.CurrentView is ListParamsForChangingWindow)
         {
-            Instance.ToNextWindowButton.onClick.AddListener(() => Instance.Show<ProcessChangingHumanWindow>());
-            Instance.ToNextWindowButton.onClick.AddListener(Instance.ProcessChangingHumanWindowObject.SetNewParameterFormat);
-            Instance.ToNextWindowButton.onClick.AddListener(Instance.ProcessChangingHumanWindowObject.SetNewParameterName);
+            Instance.ToNextWindowButton.onClick.AddListener(() => Instance.Show<EditHumanWindow>());
+            Instance.ToNextWindowButton.onClick.AddListener(Instance.GetView<EditHumanWindow>().SetParams);
         }
         
         Instance.ToNextWindowButton.onClick.AddListener(() => 
@@ -99,7 +98,7 @@ public class ViewManager : MonoBehaviour
     public void ToMainMenu()
     {
         Instance.ToMainMenuButton.gameObject.SetActive(false);
-        Instance.AddingMenuWindowObject.SetVisible(true);
+        Instance.GetView<AddMenuWindow>().SetParams();
         Show<MainMenuWindow>();
         HideAllViews();
     }
@@ -111,9 +110,9 @@ public class ViewManager : MonoBehaviour
                 view.Hide();
     }
 
-    public void ShowInformationOnView(View view)
+    public void ShowInformationOnView(ViewMethods view)
     {
-        view.ShowList();
+        view.SetParams();
     }
 
     private void CloseErrorWindow() => Instance.ErrorWindow.SetActive(false);

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuWindow : View
+public class MainMenuWindow : ViewMethods
 {
     [SerializeField] private Button _addHumanButton;
     [SerializeField] private Button _deleteHumanButton;
@@ -11,32 +11,32 @@ public class MainMenuWindow : View
 
     public override void Initialize()
     {
-        _addHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<AddingMenuWindow>());
+        SetParams();
+    }
+
+    public override void SetParams()
+    {
+        _addHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<AddMenuWindow>());
         _addHumanButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
         
         _showHumansButton.onClick.AddListener(() => ViewManager.Instance.Show<HumansInformationWindow>());
         _showHumansButton.onClick.AddListener(() =>
-            ViewManager.Instance.ShowInformationOnView(ViewManager.Instance.HumansInformationWindowObject));
+            ViewManager.Instance.ShowInformationOnView(ViewManager.Instance.GetView<HumansInformationWindow>()));
         _showHumansButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
         
         _deleteHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<ListHumansForDeletingWindow>());
         _deleteHumanButton.onClick.AddListener(() => 
-            ViewManager.Instance.ShowInformationOnView(ViewManager.Instance.ListHumansForDeletingWindowObject));
+            ViewManager.Instance.ShowInformationOnView(ViewManager.Instance.GetView<ListHumansForDeletingWindow>()));
         _deleteHumanButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
         
         _showHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<ListHumansForShowingWindow>());
         _showHumanButton.onClick.AddListener(() =>  
-            ViewManager.Instance.ShowInformationOnView(ViewManager.Instance.ListHumansForShowingWindowObject));
+            ViewManager.Instance.ShowInformationOnView(ViewManager.Instance.GetView<ListHumansForShowingWindow>()));
         _showHumanButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
 
         _changeHumanButton.onClick.AddListener(() => ViewManager.Instance.Show<ListHumansForChangingWindow>());
         _changeHumanButton.onClick.AddListener(() => 
-            ViewManager.Instance.ShowInformationOnView(ViewManager.Instance.ListHumsForChangingWindowObject));
+            ViewManager.Instance.ShowInformationOnView(ViewManager.Instance.GetView<ListHumansForChangingWindow>()));
         _changeHumanButton.onClick.AddListener(() => ViewManager.Instance.ToMainMenuButton.gameObject.SetActive(true));
-    }
-
-    public override void ShowList()
-    {
-        
     }
 }

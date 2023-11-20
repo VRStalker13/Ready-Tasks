@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 
-public class AddingDriverView : AddingHumanView
+public class AddDriverWindow : AddHumanWindow
 {
     [SerializeField] private TMP_InputField _driverOrgName;
     [SerializeField] private TMP_InputField _driverWorkPay;
@@ -12,8 +12,7 @@ public class AddingDriverView : AddingHumanView
 
     private void Start()
     {
-        SettingFormatBirthday();
-        _saveButton.onClick.AddListener(SaveInformation);
+        SetParams();
     }
 
     public override void Initialize()
@@ -22,16 +21,18 @@ public class AddingDriverView : AddingHumanView
         CleanTextVariables();
     }
 
+    public override void SetParams()
+    {
+        SettingFormatBirthday();
+        SaveButton.onClick.AddListener(SaveInformation);
+    }
+
     private void SaveInformation()
     {
-        if (!string.IsNullOrEmpty(_humanName.text) && !string.IsNullOrEmpty(_humanLName.text) && 
-            !string.IsNullOrEmpty(_humanPatronymic.text) && !string.IsNullOrEmpty(_driverOrgName.text) && 
-            !string.IsNullOrEmpty(_driverWorkPay.text) && !string.IsNullOrEmpty(_driverWorkExp.text) &&
-            !string.IsNullOrEmpty(_driverBrandCar.text) && !string.IsNullOrEmpty(_driverModelCar.text) &&
-            !string.IsNullOrEmpty(_humanBirthday.text))
+        if (!CheckNullOrEmpty())
         {
-            Human hum = new Driver(_humanName.text,_humanLName.text,_humanPatronymic.text,
-                DateTime.Parse(_humanBirthday.text),_driverOrgName.text,_driverWorkPay.text,
+            Human hum = new Driver(HumanName.text,HumanLName.text,HumanPatronymic.text,
+                DateTime.Parse(HumanBirthday.text),_driverOrgName.text,_driverWorkPay.text,
                 _driverWorkExp.text,_driverBrandCar.text,_driverModelCar.text);
             CleanTextVariables();
             SaveInformation(hum);
@@ -40,6 +41,16 @@ public class AddingDriverView : AddingHumanView
         {
             ViewManager.Instance.ErrorWindow.SetActive(true);
         }
+    }
+    
+    public override bool CheckNullOrEmpty()
+    {
+        if (!base.CheckNullOrEmpty() && !string.IsNullOrEmpty(_driverOrgName.text) && 
+            !string.IsNullOrEmpty(_driverWorkPay.text) && !string.IsNullOrEmpty(_driverWorkExp.text) &&
+            !string.IsNullOrEmpty(_driverBrandCar.text) && !string.IsNullOrEmpty(_driverModelCar.text))
+            return false;
+        else
+            return true;
     }
 
     protected override void CleanTextVariables()

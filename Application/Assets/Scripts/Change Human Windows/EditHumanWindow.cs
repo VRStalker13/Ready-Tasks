@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ProcessChangingHumanWindow : View
+public class EditHumanWindow : ViewMethods
 {
     [SerializeField] private TextMeshProUGUI _nameChangingParametr;// Название изменяемого параметра
     [SerializeField] private TMP_InputField _newParameterValue;// Новое значение параметра при изменении
@@ -18,6 +18,73 @@ public class ProcessChangingHumanWindow : View
     public override void Initialize()
     {
         CleanTextVariables();
+    }
+
+    public override void SetParams()
+    {
+        SetNewParameterFormat();
+        
+        switch (ApplicationData.AppData.ChoosenNumberOfParam)
+        {
+            case 1:
+                _nameChangingParametr.text = "New name is: ";
+                return;
+            case 2:
+                _nameChangingParametr.text = "New Lastname is: ";
+                return;
+            case 3:
+                _nameChangingParametr.text = "New Patronymic is: ";
+                return;
+            case 4:
+                _nameChangingParametr.text = "New Birthday is: ";
+                return;
+        }
+
+        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Student)
+        {
+            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            {
+                case 5:
+                    _nameChangingParametr.text = "New Faculty is: ";;
+                    return;
+                case 6:
+                    _nameChangingParametr.text = "New Course is: ";
+                    return;
+                case 7:
+                   _nameChangingParametr.text = "New GroupNum is: ";
+                    return;  
+            }
+        }
+
+        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Employer ||
+            ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver )
+        {
+            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            {
+                case 5:
+                    _nameChangingParametr.text = "New Organization is: ";
+                    return;
+                case 6:
+                    _nameChangingParametr.text = "New WorkPay is: ";
+                    return;
+                case 7:
+                    _nameChangingParametr.text = "New WorkExp is: ";
+                    return;
+            }
+        }
+
+        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver )
+        {
+            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            {
+                case 8:
+                    _nameChangingParametr.text = "New CarBrand is: ";
+                    return;
+                case 9:
+                    _nameChangingParametr.text = "New CarModel is: ";
+                    return; 
+            }
+        }
     }
 
     private void Change()
@@ -117,71 +184,6 @@ public class ProcessChangingHumanWindow : View
     {
         _nameChangingParametr.text = "";
         _newParameterValue.text = "";
-    }
-    
-    public void SetNewParameterName()
-    {
-        switch (ApplicationData.AppData.ChoosenNumberOfParam)
-        {
-            case 1:
-                _nameChangingParametr.text = "New name is: ";
-                return;
-            case 2:
-                _nameChangingParametr.text = "New Lastname is: ";
-                return;
-            case 3:
-                _nameChangingParametr.text = "New Patronymic is: ";
-                return;
-            case 4:
-                _nameChangingParametr.text = "New Birthday is: ";
-                return;
-        }
-
-        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Student)
-        {
-            switch (ApplicationData.AppData.ChoosenNumberOfParam)
-            {
-                case 5:
-                    _nameChangingParametr.text = "New Faculty is: ";;
-                    return;
-                case 6:
-                    _nameChangingParametr.text = "New Course is: ";
-                    return;
-                case 7:
-                   _nameChangingParametr.text = "New GroupNum is: ";
-                    return;  
-            }
-        }
-
-        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Employer ||
-            ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver )
-        {
-            switch (ApplicationData.AppData.ChoosenNumberOfParam)
-            {
-                case 5:
-                    _nameChangingParametr.text = "New Organization is: ";
-                    return;
-                case 6:
-                    _nameChangingParametr.text = "New WorkPay is: ";
-                    return;
-                case 7:
-                    _nameChangingParametr.text = "New WorkExp is: ";
-                    return;
-            }
-        }
-
-        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver )
-        {
-            switch (ApplicationData.AppData.ChoosenNumberOfParam)
-            {
-                case 8:
-                    _nameChangingParametr.text = "New CarBrand is: ";
-                    return;
-                case 9:
-                    _nameChangingParametr.text = "New CarModel is: ";
-                    return; 
-            }
-        }
     }
 
     public void SetNewParameterFormat()

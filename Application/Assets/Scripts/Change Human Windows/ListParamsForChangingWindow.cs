@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ListParamsForChangingWindow : View
+public class ListParamsForChangingWindow : ViewMethods
 {
     [SerializeField] private TextMeshProUGUI _listParamsForChanging;// Список параметров для изменения
     [SerializeField] private TMP_InputField _input;// Номер выбранного параметра
@@ -19,7 +19,7 @@ public class ListParamsForChangingWindow : View
         CleanTextVariables();
     }
 
-    public override void ShowList()
+    public override void SetParams()
     {
         _listParamsForChanging.text =
             ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman].ListChanges();

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 
-public class AddingEmployeeView : AddingHumanView
+public class AddEmployeeWindow : AddHumanWindow
 {
     [SerializeField]private TMP_InputField _emplOrgName;
     [SerializeField]private TMP_InputField _emplWorkPay;
@@ -10,8 +10,7 @@ public class AddingEmployeeView : AddingHumanView
     
     private void Start()
     {
-        SettingFormatBirthday();
-        _saveButton.onClick.AddListener(SaveInformation);
+        SetParams();
     }
     
     public override void Initialize()
@@ -20,15 +19,18 @@ public class AddingEmployeeView : AddingHumanView
         CleanTextVariables();
     }
 
+    public override void SetParams()
+    {
+        SettingFormatBirthday();
+        SaveButton.onClick.AddListener(SaveInformation);
+    }
+
     private void SaveInformation()
     {
-        if (!string.IsNullOrEmpty(_humanName.text) && !string.IsNullOrEmpty(_humanLName.text) &&
-            !string.IsNullOrEmpty(_humanPatronymic.text) && !string.IsNullOrEmpty(_emplOrgName.text) && 
-            !string.IsNullOrEmpty(_emplWorkPay.text) && !string.IsNullOrEmpty(_emplWorkExp.text) &&
-            !string.IsNullOrEmpty(_humanBirthday.text))
+        if (!CheckNullOrEmpty())
         {
-            Human hum = new Employer(_humanName.text, _humanLName.text, _humanPatronymic.text,
-                DateTime.Parse(_humanBirthday.text), _emplOrgName.text, _emplWorkPay.text, _emplWorkExp.text);
+            Human hum = new Employer(HumanName.text, HumanLName.text, HumanPatronymic.text,
+                DateTime.Parse(HumanBirthday.text), _emplOrgName.text, _emplWorkPay.text, _emplWorkExp.text);
             CleanTextVariables();
             SaveInformation(hum);
         }
@@ -36,6 +38,15 @@ public class AddingEmployeeView : AddingHumanView
         {
             ViewManager.Instance.ErrorWindow.SetActive(true);
         }
+    }
+
+    public override bool CheckNullOrEmpty()
+    {
+        if (!base.CheckNullOrEmpty() && !string.IsNullOrEmpty(_emplOrgName.text) && 
+            !string.IsNullOrEmpty(_emplWorkPay.text) && !string.IsNullOrEmpty(_emplWorkExp.text))
+            return false;
+        else
+            return true;
     }
 
     protected override void CleanTextVariables()

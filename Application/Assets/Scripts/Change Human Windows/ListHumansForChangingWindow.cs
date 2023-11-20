@@ -2,7 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-public class ListHumansForChangingWindow : View
+public class ListHumansForChangingWindow : ViewMethods
 {
     [SerializeField] private TextMeshProUGUI _listHumansForChange;// Список людей для изменения
     [SerializeField] private TMP_InputField _input; // Номер выбранного человека
@@ -18,7 +18,7 @@ public class ListHumansForChangingWindow : View
         CleanTextVariables();
     }
 
-    public override void ShowList()
+    public override void SetParams()
     {
         var count = ApplicationData.AppData.ListHum.Count;
         var text = "Human List:\n";

@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using TMPro;
 
-public class AddingStudentView : AddingHumanView
+public class AddStudentWindow : AddHumanWindow
 {
     [SerializeField]private TMP_InputField _studFacultyName;
     [SerializeField]private TMP_InputField _studCourse;
@@ -10,8 +10,7 @@ public class AddingStudentView : AddingHumanView
     
     private void Start()
     {
-        SettingFormatBirthday();
-        _saveButton.onClick.AddListener(SaveInformation);
+        SetParams();
     }
     
     public override void Initialize()
@@ -20,15 +19,18 @@ public class AddingStudentView : AddingHumanView
         CleanTextVariables();
     }
 
+    public override void SetParams()
+    {
+        SettingFormatBirthday();
+        SaveButton.onClick.AddListener(SaveInformation);
+    }
+
     protected void SaveInformation()
     {
-        if (!string.IsNullOrEmpty(_humanName.text) && !string.IsNullOrEmpty(_humanLName.text) &&
-            !string.IsNullOrEmpty(_humanPatronymic.text) && !string.IsNullOrEmpty(_studFacultyName.text) &&
-            !string.IsNullOrEmpty(_studCourse.text) && !string.IsNullOrEmpty(_studGroupNumber.text) && 
-            !string.IsNullOrEmpty(_humanBirthday.text))
+        if (!CheckNullOrEmpty())
         {
-            Human hum = new Student(_humanName.text, _humanLName.text,
-                _humanPatronymic.text, DateTime.Parse(_humanBirthday.text),
+            Human hum = new Student(HumanName.text, HumanLName.text,
+                HumanPatronymic.text, DateTime.Parse(HumanBirthday.text),
                 _studFacultyName.text, _studCourse.text,
                 _studGroupNumber.text);
             CleanTextVariables();
@@ -38,6 +40,15 @@ public class AddingStudentView : AddingHumanView
         {
             ViewManager.Instance.ErrorWindow.SetActive(true);
         }
+    }
+    
+    public override bool CheckNullOrEmpty()
+    {
+        if (!base.CheckNullOrEmpty() && !string.IsNullOrEmpty(_studFacultyName.text) &&
+            !string.IsNullOrEmpty(_studCourse.text) && !string.IsNullOrEmpty(_studGroupNumber.text))
+            return false;
+        else
+            return true;
     }
 
     protected override void CleanTextVariables()

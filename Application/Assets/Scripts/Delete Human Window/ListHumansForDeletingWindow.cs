@@ -2,7 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-public class ListHumansForDeletingWindow : View
+public class ListHumansForDeletingWindow : ViewMethods
 {
     [SerializeField] private TextMeshProUGUI _listHumansForDeleting;// Список людей для удаления
     [SerializeField] private TMP_InputField _input;// Номер выбранного человека
@@ -19,7 +19,7 @@ public class ListHumansForDeletingWindow : View
         CleanTextVariables();
     }
 
-    public override void ShowList()
+    public override void SetParams()
     {
         var count = ApplicationData.AppData.ListHum.Count;
         var text = "Human List:\n";

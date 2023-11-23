@@ -4,9 +4,9 @@ using TMPro;
 
 public class AddStudentWindow : AddHumanWindow
 {
-    [SerializeField]private TMP_InputField _studFacultyName;
-    [SerializeField]private TMP_InputField _studCourse;
-    [SerializeField]private TMP_InputField _studGroupNumber;
+    [SerializeField] private TMP_InputField _studFacultyName;
+    [SerializeField] private TMP_InputField _studCourse;
+    [SerializeField] private TMP_InputField _studGroupNumber;
     
     private void Start()
     {
@@ -29,7 +29,7 @@ public class AddStudentWindow : AddHumanWindow
     {
         if (!CheckNullOrEmpty())
         {
-            Human hum = new Student(HumanName.text, HumanLName.text,
+            var hum = new Student(HumanName.text, HumanLName.text,
                 HumanPatronymic.text, DateTime.Parse(HumanBirthday.text),
                 _studFacultyName.text, _studCourse.text,
                 _studGroupNumber.text);
@@ -42,13 +42,10 @@ public class AddStudentWindow : AddHumanWindow
         }
     }
     
-    public override bool CheckNullOrEmpty()
+    protected override bool CheckNullOrEmpty()
     {
-        if (!base.CheckNullOrEmpty() && !string.IsNullOrEmpty(_studFacultyName.text) &&
-            !string.IsNullOrEmpty(_studCourse.text) && !string.IsNullOrEmpty(_studGroupNumber.text))
-            return false;
-        else
-            return true;
+        return base.CheckNullOrEmpty() || string.IsNullOrEmpty(_studFacultyName.text) ||
+               string.IsNullOrEmpty(_studCourse.text) || string.IsNullOrEmpty(_studGroupNumber.text);
     }
 
     protected override void CleanTextVariables()

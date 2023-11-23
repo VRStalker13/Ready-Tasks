@@ -24,9 +24,8 @@ public sealed class Driver : Employer
 
     public override string ListChanges()
     {
-        var list = base.ListChanges() +
+        return base.ListChanges() +
                    "\n8. Car Brand" +
                    "\n9. Car Model";
-        return list;
     }
 }

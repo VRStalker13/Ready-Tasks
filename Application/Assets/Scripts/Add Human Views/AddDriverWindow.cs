@@ -31,7 +31,7 @@ public class AddDriverWindow : AddHumanWindow
     {
         if (!CheckNullOrEmpty())
         {
-            Human hum = new Driver(HumanName.text,HumanLName.text,HumanPatronymic.text,
+            var hum = new Driver(HumanName.text,HumanLName.text,HumanPatronymic.text,
                 DateTime.Parse(HumanBirthday.text),_driverOrgName.text,_driverWorkPay.text,
                 _driverWorkExp.text,_driverBrandCar.text,_driverModelCar.text);
             CleanTextVariables();
@@ -43,14 +43,11 @@ public class AddDriverWindow : AddHumanWindow
         }
     }
     
-    public override bool CheckNullOrEmpty()
+    protected override bool CheckNullOrEmpty()
     {
-        if (!base.CheckNullOrEmpty() && !string.IsNullOrEmpty(_driverOrgName.text) && 
-            !string.IsNullOrEmpty(_driverWorkPay.text) && !string.IsNullOrEmpty(_driverWorkExp.text) &&
-            !string.IsNullOrEmpty(_driverBrandCar.text) && !string.IsNullOrEmpty(_driverModelCar.text))
-            return false;
-        else
-            return true;
+        return base.CheckNullOrEmpty() || string.IsNullOrEmpty(_driverOrgName.text) ||
+               string.IsNullOrEmpty(_driverWorkPay.text) || string.IsNullOrEmpty(_driverWorkExp.text) ||
+               string.IsNullOrEmpty(_driverBrandCar.text) || string.IsNullOrEmpty(_driverModelCar.text);
     }
 
     protected override void CleanTextVariables()

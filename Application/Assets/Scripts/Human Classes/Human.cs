@@ -7,7 +7,7 @@ public abstract class Human
         public string Patronymic;        
         public DateTime Birthday;
 
-        public Human(string fname, string lname, string patr, 
+        protected Human(string fname, string lname, string patr, 
                      DateTime birthday) 
         {
             Console.WriteLine("Run construct with parametrs of Human");
@@ -19,15 +19,14 @@ public abstract class Human
 
         public virtual string ListChanges()
         {
-            var list = "Please choose what do you want to change:" +
-                            "\n1. First name" +
-                            "\n2. Last name" +
-                            "\n3. Patronumic" +
-                            "\n4. Birthday";
-            return list;
+            return "Please choose what do you want to change:" +
+                    "\n1. First name" +
+                    "\n2. Last name" +
+                    "\n3. Patronymic" +
+                    "\n4. Birthday";
         }
 
-        public string ShowFullYears()
+        protected string ShowFullYears()
         {
             var now = DateTime.Now;            
             var fullYears = now.Year - Birthday.Year - 1;

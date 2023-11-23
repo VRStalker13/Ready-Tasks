@@ -793,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5721215698316545388, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8223175630755966514, guid: f1413a4f8713bb449886efe92aee103a, type: 3}
       propertyPath: SaveButton
@@ -2209,6 +2209,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Back Button
       objectReference: {fileID: 0}
+    - target: {fileID: 2149893908553557977, guid: 972056d3619eb204692470311b3b7d47, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3535230739311915217, guid: 972056d3619eb204692470311b3b7d47, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2239,7 +2243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3535230739311915217, guid: 972056d3619eb204692470311b3b7d47, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1208.1
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 3535230739311915217, guid: 972056d3619eb204692470311b3b7d47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2271,11 +2275,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3535230739311915217, guid: 972056d3619eb204692470311b3b7d47, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000045776
+      value: 3.638e-12
       objectReference: {fileID: 0}
     - target: {fileID: 3535230739311915217, guid: 972056d3619eb204692470311b3b7d47, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 64.07001
+      value: 0.0099945
       objectReference: {fileID: 0}
     - target: {fileID: 3535230739311915217, guid: 972056d3619eb204692470311b3b7d47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

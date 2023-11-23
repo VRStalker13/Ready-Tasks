@@ -24,11 +24,10 @@ public class Employer : Human
 
     public override string ListChanges()
     {
-        var list = base.ListChanges()+
-                        "\n5. Organization name" +
-                        "\n6. Work pay" +
-                        "\n7. Work experience";
-        return list;
+        return base.ListChanges()+
+                "\n5. Organization name" +
+                "\n6. Work pay" +
+                "\n7. Work experience";
     }
 }
 

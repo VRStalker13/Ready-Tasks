@@ -4,9 +4,9 @@ using TMPro;
 
 public class AddEmployeeWindow : AddHumanWindow
 {
-    [SerializeField]private TMP_InputField _emplOrgName;
-    [SerializeField]private TMP_InputField _emplWorkPay;
-    [SerializeField]private TMP_InputField _emplWorkExp;
+    [SerializeField] private TMP_InputField _emplOrgName;
+    [SerializeField] private TMP_InputField _emplWorkPay;
+    [SerializeField] private TMP_InputField _emplWorkExp;
     
     private void Start()
     {
@@ -29,7 +29,7 @@ public class AddEmployeeWindow : AddHumanWindow
     {
         if (!CheckNullOrEmpty())
         {
-            Human hum = new Employer(HumanName.text, HumanLName.text, HumanPatronymic.text,
+            var hum = new Employer(HumanName.text, HumanLName.text, HumanPatronymic.text,
                 DateTime.Parse(HumanBirthday.text), _emplOrgName.text, _emplWorkPay.text, _emplWorkExp.text);
             CleanTextVariables();
             SaveInformation(hum);
@@ -40,13 +40,10 @@ public class AddEmployeeWindow : AddHumanWindow
         }
     }
 
-    public override bool CheckNullOrEmpty()
+    protected override bool CheckNullOrEmpty()
     {
-        if (!base.CheckNullOrEmpty() && !string.IsNullOrEmpty(_emplOrgName.text) && 
-            !string.IsNullOrEmpty(_emplWorkPay.text) && !string.IsNullOrEmpty(_emplWorkExp.text))
-            return false;
-        else
-            return true;
+        return base.CheckNullOrEmpty() || string.IsNullOrEmpty(_emplOrgName.text) ||
+               string.IsNullOrEmpty(_emplWorkPay.text) || string.IsNullOrEmpty(_emplWorkExp.text);
     }
 
     protected override void CleanTextVariables()

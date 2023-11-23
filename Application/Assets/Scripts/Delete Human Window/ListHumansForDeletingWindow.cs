@@ -7,6 +7,7 @@ public class ListHumansForDeletingWindow : ViewMethods
     [SerializeField] private TextMeshProUGUI _listHumansForDeleting;// Список людей для удаления
     [SerializeField] private TMP_InputField _input;// Номер выбранного человека
     [SerializeField] private Button _saveButton;
+    
     private string _chosenNumber;
 
     private void Start()

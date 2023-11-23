@@ -10,12 +10,11 @@ public class HumansInformationWindow : ViewMethods
     public override void SetParams()
     {
         var text = "List of all Humans:" + "\n---------------------";
+        
         if (ApplicationData.AppData.ListHum.Count > 0)
-        {
             foreach (var hum in ApplicationData.AppData.ListHum)
                 text =$"{text}\n{hum}\n---------------------\n";
-        }
-        
+
         HumansInformationText.text = text; 
     }
 }

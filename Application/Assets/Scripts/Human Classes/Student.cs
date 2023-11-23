@@ -24,11 +24,10 @@
 
         public override string ListChanges()
         {
-            var list = base.ListChanges() +
-                       "\n5. Faculty name" +
-                       "\n6. Study Course" +
-                       "\n7. Group number";
-            return list;
+            return base.ListChanges() +
+                   "\n5. Faculty name" +
+                   "\n6. Study Course" +
+                   "\n7. Group number";
         }
     }
 

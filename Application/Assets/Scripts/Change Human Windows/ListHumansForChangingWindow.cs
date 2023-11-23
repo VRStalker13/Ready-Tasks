@@ -37,7 +37,7 @@ public class ListHumansForChangingWindow : ViewMethods
         {
             if (int.Parse(_input.text) <= ApplicationData.AppData.ListHum.Count && int.Parse(_input.text) > 0)
             {
-                ApplicationData.AppData.ChoosenNumberOfHuman = int.Parse(_input.text) - 1;
+                ApplicationData.AppData.ChosenNumberOfHuman = int.Parse(_input.text) - 1;
                 ViewManager.Instance.ToNextWindow();
                 CleanTextVariables();
                 ViewManager.Instance.ToNextWindowButton.gameObject.SetActive(true);

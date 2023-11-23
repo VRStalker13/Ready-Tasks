@@ -9,6 +9,9 @@ public class EditHumanWindow : ViewMethods
     [SerializeField] private TextMeshProUGUI _nameChangingParametr;// Название изменяемого параметра
     [SerializeField] private TMP_InputField _newParameterValue;// Новое значение параметра при изменении
     [SerializeField] private Button _saveButton;
+
+    private int _chosenNumberOfParam;
+    private Human _human;
     
     private void Start()
     {
@@ -22,9 +25,11 @@ public class EditHumanWindow : ViewMethods
 
     public override void SetParams()
     {
+        _chosenNumberOfParam = ApplicationData.AppData.ChosenNumberOfParam;
+        _human = ApplicationData.AppData.ListHum[ApplicationData.AppData.ChosenNumberOfHuman];
         SetNewParameterFormat();
-        
-        switch (ApplicationData.AppData.ChoosenNumberOfParam)
+
+        switch (_chosenNumberOfParam)
         {
             case 1:
                 _nameChangingParametr.text = "New name is: ";
@@ -40,9 +45,9 @@ public class EditHumanWindow : ViewMethods
                 return;
         }
 
-        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Student)
+        if (_human is Student)
         {
-            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            switch (_chosenNumberOfParam)
             {
                 case 5:
                     _nameChangingParametr.text = "New Faculty is: ";;
@@ -56,10 +61,9 @@ public class EditHumanWindow : ViewMethods
             }
         }
 
-        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Employer ||
-            ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver )
+        if (_human is Employer || _human is Driver )
         {
-            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            switch (_chosenNumberOfParam)
             {
                 case 5:
                     _nameChangingParametr.text = "New Organization is: ";
@@ -73,9 +77,9 @@ public class EditHumanWindow : ViewMethods
             }
         }
 
-        if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver )
+        if (_human is Driver )
         {
-            switch (ApplicationData.AppData.ChoosenNumberOfParam)
+            switch (_chosenNumberOfParam)
             {
                 case 8:
                     _nameChangingParametr.text = "New CarBrand is: ";
@@ -91,13 +95,13 @@ public class EditHumanWindow : ViewMethods
     {
         if (_newParameterValue.text.Length > 0)
         {
-            if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Student stud)
+            if (_human is Student stud)
                 ChangeStudent(stud);
     
-            if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Employer empl)
+            if (_human is Employer empl)
                 ChangeEmployer(empl);
     
-            if (ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman] is Driver driver)
+            if (_human is Driver driver)
                 ChangeDriver(driver);
             
             CleanTextVariables();
@@ -114,7 +118,7 @@ public class EditHumanWindow : ViewMethods
         ChangeHuman(driver);
         ChangeEmployer(driver);
         
-        switch (ApplicationData.AppData.ChoosenNumberOfParam)
+        switch (_chosenNumberOfParam)
         {
             case 8:
                 driver.CarBrand = _newParameterValue.text;
@@ -129,7 +133,7 @@ public class EditHumanWindow : ViewMethods
     {
         ChangeHuman(empl);
         
-        switch (ApplicationData.AppData.ChoosenNumberOfParam)
+        switch (_chosenNumberOfParam)
         {
             case 5:
                 empl.Organization = _newParameterValue.text;
@@ -145,7 +149,7 @@ public class EditHumanWindow : ViewMethods
     
     private void ChangeHuman(Human hum)
     {
-        switch (ApplicationData.AppData.ChoosenNumberOfParam)
+        switch (_chosenNumberOfParam)
         {
             case 1:
                 hum.FirstName = _newParameterValue.text;
@@ -166,7 +170,7 @@ public class EditHumanWindow : ViewMethods
     {
         ChangeHuman(stud);
         
-        switch (ApplicationData.AppData.ChoosenNumberOfParam)
+        switch (_chosenNumberOfParam)
         {
             case 5:
                 stud.Faculty = _newParameterValue.text;
@@ -186,12 +190,13 @@ public class EditHumanWindow : ViewMethods
         _newParameterValue.text = "";
     }
 
-    public void SetNewParameterFormat()
+    private void SetNewParameterFormat()
     {
         _newParameterValue.onEndEdit.RemoveAllListeners();
         _newParameterValue.onValueChanged.RemoveAllListeners();
         
-        if (ApplicationData.AppData.ChoosenNumberOfParam == 4)
+        // 4-ый параметр это дата рождения
+        if (_chosenNumberOfParam == 4)
             _newParameterValue.onEndEdit.AddListener(OnInputEndEdit);
         else
             _newParameterValue.onValueChanged.AddListener(OnValueChange);
@@ -201,6 +206,7 @@ public class EditHumanWindow : ViewMethods
     private void OnInputEndEdit(string str)
     {
         _newParameterValue.contentType = TMP_InputField.ContentType.Standard;
+        
         if (!DateTime.TryParseExact(str, "dd.MM.yyyy", null, DateTimeStyles.None, out _))
             _newParameterValue.text = "";
     }
@@ -209,13 +215,11 @@ public class EditHumanWindow : ViewMethods
     private void OnValueChange(string str)
     {
         // Для текстовых полей человека устанавливаем тип чтобы можно было вводить лишь буквы
-        if (ApplicationData.AppData.ChoosenNumberOfParam < 4 || ApplicationData.AppData.ChoosenNumberOfParam == 5 ||
-            ApplicationData.AppData.ChoosenNumberOfParam >= 8 )
+        if (_chosenNumberOfParam < 4 || _chosenNumberOfParam == 5 || _chosenNumberOfParam >= 8 )
             _newParameterValue.contentType = TMP_InputField.ContentType.Name;
 
         // Для численных полей человека устанавливаем чтобы можно было вводить лишь числа 
-        if (ApplicationData.AppData.ChoosenNumberOfParam == 6 || ApplicationData.AppData.ChoosenNumberOfParam == 7 )
+        if (_chosenNumberOfParam == 6 || _chosenNumberOfParam == 7 )
             _newParameterValue.contentType = TMP_InputField.ContentType.IntegerNumber;
     }
-
 }

@@ -6,6 +6,7 @@ public class AddMenuWindow : ViewMethods
     [SerializeField] private Button _addStudent;
     [SerializeField] private Button _addEmployee;
     [SerializeField] private Button _addDriver;
+    
     private Button[] _buttons;
     
     public override void Initialize()
@@ -19,8 +20,7 @@ public class AddMenuWindow : ViewMethods
         
         _buttons[2].onClick.AddListener(() => ViewManager.Instance.Show<AddDriverWindow>(false));
         _buttons[2].onClick.AddListener(() => ViewManager.Instance.GetView<AddDriverWindow>().Initialize());
-        
-        
+
         foreach (var button in _buttons)
             button.onClick.AddListener(() => SetVisible(false));
     }
@@ -30,7 +30,7 @@ public class AddMenuWindow : ViewMethods
         SetVisible(true);
     }
 
-    public void SetVisible(bool isVisible)
+    private void SetVisible(bool isVisible)
     {
         foreach (var button in _buttons)
             button.interactable = isVisible;

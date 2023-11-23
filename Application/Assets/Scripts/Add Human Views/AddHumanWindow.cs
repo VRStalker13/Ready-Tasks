@@ -7,11 +7,12 @@ using UnityEngine.Serialization;
 
 public abstract class AddHumanWindow : ViewMethods
 {
-    [SerializeField]protected TMP_InputField HumanName;
-    [SerializeField]protected TMP_InputField HumanLName;
-    [SerializeField]protected TMP_InputField HumanPatronymic;
-    [SerializeField]protected TMP_InputField HumanBirthday;
-    [SerializeField]protected Button SaveButton;
+    [SerializeField] protected TMP_InputField HumanName;
+    [SerializeField] protected TMP_InputField HumanLName;
+    [SerializeField] protected TMP_InputField HumanPatronymic;
+    [SerializeField] protected TMP_InputField HumanBirthday;
+    [SerializeField] protected Button SaveButton;
+    
     public override void Initialize()
     {
         CleanTextVariables();
@@ -35,13 +36,10 @@ public abstract class AddHumanWindow : ViewMethods
         HumanBirthday.onEndEdit.AddListener(OnInputEndEdit);
     }
     
-    public virtual bool CheckNullOrEmpty()
+    protected virtual bool CheckNullOrEmpty()
     {
-        if (!string.IsNullOrEmpty(HumanName.text) && !string.IsNullOrEmpty(HumanLName.text) &&
-            !string.IsNullOrEmpty(HumanPatronymic.text) && !string.IsNullOrEmpty(HumanBirthday.text))
-            return false;
-        else
-            return true;
+        return string.IsNullOrEmpty(HumanName.text) || string.IsNullOrEmpty(HumanLName.text) ||
+               string.IsNullOrEmpty(HumanPatronymic.text) || string.IsNullOrEmpty(HumanBirthday.text);
     }
 
     protected virtual void CleanTextVariables()

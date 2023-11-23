@@ -12,6 +12,6 @@ public class HumanInformationWindow : ViewMethods
 
     public override void SetParams()
     {
-        _humanInformation.text = $"{ApplicationData.AppData.ListHum[ApplicationData.AppData.ChoosenNumberOfHuman]}";
+        _humanInformation.text = $"{ApplicationData.AppData.ListHum[ApplicationData.AppData.ChosenNumberOfHuman]}";
     }
 }

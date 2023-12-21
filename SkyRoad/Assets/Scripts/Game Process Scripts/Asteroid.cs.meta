@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: ed89d196be865bd4ab36520f000e3c89
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _stonePrefab: {fileID: 2485401396952217400, guid: 1703328f2709cbf488890163ada6d659, type: 3}
+  - _roadPrefab: {fileID: 8567707063069043033, guid: f13da5491ecb65e4dbee4f0b1c6705c8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

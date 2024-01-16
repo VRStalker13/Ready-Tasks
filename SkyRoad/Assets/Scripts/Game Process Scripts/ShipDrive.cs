@@ -29,9 +29,7 @@ public class ShipDrive : MonoBehaviour
     void Update()
     {
         MoveShip();
-        var position = ViewManager.Instance.GameCamera.gameObject.transform.position;
-        position = new Vector3(position.x,position.y,_ship.transform.position.z);
-        ViewManager.Instance.GameCamera.gameObject.transform.position = position;
+        CameraMethods.CamMethods.HorizontalMovingCamera("Game Camera",_ship.transform.position.z);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

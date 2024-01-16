@@ -10,19 +10,23 @@ public class ApplicationData
     public bool IsPlayMenuMusic;
     public bool IsPlayGameMusic;
 
-    public float GameScore = 0f;
-    public float GameTime = 0f;
-    public bool GameProcessIsOn = false;
-
-    public List<GameObject> _roads = new List<GameObject>();
-    public List<GameObject> _stones = new List<GameObject>();
+    public float GameScore;
+    public float GameTime;
+    public bool GameProcessIsOn;
     
-    public GameResult[] GameRes = new GameResult[11];
+    public GameResultData[] GameRes = new GameResultData[11];
     
     public readonly int _maxRoadCount = 20;
     public readonly int _maxStotesCount = 19;
     public readonly float _startSpeed = 5f;
-    public float _speed = 0f;
+    public float _speed;
     public float Acceleration = 1;
     public bool _trigger = true;
+    
+    public void CreateStartRecordsList()
+    {
+        for (var i = 0; i < AppData.GameRes.Length; i++)
+            AppData.GameRes[i] = new GameResultData();
+    }
 }
+

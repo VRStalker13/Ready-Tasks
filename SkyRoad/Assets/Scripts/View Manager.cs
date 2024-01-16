@@ -3,39 +3,17 @@ using UnityEngine;
 public class ViewManager : MonoBehaviour
 {
     [SerializeField] private ViewMethods[] _views;// Массив всех экранов приложения
-    [SerializeField] private Texture2D _cursorTexture;
         
     public static ViewManager Instance;
     
     private ViewMethods _currentView;// Текущее окно
-    //public GameMusic Music;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    public GameObject MenuCamera;
-    public GameObject GameCamera;
-    
 
     private void Awake() => Instance = this;
     
     private void Start()
     {
-        Initialize();
         Instance.GetView<MainMenuBackgroundWindow>().Show();
-        Cursor.SetCursor(_cursorTexture, Vector2.zero, CursorMode.Auto);
         Show<GameComicsWindow>();
-    }
-
-    private void Initialize()
-    {
-        foreach (var view in Instance._views)
-        {
-            view.Show();
-            view.Hide();
-        }
-    }
-
-    public void ActivateMenuCamera(bool isTrue)
-    {
-        GameCamera.SetActive(!isTrue);
-        MenuCamera.SetActive(isTrue);
     }
     
     public void Show<T>(bool hide = true) where T : ViewMethods

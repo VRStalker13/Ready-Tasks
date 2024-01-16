@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Button = UnityEngine.UI.Button;
 
 public class GameComicsWindow : ViewMethods
@@ -25,9 +26,8 @@ public class GameComicsWindow : ViewMethods
 
     private void Start()
     {
-        
         _button.onClick.AddListener(ButtonAction);
-        OnPointerEnterButtons(new Button[]{_button});
+        AddOnPointerEnter(new []{_button},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
         GameMusic.Music.PlayMenuMusic(true);
     }
 
@@ -52,13 +52,16 @@ public class GameComicsWindow : ViewMethods
         _images[num].SetActive(true);
         _texts[num].gameObject.SetActive(true);
         _texts[num].text = "";
-
+        _button.gameObject.SetActive(false);
+        
         // Создаем эффект печати текста на экране 
         for (var x = 0; x < _str[num - 1].Length; x++)
         {
             _texts[num].text += _str[num - 1][x];
             yield return new WaitForSeconds(0.05f);
         }
+        
+        _button.gameObject.SetActive(true);
     }
 
     public override void SetParams()

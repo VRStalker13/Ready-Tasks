@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMusic : MonoBehaviour
@@ -16,6 +17,8 @@ public class GameMusic : MonoBehaviour
     [SerializeField] private AudioSource _burnMusicPlayer;
     [SerializeField] private AudioSource _speedMusicPlayer;
     [SerializeField] private AudioSource _winMusicPlayer;
+
+    [SerializeField] private Dictionary<string, int> _storage;
 
     public static GameMusic Music;
 
@@ -83,23 +86,23 @@ public class GameMusic : MonoBehaviour
         _buttonsMusicPlayer.Play();
     }
     
-    public void PlayBurnMusic()
+    public void PlayBurnMusic(bool isOn)
     {
-        _burnMusicPlayer.gameObject.SetActive(true);
+        _burnMusicPlayer.gameObject.SetActive(isOn);
         _burnMusicPlayer.clip = _burnMusic; 
         _burnMusicPlayer.Play();
     }
     
-    public void PlaySpeedMusic(bool isPlay)
+    public void PlaySpeedMusic(bool isOn)
     {
-        _speedMusicPlayer.gameObject.SetActive(isPlay);
+        _speedMusicPlayer.gameObject.SetActive(isOn);
         _speedMusicPlayer.clip = _speedMusic;
         _speedMusicPlayer.Play();
     }
     
-    public void PlayWinMusic()
+    public void PlayWinMusic(bool isOn)
     {
-        _winMusicPlayer.gameObject.SetActive(true);
+        _winMusicPlayer.gameObject.SetActive(isOn);
         _winMusicPlayer.clip = _winMusic; 
         _winMusicPlayer.Play();
     }

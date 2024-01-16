@@ -33,7 +33,6 @@ public class SettingsMenuWindow : ViewMethods
     {
         ApplicationData.AppData._isOnMusicEffects = !ApplicationData.AppData._isOnMusicEffects;
         GameMusic.Music.ActivateMusicEffects(ApplicationData.AppData._isOnMusicEffects);
-        Debug.Log(ApplicationData.AppData._isOnMusicEffects.ToString());
     }
     
     /// <summary>
@@ -43,7 +42,6 @@ public class SettingsMenuWindow : ViewMethods
     {
         ApplicationData.AppData._isOnGameSound = !ApplicationData.AppData._isOnGameSound;
         GameMusic.Music.ActivateGameMusic(ApplicationData.AppData._isOnGameSound);
-        Debug.Log(ApplicationData.AppData._isOnGameSound.ToString());
     }
     
     /// <summary>
@@ -59,14 +57,7 @@ public class SettingsMenuWindow : ViewMethods
     /// </summary>
     private void SetTogglesAction()
     {
-       EventTrigger.Entry entryForMusicEffects = new EventTrigger.Entry();
-       entryForMusicEffects.eventID = EventTriggerType.PointerDown;
-       entryForMusicEffects.callback.AddListener((data) => ChangeActiveMusicEffect());
-       _musicEffects.gameObject.AddComponent<EventTrigger>().GetComponent<EventTrigger>().triggers.Add(entryForMusicEffects);
-       
-       EventTrigger.Entry entryForGameSound = new EventTrigger.Entry();
-       entryForGameSound.eventID = EventTriggerType.PointerDown;
-       entryForGameSound.callback.AddListener((data) => ChangeActiveGameSound());
-       _gameSound.gameObject.AddComponent<EventTrigger>().GetComponent<EventTrigger>().triggers.Add(entryForGameSound);
+        AddOnPointerEnter(new Object[]{_musicEffects},EventTriggerType.PointerDown,(data) => ChangeActiveMusicEffect());
+        AddOnPointerEnter(new Object[]{_gameSound},EventTriggerType.PointerDown,(data) => ChangeActiveGameSound());
     }
 }

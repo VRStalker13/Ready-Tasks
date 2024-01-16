@@ -7,7 +7,7 @@ public class Ship : MonoBehaviour
         if (collision.gameObject.tag == "asteroid")
         {
             Time.timeScale = 0f;
-            GameMusic.Music.PlayBurnMusic();
+            GameMusic.Music.PlayBurnMusic(true);
             gameObject.SetActive(false);
             ViewManager.Instance.Show<EndGameWindow>(false);
         }

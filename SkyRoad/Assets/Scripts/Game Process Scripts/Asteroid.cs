@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
@@ -5,6 +6,8 @@ public class Asteroid : MonoBehaviour
 {
     [SerializeField]private GameObject _stonePrefab;
     [SerializeField]private GameObject _roadPrefab;
+    
+    public List<GameObject> _stones = new List<GameObject>();
     
     private float _roadLength;
     private float _currentY;
@@ -39,7 +42,7 @@ public class Asteroid : MonoBehaviour
         
         _currentY = Mathf.Lerp(_currentY, _goal, 0.0005f);
 
-        foreach (GameObject stones in ApplicationData.AppData._stones)
+        foreach (GameObject stones in _stones)
         {
             stones.transform.Rotate(0,1,0);
             stones.transform.position = new Vector3(stones.transform.position.x, _currentY, stones.transform.position.z);
@@ -67,15 +70,15 @@ public class Asteroid : MonoBehaviour
         var stone = Instantiate(_stonePrefab, pos, _stonePrefab.transform.rotation);
         stone.transform.Rotate(0,1,0);
         stone.transform.SetParent(transform);
-        ApplicationData.AppData._stones.Add(stone);
+        _stones.Add(stone);
     }
     
     private void ResetLevel()
     {
-        while (ApplicationData.AppData._stones.Count > 0)
+        while (_stones.Count > 0)
         {
-            Destroy(ApplicationData.AppData._stones[0]);
-            ApplicationData.AppData._stones.RemoveAt(0);
+            Destroy(_stones[0]);
+            _stones.RemoveAt(0);
         }
 
         var poz = new Vector3(10f,0f,0f);
@@ -87,27 +90,27 @@ public class Asteroid : MonoBehaviour
                     (i + 1) * poz + new Vector3(((float)_rand.NextDouble() + 1f)* _roadLength/2f, _stonePrefab.transform.position.y,
                         _stoneZPoz[_rand.Next(3)]),_stonePrefab.transform.rotation);
                 commet.transform.SetParent(transform);
-                ApplicationData.AppData._stones.Add(commet);
+                _stones.Add(commet);
             }
         }
     }
     
     private void MoveAsteroid()
     {
-        if (ApplicationData.AppData._stones[0])
+        if (_stones[0])
         {
             if(ApplicationData.AppData._speed == 0 )
                 return;
 
-            if (ApplicationData.AppData._stones.Count > 0)
+            if (_stones.Count > 0)
             {
-                foreach (GameObject stones in ApplicationData.AppData._stones)
+                foreach (GameObject stones in _stones)
                     stones.transform.position -= new Vector3(ApplicationData.AppData._speed * Time.deltaTime, 0, 0);
         
-                if (ApplicationData.AppData._stones[0].transform.position.x <= -10)
+                if (_stones[0].transform.position.x <= -10)
                 {
-                    Destroy(ApplicationData.AppData._stones[0]);
-                    ApplicationData.AppData._stones.RemoveAt(0);
+                    Destroy(_stones[0]);
+                    _stones.RemoveAt(0);
                 }
             }
             if (_trigger != ApplicationData.AppData._trigger)

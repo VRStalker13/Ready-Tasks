@@ -1,4 +1,6 @@
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -8,16 +10,17 @@ public abstract class ViewMethods : View
     {
         return;
     }
-
-    protected virtual void OnPointerEnterButtons(Button[] but)
+    
+    protected virtual void AddOnPointerEnter(Object[] obj, EventTriggerType id, UnityAction<BaseEventData> eventData)
     {
         EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerEnter;
-        entry.callback.AddListener((data) => GameMusic.Music.PlayButtonsMusic(true));
+        entry.eventID = id;
+        entry.callback.AddListener(eventData);
         
-        foreach (var buttons in but)
+        foreach (var x in obj)
         {
-            buttons.AddComponent<EventTrigger>().GetComponent<EventTrigger>().triggers.Add(entry);
+            x.AddComponent<EventTrigger>().triggers.Add(entry);
         }
     }
 }
+

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameProccesWindow : ViewMethods
@@ -22,14 +23,14 @@ public class GameProccesWindow : ViewMethods
         _menu = ViewManager.Instance.GetView<PauseMenuWindow>();
         _menu.gameObject.SetActive(_isVisible);
         _buttonPause.onClick.AddListener(PauseButtonActivity);
-        OnPointerEnterButtons(new Button[]{_buttonPause});
+        AddOnPointerEnter(new []{_buttonPause},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
     }
 
     private void Update()
     {
         GameResultCounter();
     }
-
+    
     private void GameResultCounter()
     {
         if (ApplicationData.AppData.GameProcessIsOn)
@@ -40,7 +41,6 @@ public class GameProccesWindow : ViewMethods
                 ApplicationData.AppData.GameScore += Time.deltaTime;
 
             _score.text = Mathf.Round(ApplicationData.AppData.GameScore).ToString();
-            
             ApplicationData.AppData.GameTime += Time.deltaTime;
             _time.text = Mathf.Round(ApplicationData.AppData.GameTime).ToString();
         }
@@ -59,10 +59,9 @@ public class GameProccesWindow : ViewMethods
         GameMusic.Music.PlayGameMusic(true);
         Time.timeScale = 1;
         _gameUI.SetActive(true);
-        ViewManager.Instance.ActivateMenuCamera(false);
+        CameraMethods.CamMethods.OpenCamera("Game Camera");
         _game = Instantiate(_gameEnvironmentPrefab, _gameEnvironmentParent.transform, true);
         _game.SetActive(true);
-        
         ApplicationData.AppData.GameScore = 0f;
         ApplicationData.AppData.GameTime = 0f;
         ApplicationData.AppData.GameProcessIsOn = true;
@@ -71,7 +70,7 @@ public class GameProccesWindow : ViewMethods
     public override void Hide()
     {
         ApplicationData.AppData.GameProcessIsOn = false;
-        ViewManager.Instance.ActivateMenuCamera(true);
+        CameraMethods.CamMethods.OpenCamera("Menu Camera");
         _gameUI.SetActive(false);
         GameMusic.Music.PlayGameMusic(false);
         Destroy(_game);

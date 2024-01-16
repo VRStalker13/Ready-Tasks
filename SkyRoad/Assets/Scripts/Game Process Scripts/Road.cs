@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Road : MonoBehaviour
 {
     [SerializeField] private GameObject _roadPrefab;
+    public List<GameObject> _roads = new List<GameObject>();
     void Start()
     {
         ResetLevel();
@@ -42,16 +44,16 @@ public class Road : MonoBehaviour
         if(ApplicationData.AppData._speed == 0 )
             return;
 
-        foreach (GameObject road in ApplicationData.AppData._roads)
+        foreach (GameObject road in _roads)
             road.transform.position -= new Vector3(ApplicationData.AppData._speed * Time.deltaTime, 0, 0);
 
-        if (ApplicationData.AppData._roads[0].transform.position.x <= -10)
+        if (_roads[0].transform.position.x <= -10)
         {
-            Destroy(ApplicationData.AppData._roads[0]);
-            ApplicationData.AppData._roads.RemoveAt(0);
+            Destroy(_roads[0]);
+           _roads.RemoveAt(0);
         }
 
-        if (ApplicationData.AppData._roads.Count < ApplicationData.AppData._maxRoadCount)
+        if (_roads.Count < ApplicationData.AppData._maxRoadCount)
         {
             ApplicationData.AppData._trigger = !ApplicationData.AppData._trigger;
             CreateNextRoad();
@@ -61,22 +63,22 @@ public class Road : MonoBehaviour
     private void CreateNextRoad()
     {
         var pos = Vector3.zero;
-        if (ApplicationData.AppData._roads.Count > 0)
-            pos = ApplicationData.AppData._roads[ApplicationData.AppData._roads.Count - 1].transform.position + new Vector3(10, 0, 0);
+        if (_roads.Count > 0)
+            pos = _roads[_roads.Count - 1].transform.position + new Vector3(10, 0, 0);
         
         var go = Instantiate(_roadPrefab, pos, _roadPrefab.transform.rotation);
         go.transform.SetParent(transform);
-        ApplicationData.AppData._roads.Add(go);
+        _roads.Add(go);
     }
 
     private void ResetLevel()
     {
         ApplicationData.AppData._speed = 0;
 
-        while (ApplicationData.AppData._roads.Count > 0)
+        while (_roads.Count > 0)
         {
-            Destroy(ApplicationData.AppData._roads[0]);
-            ApplicationData.AppData._roads.RemoveAt(0);
+            Destroy(_roads[0]);
+            _roads.RemoveAt(0);
         }
 
         for (var i = 0; i < ApplicationData.AppData._maxRoadCount; i++)

@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _planet: {fileID: 323609316279286885, guid: 367e6a6b457ae6e43826f45e733e6a50, type: 3}
+  _cursorTexture: {fileID: 2800000, guid: c37a3cd6aac5ac24d90f974c7e86407a, type: 3}
 --- !u!1 &5601005352522996988
 GameObject:
   m_ObjectHideFlags: 0

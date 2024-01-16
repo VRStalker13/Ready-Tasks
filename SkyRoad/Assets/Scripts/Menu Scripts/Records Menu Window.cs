@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class RecordsMenuWindow : ViewMethods
@@ -10,29 +11,18 @@ public class RecordsMenuWindow : ViewMethods
     /// </summary>
     [SerializeField] public List<RecordBlock> _listRecords;
     [SerializeField] private Button _toMainMenuButton;
-
-    private void Awake()
-    {
-        CreateStartRecordsList();
-    }
     
-    void Start()
+    private void Start()
     {
         SetParams();
         SetButtonActivity();
-        OnPointerEnterButtons(new Button[]{_toMainMenuButton});
+        AddOnPointerEnter(new []{_toMainMenuButton},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
     }
 
     private void SetButtonActivity()
     {
         _toMainMenuButton.onClick.AddListener(()=>ViewManager.Instance.Show<MainMenu>());
-        OnPointerEnterButtons(new Button[]{_toMainMenuButton});
-    }
-
-    private void CreateStartRecordsList()
-    {
-        for (int i = 0; i < ApplicationData.AppData.GameRes.Length; i++)
-            ApplicationData.AppData.GameRes[i] = new GameResult();
+        AddOnPointerEnter(new []{_toMainMenuButton},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
     }
 
     public override void SetParams()

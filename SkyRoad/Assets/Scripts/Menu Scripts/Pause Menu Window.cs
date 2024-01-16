@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PauseMenuWindow : ViewMethods
@@ -14,7 +15,8 @@ public class PauseMenuWindow : ViewMethods
         _changeActivMusicEffectsButton.onClick.AddListener(() => ChangeMusicEffects());
         _changeActivGameMusicButton.onClick.AddListener(() => ChangeGameMusic());
         _toMainMenuButton.onClick.AddListener(() => ToMainMenuButton());
-        OnPointerEnterButtons(new Button[]{_toMainMenuButton,_changeActivMusicEffectsButton,_changeActivGameMusicButton});
+        AddOnPointerEnter(new []{_toMainMenuButton,_changeActivMusicEffectsButton,_changeActivGameMusicButton},
+            EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
     }
 
     public override void SetParams()

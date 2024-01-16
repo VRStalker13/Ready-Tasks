@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ExitСonfirmationWindow : ViewMethods
@@ -15,6 +16,6 @@ public class ExitСonfirmationWindow : ViewMethods
     {
         _yesButton.onClick.AddListener(() => Application.Quit());
         _noButton.onClick.AddListener(() => ViewManager.Instance.GetView<ExitСonfirmationWindow>().Hide());
-        OnPointerEnterButtons(new Button[]{_noButton,_yesButton});
+        AddOnPointerEnter(new []{_noButton,_yesButton},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
     }
 }

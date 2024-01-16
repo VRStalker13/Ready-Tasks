@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MainMenu : ViewMethods
@@ -9,6 +11,11 @@ public class MainMenu : ViewMethods
     [SerializeField]private Button _exitProgramButton;
     
     [SerializeField]private GameObject _mainMenuBackground;
+
+    private void Awake()
+    {
+        ApplicationData.AppData.CreateStartRecordsList();
+    }
 
     private void Start()
     {
@@ -21,8 +28,8 @@ public class MainMenu : ViewMethods
         _recordsWindowButton.onClick.AddListener(ShowRecordsWindow);
         _settingsWindowButton.onClick.AddListener(ShowSettingsWindow);
         _exitProgramButton.onClick.AddListener(ExitGame);
-        
-        OnPointerEnterButtons(new Button[]{_startGameButton,_recordsWindowButton,_settingsWindowButton,_exitProgramButton});
+        AddOnPointerEnter(new []{_startGameButton,_recordsWindowButton,_settingsWindowButton,_exitProgramButton},
+            EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
     }
     
     public override void SetParams()
@@ -34,14 +41,13 @@ public class MainMenu : ViewMethods
     {
         _mainMenuBackground.SetActive(isActive);
         GameMusic.Music.PlayMenuMusic(isActive);
-        ViewManager.Instance.ActivateMenuCamera(isActive);
+        CameraMethods.CamMethods.OpenCamera(isActive? "Menu Camera":"Game Camera");
     }
 
-    public void StartNewGame()
+    private void StartNewGame()
     {
         ActivateMenuBackgroundEffects(false);
         GameMusic.Music.PlayGameMusic(true);
-        ViewManager.Instance.ActivateMenuCamera(false);
         ViewManager.Instance.Show<GameProccesWindow>();
     }
     

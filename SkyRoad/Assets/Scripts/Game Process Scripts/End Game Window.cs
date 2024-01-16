@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class EndGameWindow : ViewMethods
@@ -12,13 +13,14 @@ public class EndGameWindow : ViewMethods
     [SerializeField] private Button _restartGameButton;
     
     [SerializeField] private GameObject _gameUI;
-    [SerializeField] private MainMenu _mainMenu;
 
     private void Start()
-    {
+    {   if(ApplicationData.AppData.GameRes.Length==0) 
+            CreateStartRecordsList();
+        
         _toMainMenuButton.onClick.AddListener(ToMainMenuButtonActivity);
         _restartGameButton.onClick.AddListener(RestartGameButton);
-        OnPointerEnterButtons(new []{_toMainMenuButton,_restartGameButton});
+        AddOnPointerEnter(new []{_toMainMenuButton,_restartGameButton},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
     }
 
     public override void SetParams()
@@ -46,7 +48,7 @@ public class EndGameWindow : ViewMethods
         if (ApplicationData.AppData.GameRes[10].ScoreValue > ApplicationData.AppData.GameRes[0].ScoreValue)
         {
             _resultText.text = "Новый Рекорд!";
-            GameMusic.Music.PlayWinMusic();
+            GameMusic.Music.PlayWinMusic(true);
         }
         else
         {
@@ -55,6 +57,12 @@ public class EndGameWindow : ViewMethods
         
         _scoreText.text = Mathf.Round(ApplicationData.AppData.GameScore).ToString();
         _timeText.text = Mathf.Round(ApplicationData.AppData.GameTime).ToString();
+    }
+    
+    private void CreateStartRecordsList()
+    {
+        for (var i = 0; i < ApplicationData.AppData.GameRes.Length; i++)
+            ApplicationData.AppData.GameRes[i] = new GameResultData();
     }
 
     private void SaveGameResult()
@@ -75,7 +83,7 @@ public class EndGameWindow : ViewMethods
         gameObject.SetActive(false);
         ViewManager.Instance.GetView<MainMenuBackgroundWindow>().Hide();
         GameMusic.Music.PlayMenuMusic(false);
-        ViewManager.Instance.ActivateMenuCamera(false);
+        CameraMethods.CamMethods.OpenCamera("Game Camera");
         ViewManager.Instance.Show<GameProccesWindow>();
         GameMusic.Music.PlayGameMusic(true);
     }

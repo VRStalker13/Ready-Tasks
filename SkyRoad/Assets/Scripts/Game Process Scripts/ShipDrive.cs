@@ -34,12 +34,12 @@ public class ShipDrive : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ActivateRedFire(false);
-            GameMusic.Music.PlaySpeedMusic(true);
+            MusicManager.Music.PlaySound("Speed Music",true);
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             ActivateRedFire(true);
-            GameMusic.Music.PlaySpeedMusic(false);
+            MusicManager.Music.PlaySound("Speed Music",false);
         }
     }
     

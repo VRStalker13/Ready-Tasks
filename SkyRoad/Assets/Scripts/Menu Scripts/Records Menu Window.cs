@@ -16,13 +16,13 @@ public class RecordsMenuWindow : ViewMethods
     {
         SetParams();
         SetButtonActivity();
-        AddOnPointerEnter(new []{_toMainMenuButton},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
+        AddOnPointerEnter(new []{_toMainMenuButton},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
     }
 
     private void SetButtonActivity()
     {
         _toMainMenuButton.onClick.AddListener(()=>ViewManager.Instance.Show<MainMenu>());
-        AddOnPointerEnter(new []{_toMainMenuButton},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
+        AddOnPointerEnter(new []{_toMainMenuButton},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
     }
 
     public override void SetParams()

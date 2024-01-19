@@ -48,10 +48,12 @@
      <Compile Include="Assets\Scripts\Menu Scripts\Exit Сonfirmation Window.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Record Block.cs" />
      <Compile Include="Assets\Scripts\View Manager.cs" />
+     <Compile Include="Assets\Scripts\Game Configuration.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Game Comics Window.cs" />
      <Compile Include="Assets\Scripts\View.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\LoadEnvironment.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\Game Procces Window.cs" />
+     <Compile Include="Assets\Scripts\Music Manager.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Pause Menu Window.cs" />
      <Compile Include="Assets\Scripts\Application Data.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Records Menu Window.cs" />
@@ -66,7 +68,6 @@
      <Compile Include="Assets\Scripts\Game Process Scripts\Asteroid.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Main Menu.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\End Game Window.cs" />
-     <Compile Include="Assets\Scripts\Game Music.cs" />
      <Compile Include="Assets\Scripts\View Methods.cs" />
      <Compile Include="Assets\Scripts\Camera Manager.cs" />
      <Reference Include="UnityEngine">
@@ -641,6 +642,10 @@
      </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.Player.csproj">
+      <Project>{5c577e67-55ec-6add-b13a-d7b8ad69f0f3}</Project>
+      <Name>Assembly-CSharp-firstpass.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Player.csproj">
       <Project>{455d3575-1a23-34cd-0eec-9a8f550251a6}</Project>
       <Name>Unity.Timeline.Player</Name>
@@ -648,6 +653,10 @@
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
       <Project>{c781ccb4-4fc5-549a-a71b-a47fd1e59954}</Project>
       <Name>UnityEngine.UI.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="AYellowpaper.SerializedCollections.Player.csproj">
+      <Project>{fdad8a9d-b723-b5a2-af41-746a2b6b1f50}</Project>
+      <Name>AYellowpaper.SerializedCollections.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
       <Project>{154d2dca-2fbd-2674-ac50-cd62b39df615}</Project>

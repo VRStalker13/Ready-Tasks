@@ -23,7 +23,7 @@ public class GameProccesWindow : ViewMethods
         _menu = ViewManager.Instance.GetView<PauseMenuWindow>();
         _menu.gameObject.SetActive(_isVisible);
         _buttonPause.onClick.AddListener(PauseButtonActivity);
-        AddOnPointerEnter(new []{_buttonPause},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
+        AddOnPointerEnter(new []{_buttonPause},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
     }
 
     private void Update()
@@ -33,16 +33,18 @@ public class GameProccesWindow : ViewMethods
     
     private void GameResultCounter()
     {
-        if (ApplicationData.AppData.GameProcessIsOn)
+        var appData = ApplicationData.AppData;
+        
+        if (appData.GameProcessIsOn)
         {
             if(Input.GetKey(KeyCode.Space))
-                ApplicationData.AppData.GameScore += 2f * Time.deltaTime;
+                appData.GameScore += 2f * Time.deltaTime;
             else
-                ApplicationData.AppData.GameScore += Time.deltaTime;
+                appData.GameScore += Time.deltaTime;
 
-            _score.text = Mathf.Round(ApplicationData.AppData.GameScore).ToString();
-            ApplicationData.AppData.GameTime += Time.deltaTime;
-            _time.text = Mathf.Round(ApplicationData.AppData.GameTime).ToString();
+            _score.text = Mathf.Round(appData.GameScore).ToString();
+            appData.GameTime += Time.deltaTime;
+            _time.text = Mathf.Round(appData.GameTime).ToString();
         }
     }
 
@@ -56,7 +58,7 @@ public class GameProccesWindow : ViewMethods
     
     public override void SetParams()
     {
-        GameMusic.Music.PlayGameMusic(true);
+        MusicManager.Music.PlaySound("Game Music",true);
         Time.timeScale = 1;
         _gameUI.SetActive(true);
         CameraMethods.CamMethods.OpenCamera("Game Camera");
@@ -72,7 +74,7 @@ public class GameProccesWindow : ViewMethods
         ApplicationData.AppData.GameProcessIsOn = false;
         CameraMethods.CamMethods.OpenCamera("Menu Camera");
         _gameUI.SetActive(false);
-        GameMusic.Music.PlayGameMusic(false);
+        MusicManager.Music.PlaySound("Game Music",false);
         Destroy(_game);
     }
 }

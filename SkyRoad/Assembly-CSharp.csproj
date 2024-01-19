@@ -48,10 +48,12 @@
      <Compile Include="Assets\Scripts\Menu Scripts\Exit Сonfirmation Window.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Record Block.cs" />
      <Compile Include="Assets\Scripts\View Manager.cs" />
+     <Compile Include="Assets\Scripts\Game Configuration.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Game Comics Window.cs" />
      <Compile Include="Assets\Scripts\View.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\LoadEnvironment.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\Game Procces Window.cs" />
+     <Compile Include="Assets\Scripts\Music Manager.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Pause Menu Window.cs" />
      <Compile Include="Assets\Scripts\Application Data.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Records Menu Window.cs" />
@@ -66,7 +68,6 @@
      <Compile Include="Assets\Scripts\Game Process Scripts\Asteroid.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Main Menu.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\End Game Window.cs" />
-     <Compile Include="Assets\Scripts\Game Music.cs" />
      <Compile Include="Assets\Scripts\View Methods.cs" />
      <Compile Include="Assets\Scripts\Camera Manager.cs" />
      <Folder Include="Assets" />
@@ -206,6 +207,7 @@
      <Folder Include="Library\PackageCache\com.unity.ide.rider@3.0.24" />
      <Folder Include="Assets\Prefabs\Object For Game Process Prefabs" />
      <None Include="Library\PackageCache\com.unity.modules.unitywebrequestwww@1.0.0\package.json" />
+     <Folder Include="Assets\Scripts\ScripableObjects" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\Models\Planet\Planet.shader" />
      <None Include="Assets\Shaders\Floor shader.shader" />
@@ -219,6 +221,7 @@
      <None Include="Library\PackageCache\com.unity.modules.xr@1.0.0\package.json" />
      <Folder Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Tests" />
      <None Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Editor Resources\Shaders\TMP_Properties.cginc" />
+     <Folder Include="Assets\Prefabs\Audio Source Prefabs" />
      <None Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Editor Resources\Shaders\TMP_SDF Internal Editor.shader" />
      <Folder Include="Library\PackageCache\com.unity.modules.umbra@1.0.0" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
@@ -891,6 +894,10 @@
      </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{346fe36d-8b44-c9a9-0ee3-1776517d900f}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{c53e7864-3ff2-1965-d7da-fc80fbf236bc}</Project>
       <Name>Unity.Timeline</Name>
@@ -903,9 +910,17 @@
       <Project>{cad8b11e-5912-9b4c-ad5d-37bdbdc45b83}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
+    <ProjectReference Include="AYellowpaper.SerializedCollections.csproj">
+      <Project>{00d0207e-33f8-c961-cd21-f6b994dc8ef8}</Project>
+      <Name>AYellowpaper.SerializedCollections</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.EditorCoroutines.Editor.csproj">
       <Project>{4d7c85e1-ae49-f306-3553-9c06ca1c01fc}</Project>
       <Name>Unity.EditorCoroutines.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AYellowpaper.SerializedCollections.Editor.csproj">
+      <Project>{cf179dfd-5486-27a2-684f-a3e3f2e4ba4c}</Project>
+      <Name>AYellowpaper.SerializedCollections.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.SettingsProvider.Editor.csproj">
       <Project>{3bf03649-3575-810c-0b52-3af45b3fe008}</Project>

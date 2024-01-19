@@ -16,27 +16,29 @@ public class PauseMenuWindow : ViewMethods
         _changeActivGameMusicButton.onClick.AddListener(() => ChangeGameMusic());
         _toMainMenuButton.onClick.AddListener(() => ToMainMenuButton());
         AddOnPointerEnter(new []{_toMainMenuButton,_changeActivMusicEffectsButton,_changeActivGameMusicButton},
-            EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
+            EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
     }
 
     public override void SetParams()
     {
-        _changeActivMusicEffectsButton.image.color = ApplicationData.AppData._isOnMusicEffects ? Color.green : Color.red;
-        _changeActivGameMusicButton.image.color = ApplicationData.AppData._isOnGameSound ? Color.green : Color.red;
+        _changeActivMusicEffectsButton.image.color = ApplicationData.AppData.IsOnMusicEffects ? Color.green : Color.red;
+        _changeActivGameMusicButton.image.color = ApplicationData.AppData.IsOnGameSound ? Color.green : Color.red;
     }
 
     private void ChangeMusicEffects()
     {
-        ApplicationData.AppData._isOnMusicEffects = !ApplicationData.AppData._isOnMusicEffects;
-        GameMusic.Music.ActivateMusicEffects(ApplicationData.AppData._isOnMusicEffects);
-        _changeActivMusicEffectsButton.image.color = ApplicationData.AppData._isOnMusicEffects ? Color.green : Color.red;
+        var appData = ApplicationData.AppData;
+        appData.IsOnMusicEffects = !appData.IsOnMusicEffects;
+        MusicManager.Music.ActivateMusicEffects(appData.IsOnMusicEffects);
+        _changeActivMusicEffectsButton.image.color = appData.IsOnMusicEffects ? Color.green : Color.red;
     }
     
     private void ChangeGameMusic()
     {
-        ApplicationData.AppData._isOnGameSound = !ApplicationData.AppData._isOnGameSound;
-        GameMusic.Music.ActivateGameMusic(ApplicationData.AppData._isOnGameSound);
-        _changeActivGameMusicButton.image.color = ApplicationData.AppData._isOnGameSound ? Color.green : Color.red;
+        var appData = ApplicationData.AppData;
+        appData.IsOnGameSound = !appData.IsOnGameSound;
+        MusicManager.Music.ActivateGameMusic(appData.IsOnGameSound);
+        _changeActivGameMusicButton.image.color = appData.IsOnGameSound ? Color.green : Color.red;
     }
 
     private void ToMainMenuButton()

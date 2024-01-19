@@ -19,33 +19,37 @@ public class Road : MonoBehaviour
 
     private void StartLevel()
     {
-        ApplicationData.AppData._speed = ApplicationData.AppData._startSpeed;
+        ApplicationData.AppData.Speed = ApplicationData.AppData.GameConfig.StartSpeed;
     }
 
     private void IncreaseSpeed()
     {
+        var appData = ApplicationData.AppData;
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ApplicationData.AppData.Acceleration = 2f;
-            ApplicationData.AppData._speed *= 2f;
+            appData.Acceleration = 2f;
+            appData.Speed *= 2f;
 
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
-            ApplicationData.AppData.Acceleration = 1f;
-            ApplicationData.AppData._speed /= 2f;
+            appData.Acceleration = 1f;
+            appData.Speed /= 2f;
         } 
         
-        ApplicationData.AppData._speed += ApplicationData.AppData.Acceleration * 0.1f * Time.deltaTime;
+        appData.Speed += appData.Acceleration * 0.1f * Time.deltaTime;
     }
 
     private void MoveRoad()
     {
-        if(ApplicationData.AppData._speed == 0 )
+        var appData = ApplicationData.AppData;
+        
+        if(appData.Speed == 0 )
             return;
 
         foreach (GameObject road in _roads)
-            road.transform.position -= new Vector3(ApplicationData.AppData._speed * Time.deltaTime, 0, 0);
+            road.transform.position -= new Vector3(appData.Speed * Time.deltaTime, 0, 0);
 
         if (_roads[0].transform.position.x <= -10)
         {
@@ -53,9 +57,9 @@ public class Road : MonoBehaviour
            _roads.RemoveAt(0);
         }
 
-        if (_roads.Count < ApplicationData.AppData._maxRoadCount)
+        if (_roads.Count < appData.GameConfig.MaxRoadCount)
         {
-            ApplicationData.AppData._trigger = !ApplicationData.AppData._trigger;
+            appData.Trigger = !appData.Trigger;
             CreateNextRoad();
         }
     }
@@ -73,7 +77,7 @@ public class Road : MonoBehaviour
 
     private void ResetLevel()
     {
-        ApplicationData.AppData._speed = 0;
+        ApplicationData.AppData.Speed = 0;
 
         while (_roads.Count > 0)
         {
@@ -81,7 +85,7 @@ public class Road : MonoBehaviour
             _roads.RemoveAt(0);
         }
 
-        for (var i = 0; i < ApplicationData.AppData._maxRoadCount; i++)
+        for (var i = 0; i < ApplicationData.AppData.GameConfig.MaxRoadCount; i++)
             CreateNextRoad();
     }
 }

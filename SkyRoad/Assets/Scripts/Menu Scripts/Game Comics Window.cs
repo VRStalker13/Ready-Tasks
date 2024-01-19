@@ -27,8 +27,8 @@ public class GameComicsWindow : ViewMethods
     private void Start()
     {
         _button.onClick.AddListener(ButtonAction);
-        AddOnPointerEnter(new []{_button},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
-        GameMusic.Music.PlayMenuMusic(true);
+        AddOnPointerEnter(new []{_button},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
+        MusicManager.Music.PlaySound("Menu Music",true);
     }
 
     private void ButtonAction()
@@ -37,7 +37,7 @@ public class GameComicsWindow : ViewMethods
 
         if (_currentSceneNumber >= _lastSceneNumber + 1)
         {
-            GameMusic.Music.PlayMenuMusic(false);
+            MusicManager.Music.PlaySound("Menu Music",false);
             ViewManager.Instance.Show<MainMenu>();
             return;
         }

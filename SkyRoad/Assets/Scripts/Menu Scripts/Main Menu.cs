@@ -29,7 +29,7 @@ public class MainMenu : ViewMethods
         _settingsWindowButton.onClick.AddListener(ShowSettingsWindow);
         _exitProgramButton.onClick.AddListener(ExitGame);
         AddOnPointerEnter(new []{_startGameButton,_recordsWindowButton,_settingsWindowButton,_exitProgramButton},
-            EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
+            EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
     }
     
     public override void SetParams()
@@ -40,14 +40,14 @@ public class MainMenu : ViewMethods
     private void ActivateMenuBackgroundEffects(bool isActive)
     {
         _mainMenuBackground.SetActive(isActive);
-        GameMusic.Music.PlayMenuMusic(isActive);
+        MusicManager.Music.PlaySound("Menu Music",isActive);
         CameraMethods.CamMethods.OpenCamera(isActive? "Menu Camera":"Game Camera");
     }
 
     private void StartNewGame()
     {
         ActivateMenuBackgroundEffects(false);
-        GameMusic.Music.PlayGameMusic(true);
+        MusicManager.Music.PlaySound("Game Music",true);
         ViewManager.Instance.Show<GameProccesWindow>();
     }
     

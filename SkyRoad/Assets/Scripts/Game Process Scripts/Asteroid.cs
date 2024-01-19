@@ -63,7 +63,7 @@ public class Asteroid : MonoBehaviour
     
     private void CreateNextStone()
     {
-        var pos = new Vector3(10f * ((float)ApplicationData.AppData._maxStotesCount - 2f),0,0);
+        var pos = new Vector3(10f * ((float)ApplicationData.AppData.GameConfig.MaxStonesCount - 2f),0,0);
             pos = pos + new Vector3(((float)_rand.NextDouble() + 1f)* _roadLength/2f, _stonePrefab.transform.position.y,
                 _stoneZPoz[_rand.Next(3)]);
         
@@ -82,7 +82,7 @@ public class Asteroid : MonoBehaviour
         }
 
         var poz = new Vector3(10f,0f,0f);
-        for (var i = 0; i < ApplicationData.AppData._maxStotesCount; i++)
+        for (var i = 0; i < ApplicationData.AppData.GameConfig.MaxStonesCount; i++)
         {
             if(_rand.Next(2) == 1)
             {
@@ -97,15 +97,17 @@ public class Asteroid : MonoBehaviour
     
     private void MoveAsteroid()
     {
+        var appData = ApplicationData.AppData;
+        
         if (_stones[0])
         {
-            if(ApplicationData.AppData._speed == 0 )
+            if(ApplicationData.AppData.Speed == 0 )
                 return;
 
             if (_stones.Count > 0)
             {
                 foreach (GameObject stones in _stones)
-                    stones.transform.position -= new Vector3(ApplicationData.AppData._speed * Time.deltaTime, 0, 0);
+                    stones.transform.position -= new Vector3(ApplicationData.AppData.Speed * Time.deltaTime, 0, 0);
         
                 if (_stones[0].transform.position.x <= -10)
                 {
@@ -113,9 +115,9 @@ public class Asteroid : MonoBehaviour
                     _stones.RemoveAt(0);
                 }
             }
-            if (_trigger != ApplicationData.AppData._trigger)
+            if (_trigger != ApplicationData.AppData.Trigger)
             {
-                _trigger = ApplicationData.AppData._trigger;
+                _trigger = ApplicationData.AppData.Trigger;
                 CreateNextStone();
             }
         }

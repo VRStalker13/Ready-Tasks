@@ -20,7 +20,8 @@ public class EndGameWindow : ViewMethods
         
         _toMainMenuButton.onClick.AddListener(ToMainMenuButtonActivity);
         _restartGameButton.onClick.AddListener(RestartGameButton);
-        AddOnPointerEnter(new []{_toMainMenuButton,_restartGameButton},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
+        AddOnPointerEnter(new []{_toMainMenuButton,_restartGameButton},EventTriggerType.PointerEnter,
+            (data) => MusicManager.Music.PlaySound("Buttons Music",true));
     }
 
     public override void SetParams()
@@ -33,30 +34,34 @@ public class EndGameWindow : ViewMethods
 
     private void SortGameResults()
     {
+        var appData = ApplicationData.AppData;
+        
         for (var i = 10; i > 0; i--)
         {
-            if (ApplicationData.AppData.GameRes[i].ScoreValue > ApplicationData.AppData.GameRes[i - 1].ScoreValue)
+            if (appData.GameRes[i].ScoreValue > appData.GameRes[i - 1].ScoreValue)
             {
-                var res = ApplicationData.AppData.GameRes[i - 1];
-                ApplicationData.AppData.GameRes[i - 1] = ApplicationData.AppData.GameRes[i];
-                ApplicationData.AppData.GameRes[i] = res;
+                var res = appData.GameRes[i - 1];
+                appData.GameRes[i - 1] = appData.GameRes[i];
+                appData.GameRes[i] = res;
             }
         }
     }
     private void SetTextParams()
     {
-        if (ApplicationData.AppData.GameRes[10].ScoreValue > ApplicationData.AppData.GameRes[0].ScoreValue)
+        var appData = ApplicationData.AppData;
+        
+        if (appData.GameRes[10].ScoreValue > appData.GameRes[0].ScoreValue)
         {
             _resultText.text = "Новый Рекорд!";
-            GameMusic.Music.PlayWinMusic(true);
+            MusicManager.Music.PlaySound("Win Music",true);
         }
         else
         {
             _resultText.text = "Результаты:";
         }
         
-        _scoreText.text = Mathf.Round(ApplicationData.AppData.GameScore).ToString();
-        _timeText.text = Mathf.Round(ApplicationData.AppData.GameTime).ToString();
+        _scoreText.text = Mathf.Round(appData.GameScore).ToString();
+        _timeText.text = Mathf.Round(appData.GameTime).ToString();
     }
     
     private void CreateStartRecordsList()
@@ -67,9 +72,10 @@ public class EndGameWindow : ViewMethods
 
     private void SaveGameResult()
     {
-        ApplicationData.AppData.GameRes[10].Date = DateTime.Today;
-        ApplicationData.AppData.GameRes[10].Time = Mathf.Round(ApplicationData.AppData.GameTime);
-        ApplicationData.AppData.GameRes[10].ScoreValue = Mathf.Round(ApplicationData.AppData.GameScore);
+        var appData = ApplicationData.AppData;
+        appData.GameRes[10].Date = DateTime.Today;
+        appData.GameRes[10].Time = Mathf.Round(appData.GameTime);
+        appData.GameRes[10].ScoreValue = Mathf.Round(appData.GameScore);
     }
 
     private void ToMainMenuButtonActivity()
@@ -82,9 +88,9 @@ public class EndGameWindow : ViewMethods
     {
         gameObject.SetActive(false);
         ViewManager.Instance.GetView<MainMenuBackgroundWindow>().Hide();
-        GameMusic.Music.PlayMenuMusic(false);
+        MusicManager.Music.PlaySound("Menu Music",false);
         CameraMethods.CamMethods.OpenCamera("Game Camera");
         ViewManager.Instance.Show<GameProccesWindow>();
-        GameMusic.Music.PlayGameMusic(true);
+        MusicManager.Music.PlaySound("Game Music",true);
     }
 }

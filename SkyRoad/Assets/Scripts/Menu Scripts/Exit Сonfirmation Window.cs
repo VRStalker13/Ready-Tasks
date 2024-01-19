@@ -16,6 +16,6 @@ public class ExitСonfirmationWindow : ViewMethods
     {
         _yesButton.onClick.AddListener(() => Application.Quit());
         _noButton.onClick.AddListener(() => ViewManager.Instance.GetView<ExitСonfirmationWindow>().Hide());
-        AddOnPointerEnter(new []{_noButton,_yesButton},EventTriggerType.PointerEnter,(data) => GameMusic.Music.PlayButtonsMusic(true));
+        AddOnPointerEnter(new []{_noButton,_yesButton},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
     }
 }

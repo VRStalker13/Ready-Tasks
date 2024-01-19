@@ -13,8 +13,9 @@ public class SettingsMenuWindow : ViewMethods
         SetButtonsListener();
         SetTogglesAction();
         SetParams(); 
-        GameMusic.Music.ActivateGameMusic(true);
-        GameMusic.Music.ActivateMusicEffects(true);
+        MusicManager.Music.ActivateGameMusic(true);
+        MusicManager.Music.ActivateMusicEffects(true);
+        AddOnPointerEnter(new []{_backButton},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
     }
 
     /// <summary>
@@ -22,8 +23,8 @@ public class SettingsMenuWindow : ViewMethods
     /// </summary>
     public override void SetParams()
     {
-        _musicEffects.isOn = ApplicationData.AppData._isOnMusicEffects;
-        _gameSound.isOn = ApplicationData.AppData._isOnGameSound;
+        _musicEffects.isOn = ApplicationData.AppData.IsOnMusicEffects;
+        _gameSound.isOn = ApplicationData.AppData.IsOnGameSound;
     }
 
     /// <summary>
@@ -31,8 +32,9 @@ public class SettingsMenuWindow : ViewMethods
     /// </summary>
     private void ChangeActiveMusicEffect()
     {
-        ApplicationData.AppData._isOnMusicEffects = !ApplicationData.AppData._isOnMusicEffects;
-        GameMusic.Music.ActivateMusicEffects(ApplicationData.AppData._isOnMusicEffects);
+        var appData = ApplicationData.AppData;
+        appData.IsOnMusicEffects = !appData.IsOnMusicEffects;
+        MusicManager.Music.ActivateMusicEffects(appData.IsOnMusicEffects);
     }
     
     /// <summary>
@@ -40,8 +42,9 @@ public class SettingsMenuWindow : ViewMethods
     /// </summary>
     private void ChangeActiveGameSound()
     {
-        ApplicationData.AppData._isOnGameSound = !ApplicationData.AppData._isOnGameSound;
-        GameMusic.Music.ActivateGameMusic(ApplicationData.AppData._isOnGameSound);
+        var appData = ApplicationData.AppData;
+        appData.IsOnGameSound = !appData.IsOnGameSound;
+        MusicManager.Music.ActivateGameMusic(appData.IsOnGameSound);
     }
     
     /// <summary>

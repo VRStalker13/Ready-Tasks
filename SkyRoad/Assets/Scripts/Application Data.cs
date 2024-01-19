@@ -1,12 +1,11 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ApplicationData
 {
     public static ApplicationData AppData = new ApplicationData();
 
-    public bool _isOnMusicEffects = true;
-    public bool _isOnGameSound = true;
+    public bool IsOnMusicEffects = true;
+    public bool IsOnGameSound = true;
     public bool IsPlayMenuMusic;
     public bool IsPlayGameMusic;
 
@@ -15,13 +14,14 @@ public class ApplicationData
     public bool GameProcessIsOn;
     
     public GameResultData[] GameRes = new GameResultData[11];
+    public GameConfiguration GameConfig = ScriptableObject.CreateInstance<GameConfiguration>();
     
-    public readonly int _maxRoadCount = 20;
-    public readonly int _maxStotesCount = 19;
-    public readonly float _startSpeed = 5f;
-    public float _speed;
+    //public readonly int MaxRoadCount = 20;
+    //public readonly int MaxStonesCount = 19;
+    //public readonly float StartSpeed = 5f;
+    public float Speed;
     public float Acceleration = 1;
-    public bool _trigger = true;
+    public bool Trigger = true;
     
     public void CreateStartRecordsList()
     {

@@ -7,15 +7,16 @@ public class SettingsMenuWindow : ViewMethods
     [SerializeField] private Button _backButton;
     [SerializeField] private Toggle _musicEffects;
     [SerializeField] private Toggle _gameSound;
-    
+
     private void Start()
     {
         SetButtonsListener();
         SetTogglesAction();
-        SetParams(); 
+        SetParams();
         MusicManager.Music.ActivateGameMusic(true);
         MusicManager.Music.ActivateMusicEffects(true);
-        AddOnPointerEnter(new []{_backButton},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
+        AddOnPointerEnter(new[] { _backButton }, EventTriggerType.PointerEnter,
+            (data) => MusicManager.Music.PlaySound("Buttons Music", true));
     }
 
     /// <summary>
@@ -36,7 +37,7 @@ public class SettingsMenuWindow : ViewMethods
         appData.IsOnMusicEffects = !appData.IsOnMusicEffects;
         MusicManager.Music.ActivateMusicEffects(appData.IsOnMusicEffects);
     }
-    
+
     /// <summary>
     /// Метод меняющий состояние активности фоновой музыки в игре
     /// </summary>
@@ -46,7 +47,7 @@ public class SettingsMenuWindow : ViewMethods
         appData.IsOnGameSound = !appData.IsOnGameSound;
         MusicManager.Music.ActivateGameMusic(appData.IsOnGameSound);
     }
-    
+
     /// <summary>
     /// Метод задающий выполняеемый мотод кнопок в окне насатройки
     /// </summary>
@@ -54,13 +55,15 @@ public class SettingsMenuWindow : ViewMethods
     {
         _backButton.onClick.AddListener(() => ViewManager.Instance.Show<MainMenu>());
     }
-    
+
     /// <summary>
     /// Метод задающий выполняеемый мотод тогглов  в окне насатройки
     /// </summary>
     private void SetTogglesAction()
     {
-        AddOnPointerEnter(new Object[]{_musicEffects},EventTriggerType.PointerDown,(data) => ChangeActiveMusicEffect());
-        AddOnPointerEnter(new Object[]{_gameSound},EventTriggerType.PointerDown,(data) => ChangeActiveGameSound());
+        AddOnPointerEnter(new Object[] { _musicEffects }, EventTriggerType.PointerDown,
+            (data) => ChangeActiveMusicEffect());
+        AddOnPointerEnter(new Object[] { _gameSound }, EventTriggerType.PointerDown, 
+            (data) => ChangeActiveGameSound());
     }
 }

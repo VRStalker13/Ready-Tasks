@@ -23,21 +23,22 @@ public class GameProccesWindow : ViewMethods
         _menu = ViewManager.Instance.GetView<PauseMenuWindow>();
         _menu.gameObject.SetActive(_isVisible);
         _buttonPause.onClick.AddListener(PauseButtonActivity);
-        AddOnPointerEnter(new []{_buttonPause},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
+        AddOnPointerEnter(new[] { _buttonPause }, EventTriggerType.PointerEnter,
+            (data) => MusicManager.Music.PlaySound("Buttons Music", true));
     }
 
     private void Update()
     {
         GameResultCounter();
     }
-    
+
     private void GameResultCounter()
     {
         var appData = ApplicationData.AppData;
-        
+
         if (appData.GameProcessIsOn)
         {
-            if(Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
                 appData.GameScore += 2f * Time.deltaTime;
             else
                 appData.GameScore += Time.deltaTime;
@@ -55,10 +56,10 @@ public class GameProccesWindow : ViewMethods
         _menu.SetParams();
         Time.timeScale = _isVisible ? 0f : 1f;
     }
-    
+
     public override void SetParams()
     {
-        MusicManager.Music.PlaySound("Game Music",true);
+        MusicManager.Music.PlaySound("Game Music", true);
         Time.timeScale = 1;
         _gameUI.SetActive(true);
         CameraMethods.CamMethods.OpenCamera("Game Camera");
@@ -74,7 +75,7 @@ public class GameProccesWindow : ViewMethods
         ApplicationData.AppData.GameProcessIsOn = false;
         CameraMethods.CamMethods.OpenCamera("Menu Camera");
         _gameUI.SetActive(false);
-        MusicManager.Music.PlaySound("Game Music",false);
+        MusicManager.Music.PlaySound("Game Music", false);
         Destroy(_game);
     }
 }

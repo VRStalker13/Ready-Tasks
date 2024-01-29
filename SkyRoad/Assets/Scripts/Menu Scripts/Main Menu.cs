@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class MainMenu : ViewMethods
 {
-    [SerializeField]private Button _startGameButton;
-    [SerializeField]private Button _recordsWindowButton;
-    [SerializeField]private Button _settingsWindowButton;
-    [SerializeField]private Button _exitProgramButton;
-    
-    [SerializeField]private GameObject _mainMenuBackground;
+    [SerializeField] private Button _startGameButton;
+    [SerializeField] private Button _recordsWindowButton;
+    [SerializeField] private Button _settingsWindowButton;
+    [SerializeField] private Button _exitProgramButton;
+
+    [SerializeField] private GameObject _mainMenuBackground;
 
     private void Awake()
     {
@@ -28,10 +28,10 @@ public class MainMenu : ViewMethods
         _recordsWindowButton.onClick.AddListener(ShowRecordsWindow);
         _settingsWindowButton.onClick.AddListener(ShowSettingsWindow);
         _exitProgramButton.onClick.AddListener(ExitGame);
-        AddOnPointerEnter(new []{_startGameButton,_recordsWindowButton,_settingsWindowButton,_exitProgramButton},
-            EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
+        AddOnPointerEnter(new[] { _startGameButton, _recordsWindowButton, _settingsWindowButton, _exitProgramButton },
+            EventTriggerType.PointerEnter, (data) => MusicManager.Music.PlaySound("Buttons Music", true));
     }
-    
+
     public override void SetParams()
     {
         ActivateMenuBackgroundEffects(true);
@@ -40,27 +40,27 @@ public class MainMenu : ViewMethods
     private void ActivateMenuBackgroundEffects(bool isActive)
     {
         _mainMenuBackground.SetActive(isActive);
-        MusicManager.Music.PlaySound("Menu Music",isActive);
-        CameraMethods.CamMethods.OpenCamera(isActive? "Menu Camera":"Game Camera");
+        MusicManager.Music.PlaySound("Menu Music", isActive);
+        CameraMethods.CamMethods.OpenCamera(isActive ? "Menu Camera" : "Game Camera");
     }
 
     private void StartNewGame()
     {
         ActivateMenuBackgroundEffects(false);
-        MusicManager.Music.PlaySound("Game Music",true);
+        MusicManager.Music.PlaySound("Game Music", true);
         ViewManager.Instance.Show<GameProccesWindow>();
     }
-    
+
     private void ShowRecordsWindow()
     {
         ViewManager.Instance.Show<RecordsMenuWindow>();
     }
-    
+
     private void ShowSettingsWindow()
     {
         ViewManager.Instance.Show<SettingsMenuWindow>();
     }
-    
+
     private void ExitGame()
     {
         ViewManager.Instance.Show<ExitСonfirmationWindow>(false);

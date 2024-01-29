@@ -10,19 +10,22 @@ public class RecordsMenuWindow : ViewMethods
     /// Список экранных обЪектов в которых отображаюся рекорды
     /// </summary>
     [SerializeField] public List<RecordBlock> _listRecords;
+
     [SerializeField] private Button _toMainMenuButton;
-    
+
     private void Start()
     {
         SetParams();
         SetButtonActivity();
-        AddOnPointerEnter(new []{_toMainMenuButton},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
+        AddOnPointerEnter(new[] { _toMainMenuButton }, EventTriggerType.PointerEnter,
+            (data) => MusicManager.Music.PlaySound("Buttons Music", true));
     }
 
     private void SetButtonActivity()
     {
-        _toMainMenuButton.onClick.AddListener(()=>ViewManager.Instance.Show<MainMenu>());
-        AddOnPointerEnter(new []{_toMainMenuButton},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
+        _toMainMenuButton.onClick.AddListener(() => ViewManager.Instance.Show<MainMenu>());
+        AddOnPointerEnter(new[] { _toMainMenuButton }, EventTriggerType.PointerEnter,
+            (data) => MusicManager.Music.PlaySound("Buttons Music", true));
     }
 
     public override void SetParams()
@@ -31,9 +34,9 @@ public class RecordsMenuWindow : ViewMethods
 
         for (var i = 0; i < _listRecords.Count; i++)
         {
-            _listRecords[i].Date.text = gameRes[i].Date == DateTime.MinValue?"-":gameRes[i].Date.ToString("d");
-            _listRecords[i].Score.text = gameRes[i].ScoreValue == 0?"-":gameRes[i].ScoreValue.ToString();
-            _listRecords[i].Time.text = gameRes[i].Time == 0?"-":gameRes[i].Time.ToString();
+            _listRecords[i].Date.text = gameRes[i].Date == DateTime.MinValue ? "-" : gameRes[i].Date.ToString("d");
+            _listRecords[i].Score.text = gameRes[i].ScoreValue == 0 ? "-" : gameRes[i].ScoreValue.ToString();
+            _listRecords[i].Time.text = gameRes[i].Time == 0 ? "-" : gameRes[i].Time.ToString();
         }
     }
 }

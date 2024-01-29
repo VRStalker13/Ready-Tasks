@@ -15,8 +15,8 @@ public class PauseMenuWindow : ViewMethods
         _changeActivMusicEffectsButton.onClick.AddListener(() => ChangeMusicEffects());
         _changeActivGameMusicButton.onClick.AddListener(() => ChangeGameMusic());
         _toMainMenuButton.onClick.AddListener(() => ToMainMenuButton());
-        AddOnPointerEnter(new []{_toMainMenuButton,_changeActivMusicEffectsButton,_changeActivGameMusicButton},
-            EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
+        AddOnPointerEnter(new[] { _toMainMenuButton, _changeActivMusicEffectsButton, _changeActivGameMusicButton },
+            EventTriggerType.PointerEnter, (data) => MusicManager.Music.PlaySound("Buttons Music", true));
     }
 
     public override void SetParams()
@@ -32,7 +32,7 @@ public class PauseMenuWindow : ViewMethods
         MusicManager.Music.ActivateMusicEffects(appData.IsOnMusicEffects);
         _changeActivMusicEffectsButton.image.color = appData.IsOnMusicEffects ? Color.green : Color.red;
     }
-    
+
     private void ChangeGameMusic()
     {
         var appData = ApplicationData.AppData;

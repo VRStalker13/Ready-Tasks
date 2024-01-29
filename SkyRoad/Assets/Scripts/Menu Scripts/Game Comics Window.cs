@@ -7,10 +7,10 @@ using Button = UnityEngine.UI.Button;
 
 public class GameComicsWindow : ViewMethods
 {
-    [SerializeField] private GameObject[] _images;// Набор картинок для экранов комикса
-    [SerializeField] private TextMeshProUGUI[] _texts;// Переменные в которые записываем необходимый текст экрана
-    [SerializeField] private Button _button;// Кнопка Далее
-    
+    [SerializeField] private GameObject[] _images; // Набор картинок для экранов комикса
+    [SerializeField] private TextMeshProUGUI[] _texts; // Переменные в которые записываем необходимый текст экрана
+    [SerializeField] private Button _button; // Кнопка Далее
+
     private int _lastSceneNumber = 3;
     private int _currentSceneNumber;
 
@@ -27,8 +27,9 @@ public class GameComicsWindow : ViewMethods
     private void Start()
     {
         _button.onClick.AddListener(ButtonAction);
-        AddOnPointerEnter(new []{_button},EventTriggerType.PointerEnter,(data) => MusicManager.Music.PlaySound("Buttons Music",true));
-        MusicManager.Music.PlaySound("Menu Music",true);
+        AddOnPointerEnter(new[] { _button }, EventTriggerType.PointerEnter,
+            (data) => MusicManager.Music.PlaySound("Buttons Music", true));
+        MusicManager.Music.PlaySound("Menu Music", true);
     }
 
     private void ButtonAction()
@@ -37,12 +38,12 @@ public class GameComicsWindow : ViewMethods
 
         if (_currentSceneNumber >= _lastSceneNumber + 1)
         {
-            MusicManager.Music.PlaySound("Menu Music",false);
+            MusicManager.Music.PlaySound("Menu Music", false);
             ViewManager.Instance.Show<MainMenu>();
             return;
         }
 
-        StartCoroutine(LoadScene(_currentSceneNumber));// Корутина для ээфекта печати текста
+        StartCoroutine(LoadScene(_currentSceneNumber)); // Корутина для ээфекта печати текста
     }
 
     private IEnumerator LoadScene(int num)
@@ -53,14 +54,14 @@ public class GameComicsWindow : ViewMethods
         _texts[num].gameObject.SetActive(true);
         _texts[num].text = "";
         _button.gameObject.SetActive(false);
-        
+
         // Создаем эффект печати текста на экране 
         for (var x = 0; x < _str[num - 1].Length; x++)
         {
             _texts[num].text += _str[num - 1][x];
             yield return new WaitForSeconds(0.05f);
         }
-        
+
         _button.gameObject.SetActive(true);
     }
 

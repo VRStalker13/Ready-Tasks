@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -19,16 +21,10 @@ public class CameraManager : MonoBehaviour
 
     public void OpenCamera(string cameraName)
     {
-        if (CameraMethods.CamMethods.Cams.ContainsKey(cameraName))
-        {
-            foreach (var cam in CameraMethods.CamMethods.Cams)
-            {
-                cam.Value.gameObject.SetActive(cam.Key == cameraName);
-            }
-        }
-        else
-        {
-            Debug.Log("This Camera does not exist");
-        }
+        if (!CameraMethods.CamMethods.Cams.ContainsKey(cameraName)) return;
+
+        foreach (var cam in CameraMethods.CamMethods.Cams)
+            cam.Value.gameObject.SetActive(cam.Key.Equals(cameraName));
     }
 }
+        

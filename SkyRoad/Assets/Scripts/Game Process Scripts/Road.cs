@@ -5,12 +5,13 @@ public class Road : MonoBehaviour
 {
     [SerializeField] private GameObject _roadPrefab;
     public List<GameObject> _roads = new List<GameObject>();
+
     void Start()
     {
         ResetLevel();
         StartLevel();
     }
-    
+
     void Update()
     {
         MoveRoad();
@@ -25,27 +26,26 @@ public class Road : MonoBehaviour
     private void IncreaseSpeed()
     {
         var appData = ApplicationData.AppData;
-        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             appData.Acceleration = 2f;
             appData.Speed *= 2f;
-
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             appData.Acceleration = 1f;
             appData.Speed /= 2f;
-        } 
-        
+        }
+
         appData.Speed += appData.Acceleration * 0.1f * Time.deltaTime;
     }
 
     private void MoveRoad()
     {
         var appData = ApplicationData.AppData;
-        
-        if(appData.Speed == 0 )
+
+        if (appData.Speed == 0)
             return;
 
         foreach (GameObject road in _roads)
@@ -54,7 +54,7 @@ public class Road : MonoBehaviour
         if (_roads[0].transform.position.x <= -10)
         {
             Destroy(_roads[0]);
-           _roads.RemoveAt(0);
+            _roads.RemoveAt(0);
         }
 
         if (_roads.Count < appData.GameConfig.MaxRoadCount)
@@ -69,7 +69,7 @@ public class Road : MonoBehaviour
         var pos = Vector3.zero;
         if (_roads.Count > 0)
             pos = _roads[_roads.Count - 1].transform.position + new Vector3(10, 0, 0);
-        
+
         var go = Instantiate(_roadPrefab, pos, _roadPrefab.transform.rotation);
         go.transform.SetParent(transform);
         _roads.Add(go);

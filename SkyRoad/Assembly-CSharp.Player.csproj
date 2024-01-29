@@ -51,7 +51,6 @@
      <Compile Include="Assets\Scripts\Game Configuration.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Game Comics Window.cs" />
      <Compile Include="Assets\Scripts\View.cs" />
-     <Compile Include="Assets\Scripts\Game Process Scripts\LoadEnvironment.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\Game Procces Window.cs" />
      <Compile Include="Assets\Scripts\Music Manager.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Pause Menu Window.cs" />
@@ -64,10 +63,10 @@
      <Compile Include="Assets\Scripts\Menu Scripts\Main Menu Background Window.cs" />
      <Compile Include="Assets\Scripts\Cursor Manager.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\Ship.cs" />
-     <Compile Include="Assets\Scripts\Game Process Scripts\ShipDrive.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\Asteroid.cs" />
      <Compile Include="Assets\Scripts\Menu Scripts\Main Menu.cs" />
      <Compile Include="Assets\Scripts\Game Process Scripts\End Game Window.cs" />
+     <Compile Include="Assets\Scripts\Game Process Scripts\EnvironmentManager.cs" />
      <Compile Include="Assets\Scripts\View Methods.cs" />
      <Compile Include="Assets\Scripts\Camera Manager.cs" />
      <Reference Include="UnityEngine">
